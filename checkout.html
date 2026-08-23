@@ -1,0 +1,806 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Checkout | AgroLink</title>
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/checkout.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap"
+        rel="stylesheet">
+
+</head>
+
+
+<body>
+
+
+    <!-- ================= NAVBAR ================= -->
+
+    <header class="header">
+
+        <div class="container navbar">
+
+            <a href="index.html" class="logo">
+
+                <span class="logo-icon">
+                    🌱
+                </span>
+
+                <span>
+                    Agro<span>Link</span>
+                </span>
+
+            </a>
+
+
+            <nav class="nav-menu">
+
+                <a href="index.html">
+                    Home
+                </a>
+
+                <a href="marketplace.html">
+                    Marketplace
+                </a>
+
+                <a href="#">
+                    About
+                </a>
+
+                <a href="#">
+                    Contact
+                </a>
+
+            </nav>
+
+
+            <div class="nav-buttons">
+
+                <a href="#" class="login-btn">
+                    Login
+                </a>
+
+                <a href="#" class="register-btn">
+                    Register
+                </a>
+
+            </div>
+
+        </div>
+
+    </header>
+
+
+
+    <!-- ================= CHECKOUT HEADER ================= -->
+
+    <section class="checkout-hero">
+
+        <div class="container">
+
+            <span class="section-tag">
+                SECURE CHECKOUT
+            </span>
+
+            <h1>
+                Complete Your <span>Order</span>
+            </h1>
+
+            <p>
+                Provide your delivery and payment information below.
+            </p>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- ================= CHECKOUT ================= -->
+
+    <main class="checkout-section">
+
+        <div class="container checkout-layout">
+
+
+            <!-- ================= LEFT SIDE ================= -->
+
+            <div class="checkout-form">
+
+
+                <!-- DELIVERY INFORMATION -->
+
+                <div class="checkout-card">
+
+                    <div class="checkout-card-heading">
+
+                        <div class="checkout-number">
+                            01
+                        </div>
+
+                        <div>
+
+                            <h2>
+                                Delivery Information
+                            </h2>
+
+                            <p>
+                                Where should we deliver your order?
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="form-row">
+
+                        <div class="form-group">
+
+                            <label for="first-name">
+                                First Name
+                            </label>
+
+                            <input
+                                type="text"
+                                id="first-name"
+                                placeholder="Enter your first name"
+                            >
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label for="last-name">
+                                Last Name
+                            </label>
+
+                            <input
+                                type="text"
+                                id="last-name"
+                                placeholder="Enter your last name"
+                            >
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="form-row">
+
+                        <div class="form-group">
+
+                            <label for="phone">
+                                Phone Number
+                            </label>
+
+                            <input
+                                type="tel"
+                                id="phone"
+                                placeholder="01XXXXXXXXX"
+                            >
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label for="email">
+                                Email Address
+                            </label>
+
+                            <input
+                                type="email"
+                                id="email"
+                                placeholder="example@email.com"
+                            >
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="address">
+                            Delivery Address
+                        </label>
+
+                        <input
+                            type="text"
+                            id="address"
+                            placeholder="House / Road / Area"
+                        >
+
+                    </div>
+
+
+                    <div class="form-row">
+
+                        <div class="form-group">
+
+                            <label for="district">
+                                District
+                            </label>
+
+                            <select id="district">
+
+                                <option value="">
+                                    Select District
+                                </option>
+
+                                <option>
+                                    Dhaka
+                                </option>
+
+                                <option>
+                                    Gazipur
+                                </option>
+
+                                <option>
+                                    Rajshahi
+                                </option>
+
+                                <option>
+                                    Chattogram
+                                </option>
+
+                                <option>
+                                    Mymensingh
+                                </option>
+
+                                <option>
+                                    Bogura
+                                </option>
+
+                                <option>
+                                    Rangpur
+                                </option>
+
+                            </select>
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label for="postal">
+                                Postal Code
+                            </label>
+
+                            <input
+                                type="text"
+                                id="postal"
+                                placeholder="Enter postal code"
+                            >
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="notes">
+                            Order Notes
+                            <span>(Optional)</span>
+                        </label>
+
+                        <textarea
+                            id="notes"
+                            rows="3"
+                            placeholder="Any special delivery instructions?"
+                        ></textarea>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- PAYMENT METHOD -->
+
+                <div class="checkout-card">
+
+                    <div class="checkout-card-heading">
+
+                        <div class="checkout-number">
+                            02
+                        </div>
+
+                        <div>
+
+                            <h2>
+                                Payment Method
+                            </h2>
+
+                            <p>
+                                Choose how you would like to pay.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="payment-options">
+
+
+                        <label class="payment-option active-payment">
+
+                            <input
+                                type="radio"
+                                name="payment"
+                                checked
+                            >
+
+                            <div class="payment-icon">
+                                💵
+                            </div>
+
+                            <div>
+
+                                <strong>
+                                    Cash on Delivery
+                                </strong>
+
+                                <span>
+                                    Pay when your order arrives
+                                </span>
+
+                            </div>
+
+                        </label>
+
+
+                        <label class="payment-option">
+
+                            <input
+                                type="radio"
+                                name="payment"
+                            >
+
+                            <div class="payment-icon">
+                                📱
+                            </div>
+
+                            <div>
+
+                                <strong>
+                                    Mobile Banking
+                                </strong>
+
+                                <span>
+                                    bKash / Nagad / Rocket
+                                </span>
+
+                            </div>
+
+                        </label>
+
+
+                        <label class="payment-option">
+
+                            <input
+                                type="radio"
+                                name="payment"
+                            >
+
+                            <div class="payment-icon">
+                                💳
+                            </div>
+
+                            <div>
+
+                                <strong>
+                                    Card Payment
+                                </strong>
+
+                                <span>
+                                    Visa / Mastercard
+                                </span>
+
+                            </div>
+
+                        </label>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- PAYMENT DETAILS -->
+
+                <div class="checkout-card payment-details">
+
+                    <div class="checkout-card-heading">
+
+                        <div class="checkout-number">
+                            03
+                        </div>
+
+                        <div>
+
+                            <h2>
+                                Payment Details
+                            </h2>
+
+                            <p>
+                                Payment details will be collected securely.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="payment-placeholder">
+
+                        <div class="payment-placeholder-icon">
+                            🔒
+                        </div>
+
+                        <div>
+
+                            <strong>
+                                Secure Payment
+                            </strong>
+
+                            <p>
+                                Your payment information is protected.
+                                For this academic project, payment
+                                processing will be simulated.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- ================= RIGHT SIDE ================= -->
+
+            <aside class="checkout-summary">
+
+
+                <div class="checkout-summary-card">
+
+                    <h2>
+                        Your Order
+                    </h2>
+
+
+                    <!-- PRODUCT -->
+
+                    <div class="checkout-product">
+
+                        <img
+                            src="https://images.unsplash.com/photo-1546094096-0df4bcaaa337?auto=format&fit=crop&w=200&q=80"
+                            alt="Fresh Tomatoes"
+                        >
+
+                        <div>
+
+                            <strong>
+                                Fresh Tomatoes
+                            </strong>
+
+                            <span>
+                                2 kg × ৳80
+                            </span>
+
+                        </div>
+
+                        <b>
+                            ৳160
+                        </b>
+
+                    </div>
+
+
+                    <!-- PRODUCT -->
+
+                    <div class="checkout-product">
+
+                        <img
+                            src="https://images.unsplash.com/photo-1553279768-865429fa0078?auto=format&fit=crop&w=200&q=80"
+                            alt="Fresh Mangoes"
+                        >
+
+                        <div>
+
+                            <strong>
+                                Fresh Mangoes
+                            </strong>
+
+                            <span>
+                                3 kg × ৳150
+                            </span>
+
+                        </div>
+
+                        <b>
+                            ৳450
+                        </b>
+
+                    </div>
+
+
+                    <!-- PRODUCT -->
+
+                    <div class="checkout-product">
+
+                        <img
+                            src="https://images.unsplash.com/photo-1586201375761-83865001e31c?auto=format&fit=crop&w=200&q=80"
+                            alt="Premium Rice"
+                        >
+
+                        <div>
+
+                            <strong>
+                                Premium Rice
+                            </strong>
+
+                            <span>
+                                2 kg × ৳75
+                            </span>
+
+                        </div>
+
+                        <b>
+                            ৳150
+                        </b>
+
+                    </div>
+
+
+                    <div class="checkout-divider"></div>
+
+
+                    <div class="checkout-summary-row">
+
+                        <span>
+                            Subtotal
+                        </span>
+
+                        <strong>
+                            ৳760
+                        </strong>
+
+                    </div>
+
+
+                    <div class="checkout-summary-row">
+
+                        <span>
+                            Delivery Fee
+                        </span>
+
+                        <strong>
+                            ৳60
+                        </strong>
+
+                    </div>
+
+
+                    <div class="checkout-summary-row">
+
+                        <span>
+                            Discount
+                        </span>
+
+                        <strong class="discount">
+                            − ৳0
+                        </strong>
+
+                    </div>
+
+
+                    <div class="checkout-divider"></div>
+
+
+                    <div class="checkout-total">
+
+                        <span>
+                            Total
+                        </span>
+
+                        <strong>
+                            ৳820
+                        </strong>
+
+                    </div>
+
+
+                    <button class="place-order-btn">
+                        Place Order →
+                    </button>
+
+
+                    <div class="checkout-security">
+
+                        🔒 Secure & Protected
+
+                        <p>
+                            Your information is kept private
+                            and secure.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <a href="cart.html" class="back-cart">
+                    ← Back to Cart
+                </a>
+
+            </aside>
+
+        </div>
+
+    </main>
+
+
+
+    <!-- ================= FOOTER ================= -->
+
+    <footer class="footer">
+
+        <div class="container footer-grid">
+
+
+            <div class="footer-about">
+
+                <a href="index.html" class="logo footer-logo">
+
+                    <span class="logo-icon">
+                        🌱
+                    </span>
+
+                    <span>
+                        Agro<span>Link</span>
+                    </span>
+
+                </a>
+
+
+                <p>
+                    Connecting farmers and consumers through
+                    a smarter agricultural marketplace.
+                </p>
+
+
+                <div class="social-links">
+
+                    <a href="#">f</a>
+                    <a href="#">in</a>
+                    <a href="#">𝕏</a>
+
+                </div>
+
+            </div>
+
+
+
+            <div class="footer-column">
+
+                <h3>
+                    Marketplace
+                </h3>
+
+                <a href="marketplace.html">
+                    All Products
+                </a>
+
+                <a href="#">
+                    Vegetables
+                </a>
+
+                <a href="#">
+                    Fruits
+                </a>
+
+                <a href="#">
+                    Grains
+                </a>
+
+                <a href="#">
+                    Dairy
+                </a>
+
+            </div>
+
+
+
+            <div class="footer-column">
+
+                <h3>
+                    For Farmers
+                </h3>
+
+                <a href="#">
+                    Sell Products
+                </a>
+
+                <a href="#">
+                    Farmer Dashboard
+                </a>
+
+                <a href="#">
+                    Manage Products
+                </a>
+
+                <a href="#">
+                    Manage Orders
+                </a>
+
+            </div>
+
+
+
+            <div class="footer-column">
+
+                <h3>
+                    Support
+                </h3>
+
+                <a href="#">
+                    About Us
+                </a>
+
+                <a href="#">
+                    Contact Us
+                </a>
+
+                <a href="#">
+                    FAQ
+                </a>
+
+                <a href="#">
+                    Privacy Policy
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <div class="footer-bottom">
+
+            <div class="container">
+
+                <p>
+                    © 2026 AgroLink. All Rights Reserved.
+                </p>
+
+                <p>
+                    Academic Project
+                </p>
+
+            </div>
+
+        </div>
+
+    </footer>
+
+
+</body>
+
+</html>
