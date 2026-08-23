@@ -1440,3 +1440,12 @@
     }
 
 }
+.market-product-info h3 a {
+    color: var(--dark);
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.market-product-info h3 a:hover {
+    color: var(--primary);
+}
