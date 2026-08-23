@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Shopping Cart | AgroLink</title>
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/marketplace.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap"
+        rel="stylesheet">
+
+</head>
+
+
+<body>
+
+
+    <!-- ================= NAVBAR ================= -->
+
+    <header class="header">
+
+        <div class="container navbar">
+
+            <a href="index.html" class="logo">
+
+                <span class="logo-icon">🌱</span>
+
+                <span>
+                    Agro<span>Link</span>
+                </span>
+
+            </a>
+
+
+            <nav class="nav-menu">
+
+                <a href="index.html">
+                    Home
+                </a>
+
+                <a href="marketplace.html">
+                    Marketplace
+                </a>
+
+                <a href="#">
+                    About
+                </a>
+
+                <a href="#">
+                    Contact
+                </a>
+
+            </nav>
+
+
+            <div class="nav-buttons">
+
+                <a href="#" class="login-btn">
+                    Login
+                </a>
+
+                <a href="#" class="register-btn">
+                    Register
+                </a>
+
+            </div>
+
+        </div>
+
+    </header>
+
+
+
+    <!-- ================= CART HEADER ================= -->
+
+    <section class="cart-hero">
+
+        <div class="container">
+
+            <span class="section-tag">
+                YOUR SHOPPING CART
+            </span>
+
+            <h1>
+                Review Your <span>Products</span>
+            </h1>
+
+            <p>
+                Check your products before proceeding to checkout.
+            </p>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- ================= CART ================= -->
+
+    <main class="cart-section">
+
+        <div class="container cart-layout">
+
+
+            <!-- ================= CART ITEMS ================= -->
+
+            <section class="cart-items">
+
+                <div class="cart-items-header">
+
+                    <div>
+
+                        <h2>
+                            Cart Items
+                        </h2>
+
+                        <p>
+                            3 products in your cart
+                        </p>
+
+                    </div>
+
+                    <a href="marketplace.html">
+                        ← Continue Shopping
+                    </a>
+
+                </div>
+
+
+
+                <!-- ITEM 1 -->
+
+                <div class="cart-item">
+
+                    <div class="cart-product-image">
+
+                        <img
+                            src="https://images.unsplash.com/photo-1546094096-0df4bcaaa337?auto=format&fit=crop&w=300&q=80"
+                            alt="Fresh Tomatoes"
+                        >
+
+                    </div>
+
+
+                    <div class="cart-product-info">
+
+                        <span>
+                            VEGETABLES
+                        </span>
+
+                        <h3>
+                            Fresh Tomatoes
+                        </h3>
+
+                        <p>
+                            Rahim Agro Farm
+                        </p>
+
+                        <small>
+                            📍 Gazipur, Bangladesh
+                        </small>
+
+                    </div>
+
+
+                    <div class="cart-quantity">
+
+                        <button>
+                            −
+                        </button>
+
+                        <span>
+                            2
+                        </span>
+
+                        <button>
+                            +
+                        </button>
+
+                    </div>
+
+
+                    <div class="cart-price">
+
+                        <strong>
+                            ৳160
+                        </strong>
+
+                        <span>
+                            ৳80 / kg
+                        </span>
+
+                    </div>
+
+
+                    <button class="remove-item">
+                        ×
+                    </button>
+
+                </div>
+
+
+
+                <!-- ITEM 2 -->
+
+                <div class="cart-item">
+
+                    <div class="cart-product-image">
+
+                        <img
+                            src="https://images.unsplash.com/photo-1553279768-865429fa0078?auto=format&fit=crop&w=300&q=80"
+                            alt="Fresh Mangoes"
+                        >
+
+                    </div>
+
+
+                    <div class="cart-product-info">
+
+                        <span>
+                            FRUITS
+                        </span>
+
+                        <h3>
+                            Fresh Mangoes
+                        </h3>
+
+                        <p>
+                            Green Valley Farm
+                        </p>
+
+                        <small>
+                            📍 Rajshahi, Bangladesh
+                        </small>
+
+                    </div>
+
+
+                    <div class="cart-quantity">
+
+                        <button>
+                            −
+                        </button>
+
+                        <span>
+                            3
+                        </span>
+
+                        <button>
+                            +
+                        </button>
+
+                    </div>
+
+
+                    <div class="cart-price">
+
+                        <strong>
+                            ৳450
+                        </strong>
+
+                        <span>
+                            ৳150 / kg
+                        </span>
+
+                    </div>
+
+
+                    <button class="remove-item">
+                        ×
+                    </button>
+
+                </div>
+
+
+
+                <!-- ITEM 3 -->
+
+                <div class="cart-item">
+
+                    <div class="cart-product-image">
+
+                        <img
+                            src="https://images.unsplash.com/photo-1586201375761-83865001e31c?auto=format&fit=crop&w=300&q=80"
+                            alt="Premium Rice"
+                        >
+
+                    </div>
+
+
+                    <div class="cart-product-info">
+
+                        <span>
+                            GRAINS
+                        </span>
+
+                        <h3>
+                            Premium Rice
+                        </h3>
+
+                        <p>
+                            Sonali Agro Farm
+                        </p>
+
+                        <small>
+                            📍 Bogura, Bangladesh
+                        </small>
+
+                    </div>
+
+
+                    <div class="cart-quantity">
+
+                        <button>
+                            −
+                        </button>
+
+                        <span>
+                            2
+                        </span>
+
+                        <button>
+                            +
+                        </button>
+
+                    </div>
+
+
+                    <div class="cart-price">
+
+                        <strong>
+                            ৳150
+                        </strong>
+
+                        <span>
+                            ৳75 / kg
+                        </span>
+
+                    </div>
+
+
+                    <button class="remove-item">
+                        ×
+                    </button>
+
+                </div>
+
+
+            </section>
+
+
+
+            <!-- ================= ORDER SUMMARY ================= -->
+
+            <aside class="order-summary">
+
+                <h2>
+                    Order Summary
+                </h2>
+
+
+                <div class="summary-row">
+
+                    <span>
+                        Subtotal
+                    </span>
+
+                    <strong>
+                        ৳760
+                    </strong>
+
+                </div>
+
+
+                <div class="summary-row">
+
+                    <span>
+                        Delivery Fee
+                    </span>
+
+                    <strong>
+                        ৳60
+                    </strong>
+
+                </div>
+
+
+                <div class="summary-row">
+
+                    <span>
+                        Discount
+                    </span>
+
+                    <strong class="discount">
+                        − ৳0
+                    </strong>
+
+                </div>
+
+
+                <div class="summary-divider"></div>
+
+
+                <div class="summary-total">
+
+                    <span>
+                        Total
+                    </span>
+
+                    <strong>
+                        ৳820
+                    </strong>
+
+                </div>
+
+
+                <button class="checkout-btn">
+                    Proceed to Checkout →
+                </button>
+
+
+                <div class="secure-checkout">
+
+                    🔒 Secure Checkout
+
+                    <p>
+                        Your information is protected and secure.
+                    </p>
+
+                </div>
+
+            </aside>
+
+        </div>
+
+    </main>
+
+
+
+    <!-- ================= FOOTER ================= -->
+
+    <footer class="footer">
+
+        <div class="container footer-grid">
+
+
+            <div class="footer-about">
+
+                <a href="index.html" class="logo footer-logo">
+
+                    <span class="logo-icon">
+                        🌱
+                    </span>
+
+                    <span>
+                        Agro<span>Link</span>
+                    </span>
+
+                </a>
+
+
+                <p>
+                    Connecting farmers and consumers through
+                    a smarter agricultural marketplace.
+                </p>
+
+
+                <div class="social-links">
+
+                    <a href="#">f</a>
+                    <a href="#">in</a>
+                    <a href="#">𝕏</a>
+
+                </div>
+
+            </div>
+
+
+
+            <div class="footer-column">
+
+                <h3>
+                    Marketplace
+                </h3>
+
+                <a href="marketplace.html">
+                    All Products
+                </a>
+
+                <a href="#">
+                    Vegetables
+                </a>
+
+                <a href="#">
+                    Fruits
+                </a>
+
+                <a href="#">
+                    Grains
+                </a>
+
+                <a href="#">
+                    Dairy
+                </a>
+
+            </div>
+
+
+
+            <div class="footer-column">
+
+                <h3>
+                    For Farmers
+                </h3>
+
+                <a href="#">
+                    Sell Products
+                </a>
+
+                <a href="#">
+                    Farmer Dashboard
+                </a>
+
+                <a href="#">
+                    Manage Products
+                </a>
+
+                <a href="#">
+                    Manage Orders
+                </a>
+
+            </div>
+
+
+
+            <div class="footer-column">
+
+                <h3>
+                    Support
+                </h3>
+
+                <a href="#">
+                    About Us
+                </a>
+
+                <a href="#">
+                    Contact Us
+                </a>
+
+                <a href="#">
+                    FAQ
+                </a>
+
+                <a href="#">
+                    Privacy Policy
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <div class="footer-bottom">
+
+            <div class="container">
+
+                <p>
+                    © 2026 AgroLink. All Rights Reserved.
+                </p>
+
+                <p>
+                    Academic Project
+                </p>
+
+            </div>
+
+        </div>
+
+    </footer>
+
+
+</body>
+
+</html>
