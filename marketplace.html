@@ -1,0 +1,953 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Marketplace | AgroLink</title>
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/marketplace.css">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+
+    <!-- ================= NAVBAR ================= -->
+
+    <header class="header">
+
+        <div class="container navbar">
+
+            <a href="index.html" class="logo">
+                <span class="logo-icon">🌱</span>
+                <span>Agro<span>Link</span></span>
+            </a>
+
+            <nav class="nav-menu">
+
+                <a href="index.html">Home</a>
+
+                <a href="marketplace.html" class="active">
+                    Marketplace
+                </a>
+
+                <a href="#">About</a>
+
+                <a href="#">Contact</a>
+
+            </nav>
+
+            <div class="nav-buttons">
+
+                <a href="#" class="login-btn">
+                    Login
+                </a>
+
+                <a href="#" class="register-btn">
+                    Register
+                </a>
+
+            </div>
+
+        </div>
+
+    </header>
+
+
+    <!-- ================= PAGE HEADER ================= -->
+
+    <section class="marketplace-hero">
+
+        <div class="container marketplace-heading">
+
+            <span class="section-tag">
+                AGROLINK MARKETPLACE
+            </span>
+
+            <h1>
+                Fresh Products,
+                <span>Direct From Farmers</span>
+            </h1>
+
+            <p>
+                Discover fresh agricultural products from trusted
+                farmers across Bangladesh.
+            </p>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= MARKETPLACE ================= -->
+
+    <main class="marketplace">
+
+        <div class="container marketplace-layout">
+
+
+            <!-- ================= SIDEBAR ================= -->
+
+            <aside class="filter-sidebar">
+
+                <div class="filter-header">
+
+                    <h3>Filter Products</h3>
+
+                    <button class="clear-filter">
+                        Clear All
+                    </button>
+
+                </div>
+
+
+                <!-- Search -->
+
+                <div class="filter-group">
+
+                    <label for="search">
+                        Search
+                    </label>
+
+                    <div class="search-box">
+
+                        <input
+                            type="text"
+                            id="search"
+                            placeholder="Search products..."
+                        >
+
+                        <span>🔍</span>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Categories -->
+
+                <div class="filter-group">
+
+                    <h4>Category</h4>
+
+                    <label class="checkbox-item">
+                        <input type="checkbox">
+                        <span>Vegetables</span>
+                        <small>120</small>
+                    </label>
+
+                    <label class="checkbox-item">
+                        <input type="checkbox">
+                        <span>Fruits</span>
+                        <small>85</small>
+                    </label>
+
+                    <label class="checkbox-item">
+                        <input type="checkbox">
+                        <span>Grains</span>
+                        <small>60</small>
+                    </label>
+
+                    <label class="checkbox-item">
+                        <input type="checkbox">
+                        <span>Dairy</span>
+                        <small>45</small>
+                    </label>
+
+                    <label class="checkbox-item">
+                        <input type="checkbox">
+                        <span>Seeds</span>
+                        <small>70</small>
+                    </label>
+
+                    <label class="checkbox-item">
+                        <input type="checkbox">
+                        <span>Fertilizers</span>
+                        <small>35</small>
+                    </label>
+
+                </div>
+
+
+                <!-- Location -->
+
+                <div class="filter-group">
+
+                    <h4>Location</h4>
+
+                    <select>
+
+                        <option value="">
+                            All Locations
+                        </option>
+
+                        <option>
+                            Dhaka
+                        </option>
+
+                        <option>
+                            Gazipur
+                        </option>
+
+                        <option>
+                            Rajshahi
+                        </option>
+
+                        <option>
+                            Bogura
+                        </option>
+
+                        <option>
+                            Mymensingh
+                        </option>
+
+                        <option>
+                            Rangpur
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <!-- Price -->
+
+                <div class="filter-group">
+
+                    <h4>Price Range</h4>
+
+                    <div class="price-inputs">
+
+                        <input
+                            type="number"
+                            placeholder="Min"
+                        >
+
+                        <span>—</span>
+
+                        <input
+                            type="number"
+                            placeholder="Max"
+                        >
+
+                    </div>
+
+                    <button class="apply-filter">
+                        Apply Filter
+                    </button>
+
+                </div>
+
+            </aside>
+
+
+            <!-- ================= PRODUCTS AREA ================= -->
+
+            <section class="products-area">
+
+
+                <!-- Top bar -->
+
+                <div class="products-top">
+
+                    <div>
+
+                        <h2>
+                            Agricultural Products
+                        </h2>
+
+                        <p>
+                            Showing <strong>12</strong> of
+                            <strong>415</strong> products
+                        </p>
+
+                    </div>
+
+
+                    <div class="sort-area">
+
+                        <label for="sort">
+                            Sort by:
+                        </label>
+
+                        <select id="sort">
+
+                            <option>
+                                Recommended
+                            </option>
+
+                            <option>
+                                Price: Low to High
+                            </option>
+
+                            <option>
+                                Price: High to Low
+                            </option>
+
+                            <option>
+                                Newest First
+                            </option>
+
+                        </select>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Product Grid -->
+
+                <div class="marketplace-product-grid">
+
+
+                    <!-- PRODUCT 1 -->
+
+                    <div class="market-product-card">
+
+                        <div class="market-product-image">
+
+                            <img
+                                src="https://images.unsplash.com/photo-1546094096-0df4bcaaa337?auto=format&fit=crop&w=600&q=80"
+                                alt="Fresh tomatoes"
+                            >
+
+                            <span class="product-badge">
+                                Fresh
+                            </span>
+
+                            <button class="wishlist">
+                                ♡
+                            </button>
+
+                        </div>
+
+                        <div class="market-product-info">
+
+                            <span class="market-category">
+                                Vegetables
+                            </span>
+
+                            <h3>
+                                Fresh Tomatoes
+                            </h3>
+
+                            <p class="market-farmer">
+                                👨‍🌾 Rahim Agro Farm
+                            </p>
+
+                            <p class="market-location">
+                                📍 Gazipur, Bangladesh
+                            </p>
+
+                            <div class="market-product-bottom">
+
+                                <div>
+
+                                    <strong>
+                                        ৳80
+                                    </strong>
+
+                                    <span>
+                                        / kg
+                                    </span>
+
+                                </div>
+
+                                <button class="add-cart">
+                                    🛒 Add
+                                </button>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- PRODUCT 2 -->
+
+                    <div class="market-product-card">
+
+                        <div class="market-product-image">
+
+                            <img
+                                src="https://images.unsplash.com/photo-1553279768-865429fa0078?auto=format&fit=crop&w=600&q=80"
+                                alt="Fresh mangoes"
+                            >
+
+                            <span class="product-badge">
+                                Popular
+                            </span>
+
+                            <button class="wishlist">
+                                ♡
+                            </button>
+
+                        </div>
+
+                        <div class="market-product-info">
+
+                            <span class="market-category">
+                                Fruits
+                            </span>
+
+                            <h3>
+                                Fresh Mangoes
+                            </h3>
+
+                            <p class="market-farmer">
+                                👨‍🌾 Green Valley Farm
+                            </p>
+
+                            <p class="market-location">
+                                📍 Rajshahi, Bangladesh
+                            </p>
+
+                            <div class="market-product-bottom">
+
+                                <div>
+
+                                    <strong>
+                                        ৳150
+                                    </strong>
+
+                                    <span>
+                                        / kg
+                                    </span>
+
+                                </div>
+
+                                <button class="add-cart">
+                                    🛒 Add
+                                </button>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- PRODUCT 3 -->
+
+                    <div class="market-product-card">
+
+                        <div class="market-product-image">
+
+                            <img
+                                src="https://images.unsplash.com/photo-1586201375761-83865001e31c?auto=format&fit=crop&w=600&q=80"
+                                alt="Premium rice"
+                            >
+
+                            <span class="product-badge">
+                                Organic
+                            </span>
+
+                            <button class="wishlist">
+                                ♡
+                            </button>
+
+                        </div>
+
+                        <div class="market-product-info">
+
+                            <span class="market-category">
+                                Grains
+                            </span>
+
+                            <h3>
+                                Premium Rice
+                            </h3>
+
+                            <p class="market-farmer">
+                                👨‍🌾 Sonali Agro Farm
+                            </p>
+
+                            <p class="market-location">
+                                📍 Bogura, Bangladesh
+                            </p>
+
+                            <div class="market-product-bottom">
+
+                                <div>
+
+                                    <strong>
+                                        ৳75
+                                    </strong>
+
+                                    <span>
+                                        / kg
+                                    </span>
+
+                                </div>
+
+                                <button class="add-cart">
+                                    🛒 Add
+                                </button>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- PRODUCT 4 -->
+
+                    <div class="market-product-card">
+
+                        <div class="market-product-image">
+
+                            <img
+                                src="https://images.unsplash.com/photo-1592924357228-91a4daadcfea?auto=format&fit=crop&w=600&q=80"
+                                alt="Fresh cucumber"
+                            >
+
+                            <span class="product-badge">
+                                Fresh
+                            </span>
+
+                            <button class="wishlist">
+                                ♡
+                            </button>
+
+                        </div>
+
+                        <div class="market-product-info">
+
+                            <span class="market-category">
+                                Vegetables
+                            </span>
+
+                            <h3>
+                                Fresh Cucumber
+                            </h3>
+
+                            <p class="market-farmer">
+                                👨‍🌾 Hasan Organic Farm
+                            </p>
+
+                            <p class="market-location">
+                                📍 Mymensingh, Bangladesh
+                            </p>
+
+                            <div class="market-product-bottom">
+
+                                <div>
+
+                                    <strong>
+                                        ৳60
+                                    </strong>
+
+                                    <span>
+                                        / kg
+                                    </span>
+
+                                </div>
+
+                                <button class="add-cart">
+                                    🛒 Add
+                                </button>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- PRODUCT 5 -->
+
+                    <div class="market-product-card">
+
+                        <div class="market-product-image">
+
+                            <img
+                                src="https://images.unsplash.com/photo-1518977676601-b53f82aba655?auto=format&fit=crop&w=600&q=80"
+                                alt="Fresh potatoes"
+                            >
+
+                            <span class="product-badge">
+                                Fresh
+                            </span>
+
+                            <button class="wishlist">
+                                ♡
+                            </button>
+
+                        </div>
+
+                        <div class="market-product-info">
+
+                            <span class="market-category">
+                                Vegetables
+                            </span>
+
+                            <h3>
+                                Farm Potatoes
+                            </h3>
+
+                            <p class="market-farmer">
+                                👨‍🌾 Noor Farm
+                            </p>
+
+                            <p class="market-location">
+                                📍 Rangpur, Bangladesh
+                            </p>
+
+                            <div class="market-product-bottom">
+
+                                <div>
+
+                                    <strong>
+                                        ৳45
+                                    </strong>
+
+                                    <span>
+                                        / kg
+                                    </span>
+
+                                </div>
+
+                                <button class="add-cart">
+                                    🛒 Add
+                                </button>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- PRODUCT 6 -->
+
+                    <div class="market-product-card">
+
+                        <div class="market-product-image">
+
+                            <img
+                                src="https://images.unsplash.com/photo-1560806887-1e4cd0b6cbd6?auto=format&fit=crop&w=600&q=80"
+                                alt="Fresh apples"
+                            >
+
+                            <span class="product-badge">
+                                Popular
+                            </span>
+
+                            <button class="wishlist">
+                                ♡
+                            </button>
+
+                        </div>
+
+                        <div class="market-product-info">
+
+                            <span class="market-category">
+                                Fruits
+                            </span>
+
+                            <h3>
+                                Fresh Apples
+                            </h3>
+
+                            <p class="market-farmer">
+                                👨‍🌾 Green Valley Farm
+                            </p>
+
+                            <p class="market-location">
+                                📍 Dhaka, Bangladesh
+                            </p>
+
+                            <div class="market-product-bottom">
+
+                                <div>
+
+                                    <strong>
+                                        ৳280
+                                    </strong>
+
+                                    <span>
+                                        / kg
+                                    </span>
+
+                                </div>
+
+                                <button class="add-cart">
+                                    🛒 Add
+                                </button>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- PRODUCT 7 -->
+
+                    <div class="market-product-card">
+
+                        <div class="market-product-image">
+
+                            <img
+                                src="https://images.unsplash.com/photo-1597362925123-77861d3fbac7?auto=format&fit=crop&w=600&q=80"
+                                alt="Fresh leafy vegetables"
+                            >
+
+                            <span class="product-badge">
+                                Organic
+                            </span>
+
+                            <button class="wishlist">
+                                ♡
+                            </button>
+
+                        </div>
+
+                        <div class="market-product-info">
+
+                            <span class="market-category">
+                                Vegetables
+                            </span>
+
+                            <h3>
+                                Fresh Spinach
+                            </h3>
+
+                            <p class="market-farmer">
+                                👨‍🌾 Hasan Organic Farm
+                            </p>
+
+                            <p class="market-location">
+                                📍 Mymensingh, Bangladesh
+                            </p>
+
+                            <div class="market-product-bottom">
+
+                                <div>
+
+                                    <strong>
+                                        ৳40
+                                    </strong>
+
+                                    <span>
+                                        / bundle
+                                    </span>
+
+                                </div>
+
+                                <button class="add-cart">
+                                    🛒 Add
+                                </button>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- PRODUCT 8 -->
+
+                    <div class="market-product-card">
+
+                        <div class="market-product-image">
+
+                            <img
+                                src="https://images.unsplash.com/photo-1528825871115-3581a5387919?auto=format&fit=crop&w=600&q=80"
+                                alt="Fresh bananas"
+                            >
+
+                            <span class="product-badge">
+                                Fresh
+                            </span>
+
+                            <button class="wishlist">
+                                ♡
+                            </button>
+
+                        </div>
+
+                        <div class="market-product-info">
+
+                            <span class="market-category">
+                                Fruits
+                            </span>
+
+                            <h3>
+                                Fresh Bananas
+                            </h3>
+
+                            <p class="market-farmer">
+                                👨‍🌾 Karim Fruit Farm
+                            </p>
+
+                            <p class="market-location">
+                                📍 Tangail, Bangladesh
+                            </p>
+
+                            <div class="market-product-bottom">
+
+                                <div>
+
+                                    <strong>
+                                        ৳70
+                                    </strong>
+
+                                    <span>
+                                        / dozen
+                                    </span>
+
+                                </div>
+
+                                <button class="add-cart">
+                                    🛒 Add
+                                </button>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- ================= PAGINATION ================= -->
+
+                <div class="pagination">
+
+                    <button class="page-arrow">
+                        ←
+                    </button>
+
+                    <button class="page-number active-page">
+                        1
+                    </button>
+
+                    <button class="page-number">
+                        2
+                    </button>
+
+                    <button class="page-number">
+                        3
+                    </button>
+
+                    <span>
+                        ...
+                    </span>
+
+                    <button class="page-number">
+                        12
+                    </button>
+
+                    <button class="page-arrow">
+                        →
+                    </button>
+
+                </div>
+
+            </section>
+
+        </div>
+
+    </main>
+
+
+    <!-- ================= FOOTER ================= -->
+
+    <footer class="footer">
+
+        <div class="container footer-grid">
+
+            <div class="footer-about">
+
+                <a href="index.html" class="logo footer-logo">
+                    <span class="logo-icon">🌱</span>
+                    <span>Agro<span>Link</span></span>
+                </a>
+
+                <p>
+                    Connecting farmers and consumers through
+                    a smarter agricultural marketplace.
+                </p>
+
+                <div class="social-links">
+                    <a href="#">f</a>
+                    <a href="#">in</a>
+                    <a href="#">𝕏</a>
+                </div>
+
+            </div>
+
+
+            <div class="footer-column">
+
+                <h3>Marketplace</h3>
+
+                <a href="#">All Products</a>
+                <a href="#">Vegetables</a>
+                <a href="#">Fruits</a>
+                <a href="#">Grains</a>
+                <a href="#">Dairy</a>
+
+            </div>
+
+
+            <div class="footer-column">
+
+                <h3>For Farmers</h3>
+
+                <a href="#">Sell Products</a>
+                <a href="#">Farmer Dashboard</a>
+                <a href="#">Manage Products</a>
+                <a href="#">Manage Orders</a>
+
+            </div>
+
+
+            <div class="footer-column">
+
+                <h3>Support</h3>
+
+                <a href="#">About Us</a>
+                <a href="#">Contact Us</a>
+                <a href="#">FAQ</a>
+                <a href="#">Privacy Policy</a>
+
+            </div>
+
+        </div>
+
+
+        <div class="footer-bottom">
+
+            <div class="container">
+
+                <p>
+                    © 2026 AgroLink. All Rights Reserved.
+                </p>
+
+                <p>
+                    Academic Project
+                </p>
+
+            </div>
+
+        </div>
+
+    </footer>
+
+</body>
+
+</html>

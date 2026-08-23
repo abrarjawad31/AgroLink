@@ -1,0 +1,660 @@
+/* =====================================================
+   AGROLINK MARKETPLACE
+   ===================================================== */
+
+
+/* ================= PAGE HEADER ================= */
+
+.marketplace-hero {
+    background: #f4f9f1;
+    padding: 65px 0;
+    border-bottom: 1px solid #e3ebe1;
+}
+
+.marketplace-heading {
+    text-align: center;
+}
+
+.marketplace-heading h1 {
+    font-family: "Playfair Display", serif;
+
+    font-size: clamp(38px, 5vw, 52px);
+
+    line-height: 1.15;
+
+    margin: 12px 0 15px;
+}
+
+.marketplace-heading h1 span {
+    color: var(--primary);
+}
+
+.marketplace-heading p {
+    color: var(--text);
+    font-size: 15px;
+}
+
+
+/* ================= MARKETPLACE AREA ================= */
+
+.marketplace {
+    padding: 65px 0;
+    background: var(--white);
+}
+
+.marketplace-layout {
+    display: grid;
+
+    grid-template-columns: 245px 1fr;
+
+    gap: 40px;
+
+    align-items: start;
+}
+
+
+/* ================= FILTER SIDEBAR ================= */
+
+.filter-sidebar {
+    border: 1px solid var(--border);
+
+    border-radius: 10px;
+
+    padding: 22px;
+
+    position: sticky;
+    top: 100px;
+}
+
+.filter-header {
+    display: flex;
+
+    align-items: center;
+    justify-content: space-between;
+
+    padding-bottom: 18px;
+
+    border-bottom: 1px solid var(--border);
+
+    margin-bottom: 22px;
+}
+
+.filter-header h3 {
+    font-size: 16px;
+}
+
+.clear-filter {
+    border: none;
+
+    background: transparent;
+
+    color: var(--primary);
+
+    font-size: 11px;
+
+    cursor: pointer;
+}
+
+.filter-group {
+    padding-bottom: 22px;
+
+    margin-bottom: 22px;
+
+    border-bottom: 1px solid var(--border);
+}
+
+.filter-group:last-child {
+    border-bottom: none;
+
+    margin-bottom: 0;
+
+    padding-bottom: 0;
+}
+
+.filter-group > label,
+.filter-group > h4 {
+    display: block;
+
+    font-size: 13px;
+
+    font-weight: 700;
+
+    margin-bottom: 12px;
+}
+
+.search-box {
+    position: relative;
+}
+
+.search-box input {
+    width: 100%;
+
+    height: 40px;
+
+    border: 1px solid var(--border);
+
+    border-radius: 6px;
+
+    padding: 0 38px 0 12px;
+
+    outline: none;
+
+    font-family: inherit;
+
+    font-size: 12px;
+}
+
+.search-box input:focus {
+    border-color: var(--primary);
+}
+
+.search-box span {
+    position: absolute;
+
+    right: 12px;
+    top: 50%;
+
+    transform: translateY(-50%);
+
+    font-size: 13px;
+}
+
+
+/* CHECKBOX */
+
+.checkbox-item {
+    display: flex !important;
+
+    align-items: center;
+
+    gap: 9px;
+
+    margin-bottom: 11px;
+
+    cursor: pointer;
+
+    font-size: 12px !important;
+
+    font-weight: 400 !important;
+}
+
+.checkbox-item input {
+    accent-color: var(--primary);
+
+    width: 14px;
+    height: 14px;
+}
+
+.checkbox-item span {
+    flex: 1;
+}
+
+.checkbox-item small {
+    color: var(--light-text);
+}
+
+
+/* SELECT */
+
+.filter-group select,
+.sort-area select {
+    width: 100%;
+
+    height: 40px;
+
+    border: 1px solid var(--border);
+
+    border-radius: 6px;
+
+    padding: 0 10px;
+
+    background: var(--white);
+
+    font-family: inherit;
+
+    color: var(--text);
+
+    font-size: 12px;
+
+    outline: none;
+
+    cursor: pointer;
+}
+
+.filter-group select:focus,
+.sort-area select:focus {
+    border-color: var(--primary);
+}
+
+
+/* PRICE */
+
+.price-inputs {
+    display: flex;
+
+    align-items: center;
+
+    gap: 7px;
+
+    margin-bottom: 12px;
+}
+
+.price-inputs input {
+    width: 100%;
+
+    height: 38px;
+
+    border: 1px solid var(--border);
+
+    border-radius: 6px;
+
+    padding: 0 8px;
+
+    font-family: inherit;
+
+    font-size: 12px;
+
+    outline: none;
+}
+
+.price-inputs input:focus {
+    border-color: var(--primary);
+}
+
+.price-inputs span {
+    color: var(--light-text);
+}
+
+.apply-filter {
+    width: 100%;
+
+    height: 39px;
+
+    border: none;
+
+    border-radius: 6px;
+
+    background: var(--primary);
+
+    color: var(--white);
+
+    font-family: inherit;
+
+    font-size: 12px;
+
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition: 0.3s;
+}
+
+.apply-filter:hover {
+    background: var(--primary-dark);
+}
+
+
+/* ================= PRODUCTS TOP ================= */
+
+.products-top {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    margin-bottom: 25px;
+
+    padding-bottom: 20px;
+
+    border-bottom: 1px solid var(--border);
+}
+
+.products-top h2 {
+    font-size: 21px;
+
+    margin-bottom: 4px;
+}
+
+.products-top p {
+    color: var(--light-text);
+
+    font-size: 12px;
+}
+
+.products-top p strong {
+    color: var(--dark);
+}
+
+.sort-area {
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    min-width: 190px;
+}
+
+.sort-area label {
+    color: var(--text);
+
+    font-size: 12px;
+
+    white-space: nowrap;
+}
+
+.sort-area select {
+    width: 150px;
+}
+
+
+/* ================= PRODUCT GRID ================= */
+
+.marketplace-product-grid {
+    display: grid;
+
+    grid-template-columns: repeat(3, 1fr);
+
+    gap: 20px;
+}
+
+.market-product-card {
+    border: 1px solid var(--border);
+
+    border-radius: 10px;
+
+    overflow: hidden;
+
+    background: var(--white);
+
+    transition: 0.3s;
+}
+
+.market-product-card:hover {
+    transform: translateY(-4px);
+
+    box-shadow:
+        0 12px 28px rgba(35, 70, 40, 0.1);
+
+    border-color: #cbdcc8;
+}
+
+
+/* PRODUCT IMAGE */
+
+.market-product-image {
+    position: relative;
+}
+
+.market-product-image img {
+    width: 100%;
+
+    height: 205px;
+
+    object-fit: cover;
+}
+
+.product-badge {
+    position: absolute;
+
+    top: 12px;
+    left: 12px;
+
+    background: var(--white);
+
+    color: var(--primary);
+
+    padding: 5px 9px;
+
+    border-radius: 5px;
+
+    font-size: 10px;
+
+    font-weight: 700;
+}
+
+.wishlist {
+    position: absolute;
+
+    top: 10px;
+    right: 10px;
+
+    width: 32px;
+    height: 32px;
+
+    border: none;
+
+    border-radius: 50%;
+
+    background: rgba(255, 255, 255, 0.95);
+
+    color: #59645b;
+
+    font-size: 19px;
+
+    cursor: pointer;
+
+    transition: 0.3s;
+}
+
+.wishlist:hover {
+    color: #d84c4c;
+}
+
+
+/* PRODUCT INFO */
+
+.market-product-info {
+    padding: 16px;
+}
+
+.market-category {
+    color: var(--primary);
+
+    font-size: 10px;
+
+    font-weight: 700;
+
+    text-transform: uppercase;
+
+    letter-spacing: 0.7px;
+}
+
+.market-product-info h3 {
+    font-size: 16px;
+
+    margin: 5px 0 9px;
+}
+
+.market-farmer,
+.market-location {
+    color: var(--text);
+
+    font-size: 11px;
+
+    margin-bottom: 3px;
+}
+
+.market-product-bottom {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    border-top: 1px solid var(--border);
+
+    margin-top: 13px;
+
+    padding-top: 13px;
+}
+
+.market-product-bottom strong {
+    color: var(--primary);
+
+    font-size: 19px;
+}
+
+.market-product-bottom > div span {
+    color: var(--light-text);
+
+    font-size: 10px;
+}
+
+.add-cart {
+    border: none;
+
+    background: var(--primary-light);
+
+    color: var(--primary);
+
+    border-radius: 6px;
+
+    padding: 8px 11px;
+
+    font-family: inherit;
+
+    font-size: 11px;
+
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition: 0.3s;
+}
+
+.add-cart:hover {
+    background: var(--primary);
+
+    color: var(--white);
+}
+
+
+/* ================= PAGINATION ================= */
+
+.pagination {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 7px;
+
+    margin-top: 45px;
+}
+
+.pagination button {
+    width: 35px;
+    height: 35px;
+
+    border: 1px solid var(--border);
+
+    background: var(--white);
+
+    border-radius: 6px;
+
+    font-family: inherit;
+
+    font-size: 12px;
+
+    cursor: pointer;
+
+    color: var(--text);
+
+    transition: 0.3s;
+}
+
+.pagination button:hover {
+    border-color: var(--primary);
+
+    color: var(--primary);
+}
+
+.pagination .active-page {
+    background: var(--primary);
+
+    color: var(--white);
+
+    border-color: var(--primary);
+}
+
+.pagination > span {
+    color: var(--light-text);
+
+    padding: 0 4px;
+}
+
+
+/* =====================================================
+   RESPONSIVE
+   ===================================================== */
+
+@media (max-width: 1100px) {
+
+    .marketplace-layout {
+        grid-template-columns: 220px 1fr;
+
+        gap: 25px;
+    }
+
+    .marketplace-product-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+}
+
+
+@media (max-width: 800px) {
+
+    .marketplace-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .filter-sidebar {
+        position: static;
+    }
+
+    .marketplace-product-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+}
+
+
+@media (max-width: 600px) {
+
+    .marketplace {
+        padding: 45px 0;
+    }
+
+    .marketplace-heading {
+        text-align: left;
+    }
+
+    .marketplace-heading h1 {
+        font-size: 37px;
+    }
+
+    .products-top {
+        align-items: flex-start;
+
+        flex-direction: column;
+
+        gap: 15px;
+    }
+
+    .sort-area {
+        width: 100%;
+    }
+
+    .sort-area select {
+        flex: 1;
+    }
+
+    .marketplace-product-grid {
+        grid-template-columns: 1fr;
+    }
+
+}
