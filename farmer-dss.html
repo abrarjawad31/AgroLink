@@ -1,0 +1,1090 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Decision Support System | AgroLink</title>
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/farmer-dss.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap"
+        rel="stylesheet"
+    >
+
+</head>
+
+<body>
+
+
+    <!-- ================= NAVBAR ================= -->
+
+    <header class="header">
+
+        <div class="container navbar">
+
+            <a href="farmer.html" class="logo">
+
+                <span class="logo-icon">
+                    🌱
+                </span>
+
+                <span>
+                    Agro<span>Link</span>
+                </span>
+
+            </a>
+
+
+            <nav class="nav-menu">
+
+                <a href="farmer.html">
+                    Dashboard
+                </a>
+
+                <a href="farmer-products.html">
+                    My Products
+                </a>
+
+                <a href="farmer-orders.html">
+                    Orders
+                </a>
+
+                <a href="farmer-dss.html" class="active-nav">
+                    DSS
+                </a>
+
+            </nav>
+
+
+            <div class="farmer-actions">
+
+                <a href="#" class="notification">
+
+                    🔔
+
+                    <span class="notification-count">
+                        3
+                    </span>
+
+                </a>
+
+
+                <a href="#" class="profile-link">
+
+                    <span class="profile-avatar">
+                        A
+                    </span>
+
+                    <span class="profile-name">
+                        Abrar
+                    </span>
+
+                </a>
+
+
+                <a href="index.html" class="logout-btn">
+                    Logout
+                </a>
+
+            </div>
+
+        </div>
+
+    </header>
+
+
+
+    <!-- ================= MAIN ================= -->
+
+    <main class="dss-page">
+
+        <div class="container">
+
+
+            <!-- ================= HEADER ================= -->
+
+            <section class="dss-header">
+
+                <div>
+
+                    <span class="page-tag">
+                        SMART FARMING
+                    </span>
+
+                    <h1>
+                        Decision Support System
+                    </h1>
+
+                    <p>
+                        Make smarter farming decisions using soil,
+                        season, weather and marketplace information.
+                    </p>
+
+                </div>
+
+
+                <div class="dss-badge">
+
+                    <span>
+                        ✦
+                    </span>
+
+                    AgroLink DSS
+
+                </div>
+
+            </section>
+
+
+
+            <!-- ================= INPUT SECTION ================= -->
+
+            <section class="dss-input-card">
+
+                <div class="section-heading">
+
+                    <div>
+
+                        <h2>
+                            🌾 Farm Information
+                        </h2>
+
+                        <p>
+                            Enter your farm information to receive
+                            personalized recommendations.
+                        </p>
+
+                    </div>
+
+                    <span class="step-number">
+                        01
+                    </span>
+
+                </div>
+
+
+                <form
+                    action="#"
+                    method="POST"
+                    class="dss-form"
+                >
+
+
+                    <!-- LOCATION -->
+
+                    <div class="form-group">
+
+                        <label for="location">
+                            Farm Location
+                            <span>*</span>
+                        </label>
+
+                        <select
+                            id="location"
+                            name="location"
+                            required
+                        >
+
+                            <option value="">
+                                Select location
+                            </option>
+
+                            <option value="dhaka">
+                                Dhaka
+                            </option>
+
+                            <option value="rajshahi">
+                                Rajshahi
+                            </option>
+
+                            <option value="rangpur">
+                                Rangpur
+                            </option>
+
+                            <option value="mymensingh">
+                                Mymensingh
+                            </option>
+
+                            <option value="chattogram">
+                                Chattogram
+                            </option>
+
+                            <option value="khulna">
+                                Khulna
+                            </option>
+
+                            <option value="barishal">
+                                Barishal
+                            </option>
+
+                            <option value="sylhet">
+                                Sylhet
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+
+                    <!-- LAND SIZE -->
+
+                    <div class="form-group">
+
+                        <label for="land-size">
+                            Land Size (acres)
+                            <span>*</span>
+                        </label>
+
+                        <input
+                            type="number"
+                            id="land-size"
+                            name="land_size"
+                            placeholder="e.g. 2"
+                            min="0.1"
+                            step="0.1"
+                            required
+                        >
+
+                    </div>
+
+
+
+                    <!-- SOIL -->
+
+                    <div class="form-group">
+
+                        <label for="soil-type">
+                            Soil Type
+                            <span>*</span>
+                        </label>
+
+                        <select
+                            id="soil-type"
+                            name="soil_type"
+                            required
+                        >
+
+                            <option value="">
+                                Select soil type
+                            </option>
+
+                            <option value="loamy">
+                                Loamy
+                            </option>
+
+                            <option value="clay">
+                                Clay
+                            </option>
+
+                            <option value="sandy">
+                                Sandy
+                            </option>
+
+                            <option value="silty">
+                                Silty
+                            </option>
+
+                            <option value="peaty">
+                                Peaty
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+
+                    <!-- PH -->
+
+                    <div class="form-group">
+
+                        <label for="soil-ph">
+                            Soil pH
+                        </label>
+
+                        <input
+                            type="number"
+                            id="soil-ph"
+                            name="soil_ph"
+                            placeholder="e.g. 6.5"
+                            min="0"
+                            max="14"
+                            step="0.1"
+                        >
+
+                    </div>
+
+
+
+                    <!-- NITROGEN -->
+
+                    <div class="form-group">
+
+                        <label for="nitrogen">
+                            Nitrogen (N)
+                        </label>
+
+                        <input
+                            type="number"
+                            id="nitrogen"
+                            name="nitrogen"
+                            placeholder="e.g. 70"
+                            min="0"
+                        >
+
+                    </div>
+
+
+
+                    <!-- PHOSPHORUS -->
+
+                    <div class="form-group">
+
+                        <label for="phosphorus">
+                            Phosphorus (P)
+                        </label>
+
+                        <input
+                            type="number"
+                            id="phosphorus"
+                            name="phosphorus"
+                            placeholder="e.g. 45"
+                            min="0"
+                        >
+
+                    </div>
+
+
+
+                    <!-- POTASSIUM -->
+
+                    <div class="form-group">
+
+                        <label for="potassium">
+                            Potassium (K)
+                        </label>
+
+                        <input
+                            type="number"
+                            id="potassium"
+                            name="potassium"
+                            placeholder="e.g. 50"
+                            min="0"
+                        >
+
+                    </div>
+
+
+
+                    <!-- SEASON -->
+
+                    <div class="form-group">
+
+                        <label for="season">
+                            Growing Season
+                            <span>*</span>
+                        </label>
+
+                        <select
+                            id="season"
+                            name="season"
+                            required
+                        >
+
+                            <option value="">
+                                Select season
+                            </option>
+
+                            <option value="summer">
+                                Summer
+                            </option>
+
+                            <option value="monsoon">
+                                Monsoon
+                            </option>
+
+                            <option value="winter">
+                                Winter
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+
+                    <!-- SUBMIT -->
+
+                    <div class="analyze-wrapper">
+
+                        <button
+                            type="submit"
+                            class="analyze-btn"
+                        >
+                            ✦ Analyze My Farm
+                        </button>
+
+                        <p>
+                            Your information will be analyzed
+                            by the AgroLink DSS.
+                        </p>
+
+                    </div>
+
+                </form>
+
+            </section>
+
+
+
+            <!-- ================= RESULTS ================= -->
+
+            <section class="results-section">
+
+
+                <div class="results-heading">
+
+                    <div>
+
+                        <span class="page-tag">
+                            DSS RESULTS
+                        </span>
+
+                        <h2>
+                            Your Farming Recommendations
+                        </h2>
+
+                        <p>
+                            Based on the farm information provided.
+                        </p>
+
+                    </div>
+
+                    <span class="analysis-status">
+                        ✓ Analysis Complete
+                    </span>
+
+                </div>
+
+
+
+                <!-- ================= CROP RECOMMENDATION ================= -->
+
+                <div class="recommendation-card">
+
+                    <div class="recommendation-header">
+
+                        <div>
+
+                            <span class="result-label">
+                                🌱 TOP CROP RECOMMENDATIONS
+                            </span>
+
+                            <h3>
+                                Crops Suitable For Your Farm
+                            </h3>
+
+                        </div>
+
+                        <span class="result-score">
+                            94%
+                        </span>
+
+                    </div>
+
+
+                    <div class="crop-list">
+
+
+                        <div class="crop-item featured">
+
+                            <div class="crop-rank">
+                                01
+                            </div>
+
+                            <div class="crop-icon">
+                                🍅
+                            </div>
+
+                            <div class="crop-info">
+
+                                <strong>
+                                    Tomato
+                                </strong>
+
+                                <span>
+                                    Highly suitable for your soil
+                                    and current season.
+                                </span>
+
+                            </div>
+
+                            <div class="suitability">
+
+                                <strong>
+                                    94%
+                                </strong>
+
+                                <span>
+                                    Suitable
+                                </span>
+
+                            </div>
+
+                        </div>
+
+
+
+                        <div class="crop-item">
+
+                            <div class="crop-rank">
+                                02
+                            </div>
+
+                            <div class="crop-icon">
+                                🥔
+                            </div>
+
+                            <div class="crop-info">
+
+                                <strong>
+                                    Potato
+                                </strong>
+
+                                <span>
+                                    Good compatibility with
+                                    current soil conditions.
+                                </span>
+
+                            </div>
+
+                            <div class="suitability">
+
+                                <strong>
+                                    87%
+                                </strong>
+
+                                <span>
+                                    Suitable
+                                </span>
+
+                            </div>
+
+                        </div>
+
+
+
+                        <div class="crop-item">
+
+                            <div class="crop-rank">
+                                03
+                            </div>
+
+                            <div class="crop-icon">
+                                🥕
+                            </div>
+
+                            <div class="crop-info">
+
+                                <strong>
+                                    Carrot
+                                </strong>
+
+                                <span>
+                                    Moderate suitability for
+                                    the selected conditions.
+                                </span>
+
+                            </div>
+
+                            <div class="suitability">
+
+                                <strong>
+                                    81%
+                                </strong>
+
+                                <span>
+                                    Suitable
+                                </span>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- ================= ANALYSIS GRID ================= -->
+
+                <div class="analysis-grid">
+
+
+                    <!-- SOIL -->
+
+                    <div class="analysis-card">
+
+                        <div class="analysis-card-header">
+
+                            <div>
+
+                                <span class="analysis-icon">
+                                    🧪
+                                </span>
+
+                                <h3>
+                                    Soil Analysis
+                                </h3>
+
+                            </div>
+
+                            <span class="good-status">
+                                Good
+                            </span>
+
+                        </div>
+
+
+                        <div class="nutrient">
+
+                            <div>
+
+                                <span>
+                                    Nitrogen
+                                </span>
+
+                                <strong>
+                                    Adequate
+                                </strong>
+
+                            </div>
+
+                            <div class="progress">
+
+                                <span style="width: 72%;"></span>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="nutrient">
+
+                            <div>
+
+                                <span>
+                                    Phosphorus
+                                </span>
+
+                                <strong>
+                                    Low
+                                </strong>
+
+                            </div>
+
+                            <div class="progress">
+
+                                <span style="width: 42%;"></span>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="nutrient">
+
+                            <div>
+
+                                <span>
+                                    Potassium
+                                </span>
+
+                                <strong>
+                                    Adequate
+                                </strong>
+
+                            </div>
+
+                            <div class="progress">
+
+                                <span style="width: 67%;"></span>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="recommendation-note">
+
+                            💡 <strong>Recommendation:</strong>
+                            Consider phosphorus-rich fertilizer
+                            before planting.
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- WEATHER -->
+
+                    <div class="analysis-card">
+
+                        <div class="analysis-card-header">
+
+                            <div>
+
+                                <span class="analysis-icon">
+                                    🌦
+                                </span>
+
+                                <h3>
+                                    Weather Insight
+                                </h3>
+
+                            </div>
+
+                            <span class="weather-status">
+                                Favorable
+                            </span>
+
+                        </div>
+
+
+                        <div class="weather-main">
+
+                            <strong>
+                                29°C
+                            </strong>
+
+                            <span>
+                                Partly Cloudy
+                            </span>
+
+                        </div>
+
+
+                        <div class="weather-details">
+
+                            <div>
+
+                                <span>
+                                    Humidity
+                                </span>
+
+                                <strong>
+                                    72%
+                                </strong>
+
+                            </div>
+
+                            <div>
+
+                                <span>
+                                    Rainfall
+                                </span>
+
+                                <strong>
+                                    40 mm
+                                </strong>
+
+                            </div>
+
+                            <div>
+
+                                <span>
+                                    Wind
+                                </span>
+
+                                <strong>
+                                    12 km/h
+                                </strong>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="weather-alert">
+
+                            ⚠ <strong>Weather Alert:</strong>
+                            Rainfall may increase in the coming
+                            days. Monitor irrigation requirements.
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- ================= YIELD + MARKET ================= -->
+
+                <div class="insight-grid">
+
+
+                    <!-- YIELD -->
+
+                    <div class="insight-card">
+
+                        <div class="insight-icon">
+                            📈
+                        </div>
+
+                        <div>
+
+                            <span>
+                                ESTIMATED YIELD
+                            </span>
+
+                            <strong>
+                                8.5 Tons
+                            </strong>
+
+                            <p>
+                                Expected production from
+                                2 acres of land.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- MARKET -->
+
+                    <div class="insight-card">
+
+                        <div class="insight-icon market-icon">
+                            💰
+                        </div>
+
+                        <div>
+
+                            <span>
+                                MARKET INSIGHT
+                            </span>
+
+                            <strong>
+                                High Demand
+                            </strong>
+
+                            <p>
+                                Tomato demand is currently
+                                strong in the AgroLink marketplace.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- REVENUE -->
+
+                    <div class="insight-card">
+
+                        <div class="insight-icon revenue-icon">
+                            ৳
+                        </div>
+
+                        <div>
+
+                            <span>
+                                ESTIMATED REVENUE
+                            </span>
+
+                            <strong>
+                                ৳340,000
+                            </strong>
+
+                            <p>
+                                Based on estimated yield and
+                                current market price.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- ================= FINAL RECOMMENDATION ================= -->
+
+                <div class="final-recommendation">
+
+                    <div class="final-icon">
+                        ✦
+                    </div>
+
+                    <div>
+
+                        <span>
+                            AGROLINK DSS RECOMMENDATION
+                        </span>
+
+                        <h3>
+                            Tomato appears to be the best
+                            option for your current farm conditions.
+                        </h3>
+
+                        <p>
+                            Your soil condition and current season
+                            show strong compatibility with tomato
+                            cultivation. Market demand is also
+                            favorable. Consider monitoring rainfall
+                            and maintaining appropriate phosphorus
+                            levels.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+            </section>
+
+        </div>
+
+    </main>
+
+
+
+    <!-- ================= FOOTER ================= -->
+
+    <footer class="footer">
+
+        <div class="container footer-grid">
+
+
+            <div class="footer-about">
+
+                <a
+                    href="farmer.html"
+                    class="logo footer-logo"
+                >
+
+                    <span class="logo-icon">
+                        🌱
+                    </span>
+
+                    <span>
+                        Agro<span>Link</span>
+                    </span>
+
+                </a>
+
+                <p>
+                    Connecting farmers and consumers through
+                    a smarter agricultural marketplace.
+                </p>
+
+            </div>
+
+
+            <div class="footer-column">
+
+                <h3>
+                    Farmer
+                </h3>
+
+                <a href="farmer.html">
+                    Dashboard
+                </a>
+
+                <a href="farmer-products.html">
+                    My Products
+                </a>
+
+                <a href="farmer-orders.html">
+                    Orders
+                </a>
+
+                <a href="farmer-dss.html">
+                    Decision Support
+                </a>
+
+            </div>
+
+
+            <div class="footer-column">
+
+                <h3>
+                    Account
+                </h3>
+
+                <a href="#">
+                    My Profile
+                </a>
+
+                <a href="#">
+                    Settings
+                </a>
+
+                <a href="index.html">
+                    Logout
+                </a>
+
+            </div>
+
+
+            <div class="footer-column">
+
+                <h3>
+                    Support
+                </h3>
+
+                <a href="#">
+                    Help Center
+                </a>
+
+                <a href="#">
+                    Contact Us
+                </a>
+
+                <a href="#">
+                    FAQ
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <div class="footer-bottom">
+
+            <div class="container">
+
+                <p>
+                    © 2026 AgroLink. All Rights Reserved.
+                </p>
+
+                <p>
+                    Academic Project
+                </p>
+
+            </div>
+
+        </div>
+
+    </footer>
+
+
+</body>
+
+</html>
