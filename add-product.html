@@ -1,0 +1,851 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Add Product | AgroLink</title>
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/add-product.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap"
+        rel="stylesheet"
+    >
+
+</head>
+
+<body>
+
+
+    <!-- ================= NAVBAR ================= -->
+
+    <header class="header">
+
+        <div class="container navbar">
+
+            <a href="farmer.html" class="logo">
+
+                <span class="logo-icon">
+                    🌱
+                </span>
+
+                <span>
+                    Agro<span>Link</span>
+                </span>
+
+            </a>
+
+
+            <nav class="nav-menu">
+
+                <a href="farmer.html">
+                    Dashboard
+                </a>
+
+                <a href="farmer-products.html" class="active-nav">
+                    My Products
+                </a>
+
+                <a href="farmer-orders.html">
+                    Orders
+                </a>
+
+                <a href="farmer-dss.html">
+                    DSS
+                </a>
+
+            </nav>
+
+
+            <div class="farmer-actions">
+
+                <a href="#" class="notification">
+
+                    🔔
+
+                    <span class="notification-count">
+                        3
+                    </span>
+
+                </a>
+
+
+                <a href="#" class="profile-link">
+
+                    <span class="profile-avatar">
+                        A
+                    </span>
+
+                    <span class="profile-name">
+                        Abrar
+                    </span>
+
+                </a>
+
+
+                <a href="index.html" class="logout-btn">
+                    Logout
+                </a>
+
+            </div>
+
+        </div>
+
+    </header>
+
+
+
+    <!-- ================= MAIN ================= -->
+
+    <main class="add-product-page">
+
+        <div class="container">
+
+
+            <!-- ================= PAGE HEADER ================= -->
+
+            <div class="page-header">
+
+                <div>
+
+                    <span class="page-tag">
+                        FARM MANAGEMENT
+                    </span>
+
+                    <h1>
+                        Add New Product
+                    </h1>
+
+                    <p>
+                        Add your agricultural product to the
+                        AgroLink marketplace.
+                    </p>
+
+                </div>
+
+
+                <a
+                    href="farmer-products.html"
+                    class="back-link"
+                >
+                    ← Back to My Products
+                </a>
+
+            </div>
+
+
+
+            <!-- ================= FORM ================= -->
+
+            <form
+                action="#"
+                method="POST"
+                enctype="multipart/form-data"
+                class="product-form"
+            >
+
+
+                <!-- ================= BASIC INFORMATION ================= -->
+
+                <section class="form-card">
+
+                    <div class="form-card-header">
+
+                        <div>
+
+                            <h2>
+                                Basic Information
+                            </h2>
+
+                            <p>
+                                Provide the basic details of your product.
+                            </p>
+
+                        </div>
+
+                        <span>
+                            01
+                        </span>
+
+                    </div>
+
+
+                    <div class="form-grid">
+
+
+                        <!-- PRODUCT NAME -->
+
+                        <div class="form-group full-width">
+
+                            <label for="product-name">
+                                Product Name
+                                <span>*</span>
+                            </label>
+
+                            <input
+                                type="text"
+                                id="product-name"
+                                name="product_name"
+                                placeholder="e.g. Fresh Organic Tomatoes"
+                                required
+                            >
+
+                        </div>
+
+
+
+                        <!-- CATEGORY -->
+
+                        <div class="form-group">
+
+                            <label for="category">
+                                Category
+                                <span>*</span>
+                            </label>
+
+                            <select
+                                id="category"
+                                name="category"
+                                required
+                            >
+
+                                <option value="">
+                                    Select category
+                                </option>
+
+                                <option value="vegetables">
+                                    Vegetables
+                                </option>
+
+                                <option value="fruits">
+                                    Fruits
+                                </option>
+
+                                <option value="grains">
+                                    Grains
+                                </option>
+
+                                <option value="dairy">
+                                    Dairy
+                                </option>
+
+                                <option value="fish">
+                                    Fish
+                                </option>
+
+                                <option value="meat">
+                                    Meat
+                                </option>
+
+                                <option value="poultry">
+                                    Poultry
+                                </option>
+
+                                <option value="other">
+                                    Other
+                                </option>
+
+                            </select>
+
+                        </div>
+
+
+
+                        <!-- SUBCATEGORY -->
+
+                        <div class="form-group">
+
+                            <label for="subcategory">
+                                Subcategory
+                            </label>
+
+                            <input
+                                type="text"
+                                id="subcategory"
+                                name="subcategory"
+                                placeholder="e.g. Tomato, Mango, Rice"
+                            >
+
+                        </div>
+
+
+
+                        <!-- DESCRIPTION -->
+
+                        <div class="form-group full-width">
+
+                            <label for="description">
+                                Product Description
+                                <span>*</span>
+                            </label>
+
+                            <textarea
+                                id="description"
+                                name="description"
+                                rows="5"
+                                placeholder="Describe your product, quality, farming method, freshness, etc."
+                                required
+                            ></textarea>
+
+                        </div>
+
+                    </div>
+
+                </section>
+
+
+
+                <!-- ================= PRICE & STOCK ================= -->
+
+                <section class="form-card">
+
+                    <div class="form-card-header">
+
+                        <div>
+
+                            <h2>
+                                Price & Stock
+                            </h2>
+
+                            <p>
+                                Set your selling price and available quantity.
+                            </p>
+
+                        </div>
+
+                        <span>
+                            02
+                        </span>
+
+                    </div>
+
+
+                    <div class="form-grid">
+
+
+                        <!-- PRICE -->
+
+                        <div class="form-group">
+
+                            <label for="price">
+                                Price
+                                <span>*</span>
+                            </label>
+
+                            <div class="input-with-prefix">
+
+                                <span>
+                                    ৳
+                                </span>
+
+                                <input
+                                    type="number"
+                                    id="price"
+                                    name="price"
+                                    min="0"
+                                    step="0.01"
+                                    placeholder="0.00"
+                                    required
+                                >
+
+                            </div>
+
+                        </div>
+
+
+
+                        <!-- UNIT -->
+
+                        <div class="form-group">
+
+                            <label for="unit">
+                                Unit
+                                <span>*</span>
+                            </label>
+
+                            <select
+                                id="unit"
+                                name="unit"
+                                required
+                            >
+
+                                <option value="">
+                                    Select unit
+                                </option>
+
+                                <option value="kg">
+                                    Kilogram (kg)
+                                </option>
+
+                                <option value="gram">
+                                    Gram (g)
+                                </option>
+
+                                <option value="liter">
+                                    Liter (L)
+                                </option>
+
+                                <option value="piece">
+                                    Piece
+                                </option>
+
+                                <option value="dozen">
+                                    Dozen
+                                </option>
+
+                                <option value="bag">
+                                    Bag
+                                </option>
+
+                            </select>
+
+                        </div>
+
+
+
+                        <!-- STOCK -->
+
+                        <div class="form-group">
+
+                            <label for="stock">
+                                Available Stock
+                                <span>*</span>
+                            </label>
+
+                            <input
+                                type="number"
+                                id="stock"
+                                name="stock"
+                                min="0"
+                                placeholder="e.g. 100"
+                                required
+                            >
+
+                        </div>
+
+
+
+                        <!-- MINIMUM ORDER -->
+
+                        <div class="form-group">
+
+                            <label for="minimum-order">
+                                Minimum Order
+                            </label>
+
+                            <input
+                                type="number"
+                                id="minimum-order"
+                                name="minimum_order"
+                                min="1"
+                                placeholder="e.g. 1"
+                            >
+
+                        </div>
+
+                    </div>
+
+                </section>
+
+
+
+                <!-- ================= PRODUCT IMAGE ================= -->
+
+                <section class="form-card">
+
+                    <div class="form-card-header">
+
+                        <div>
+
+                            <h2>
+                                Product Image
+                            </h2>
+
+                            <p>
+                                Upload a clear image of your product.
+                            </p>
+
+                        </div>
+
+                        <span>
+                            03
+                        </span>
+
+                    </div>
+
+
+                    <div class="upload-area">
+
+                        <div class="upload-icon">
+                            📷
+                        </div>
+
+                        <h3>
+                            Upload Product Image
+                        </h3>
+
+                        <p>
+                            JPG, JPEG or PNG • Maximum 5MB
+                        </p>
+
+                        <label
+                            for="product-image"
+                            class="upload-button"
+                        >
+                            Choose Image
+                        </label>
+
+                        <input
+                            type="file"
+                            id="product-image"
+                            name="product_image"
+                            accept=".jpg,.jpeg,.png"
+                        >
+
+                    </div>
+
+                </section>
+
+
+
+                <!-- ================= LOCATION ================= -->
+
+                <section class="form-card">
+
+                    <div class="form-card-header">
+
+                        <div>
+
+                            <h2>
+                                Product Location
+                            </h2>
+
+                            <p>
+                                Tell consumers where the product is available.
+                            </p>
+
+                        </div>
+
+                        <span>
+                            04
+                        </span>
+
+                    </div>
+
+
+                    <div class="form-grid">
+
+
+                        <!-- DISTRICT -->
+
+                        <div class="form-group">
+
+                            <label for="district">
+                                District
+                                <span>*</span>
+                            </label>
+
+                            <input
+                                type="text"
+                                id="district"
+                                name="district"
+                                placeholder="e.g. Dhaka"
+                                required
+                            >
+
+                        </div>
+
+
+
+                        <!-- AREA -->
+
+                        <div class="form-group">
+
+                            <label for="area">
+                                Area / Upazila
+                            </label>
+
+                            <input
+                                type="text"
+                                id="area"
+                                name="area"
+                                placeholder="e.g. Savar"
+                            >
+
+                        </div>
+
+
+
+                        <!-- DELIVERY -->
+
+                        <div class="form-group full-width">
+
+                            <label for="delivery">
+                                Delivery Availability
+                            </label>
+
+                            <select
+                                id="delivery"
+                                name="delivery"
+                            >
+
+                                <option value="home-delivery">
+                                    Home Delivery Available
+                                </option>
+
+                                <option value="pickup">
+                                    Farmer Pickup Only
+                                </option>
+
+                                <option value="both">
+                                    Home Delivery & Pickup
+                                </option>
+
+                            </select>
+
+                        </div>
+
+                    </div>
+
+                </section>
+
+
+
+                <!-- ================= AVAILABILITY ================= -->
+
+                <section class="form-card">
+
+                    <div class="form-card-header">
+
+                        <div>
+
+                            <h2>
+                                Product Availability
+                            </h2>
+
+                            <p>
+                                Choose whether consumers can currently purchase this product.
+                            </p>
+
+                        </div>
+
+                        <span>
+                            05
+                        </span>
+
+                    </div>
+
+
+                    <label class="availability-option">
+
+                        <input
+                            type="radio"
+                            name="availability"
+                            value="active"
+                            checked
+                        >
+
+                        <span class="custom-radio"></span>
+
+                        <span>
+
+                            <strong>
+                                Active
+                            </strong>
+
+                            <small>
+                                Product will be visible in the marketplace.
+                            </small>
+
+                        </span>
+
+                    </label>
+
+
+                    <label class="availability-option">
+
+                        <input
+                            type="radio"
+                            name="availability"
+                            value="inactive"
+                        >
+
+                        <span class="custom-radio"></span>
+
+                        <span>
+
+                            <strong>
+                                Inactive
+                            </strong>
+
+                            <small>
+                                Product will be saved but hidden from consumers.
+                            </small>
+
+                        </span>
+
+                    </label>
+
+                </section>
+
+
+
+                <!-- ================= FORM ACTIONS ================= -->
+
+                <div class="form-actions">
+
+                    <a
+                        href="farmer-products.html"
+                        class="cancel-btn"
+                    >
+                        Cancel
+                    </a>
+
+                    <button
+                        type="submit"
+                        class="save-btn"
+                    >
+                        + Add Product
+                    </button>
+
+                </div>
+
+
+            </form>
+
+        </div>
+
+    </main>
+
+
+
+    <!-- ================= FOOTER ================= -->
+
+    <footer class="footer">
+
+        <div class="container footer-grid">
+
+
+            <div class="footer-about">
+
+                <a
+                    href="farmer.html"
+                    class="logo footer-logo"
+                >
+
+                    <span class="logo-icon">
+                        🌱
+                    </span>
+
+                    <span>
+                        Agro<span>Link</span>
+                    </span>
+
+                </a>
+
+                <p>
+                    Connecting farmers and consumers through
+                    a smarter agricultural marketplace.
+                </p>
+
+            </div>
+
+
+            <div class="footer-column">
+
+                <h3>
+                    Farmer
+                </h3>
+
+                <a href="farmer.html">
+                    Dashboard
+                </a>
+
+                <a href="farmer-products.html">
+                    My Products
+                </a>
+
+                <a href="farmer-orders.html">
+                    Orders
+                </a>
+
+                <a href="farmer-dss.html">
+                    Decision Support
+                </a>
+
+            </div>
+
+
+            <div class="footer-column">
+
+                <h3>
+                    Account
+                </h3>
+
+                <a href="#">
+                    My Profile
+                </a>
+
+                <a href="#">
+                    Settings
+                </a>
+
+                <a href="index.html">
+                    Logout
+                </a>
+
+            </div>
+
+
+            <div class="footer-column">
+
+                <h3>
+                    Support
+                </h3>
+
+                <a href="#">
+                    Help Center
+                </a>
+
+                <a href="#">
+                    Contact Us
+                </a>
+
+                <a href="#">
+                    FAQ
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <div class="footer-bottom">
+
+            <div class="container">
+
+                <p>
+                    © 2026 AgroLink. All Rights Reserved.
+                </p>
+
+                <p>
+                    Academic Project
+                </p>
+
+            </div>
+
+        </div>
+
+    </footer>
+
+
+</body>
+
+</html>

@@ -1,0 +1,878 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Farmer Dashboard | AgroLink</title>
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/farmer.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap"
+        rel="stylesheet">
+
+</head>
+
+
+<body>
+
+
+    <!-- ================= NAVBAR ================= -->
+
+    <header class="header">
+
+        <div class="container navbar">
+
+            <!-- LOGO -->
+
+            <a href="farmer.html" class="logo">
+
+                <span class="logo-icon">
+                    🌱
+                </span>
+
+                <span>
+                    Agro<span>Link</span>
+                </span>
+
+            </a>
+
+
+            <!-- NAVIGATION -->
+
+            <nav class="nav-menu">
+
+                <a href="farmer.html" class="active-nav">
+                    Dashboard
+                </a>
+
+                <a href="farmer-products.html">
+                    My Products
+                </a>
+
+                <a href="farmer-orders.html">
+                    Orders
+                </a>
+
+                <a href="farmer-dss.html">
+                    DSS
+                </a>
+
+            </nav>
+
+
+            <!-- FARMER AREA -->
+
+            <div class="farmer-actions">
+
+                <a href="#" class="notification">
+
+                    🔔
+
+                    <span class="notification-count">
+                        3
+                    </span>
+
+                </a>
+
+
+                <a href="#" class="profile-link">
+
+                    <span class="profile-avatar">
+                        A
+                    </span>
+
+                    <span class="profile-name">
+                        Abrar
+                    </span>
+
+                </a>
+
+
+                <a href="index.html" class="logout-btn">
+                    Logout
+                </a>
+
+            </div>
+
+        </div>
+
+    </header>
+
+
+
+    <!-- ================= DASHBOARD ================= -->
+
+    <main class="dashboard">
+
+        <div class="container">
+
+
+            <!-- ================= WELCOME ================= -->
+
+            <section class="welcome-section">
+
+                <div>
+
+                    <span class="welcome-tag">
+                        FARMER DASHBOARD
+                    </span>
+
+                    <h1>
+                        Welcome back, <span>Abrar!</span> 👋
+                    </h1>
+
+                    <p>
+                        Manage your products, orders and farm
+                        activities from one place.
+                    </p>
+
+                </div>
+
+
+                <a
+                    href="add-product.html"
+                    class="add-product-button"
+                >
+                    + Add New Product
+                </a>
+
+            </section>
+
+
+
+            <!-- ================= STAT CARDS ================= -->
+
+            <section class="stats-grid">
+
+
+                <!-- TOTAL PRODUCTS -->
+
+                <div class="stat-card">
+
+                    <div class="stat-icon">
+                        🌾
+                    </div>
+
+                    <div>
+
+                        <span class="stat-label">
+                            Total Products
+                        </span>
+
+                        <h2>
+                            18
+                        </h2>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- ACTIVE PRODUCTS -->
+
+                <div class="stat-card">
+
+                    <div class="stat-icon">
+                        🟢
+                    </div>
+
+                    <div>
+
+                        <span class="stat-label">
+                            Active Products
+                        </span>
+
+                        <h2>
+                            15
+                        </h2>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- PENDING ORDERS -->
+
+                <div class="stat-card">
+
+                    <div class="stat-icon">
+                        📦
+                    </div>
+
+                    <div>
+
+                        <span class="stat-label">
+                            Pending Orders
+                        </span>
+
+                        <h2>
+                            7
+                        </h2>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- TOTAL EARNINGS -->
+
+                <div class="stat-card">
+
+                    <div class="stat-icon">
+                        💰
+                    </div>
+
+                    <div>
+
+                        <span class="stat-label">
+                            Total Earnings
+                        </span>
+
+                        <h2>
+                            ৳42.8K
+                        </h2>
+
+                    </div>
+
+                </div>
+
+
+            </section>
+
+
+
+            <!-- ================= MAIN GRID ================= -->
+
+            <section class="dashboard-grid">
+
+
+                <!-- ================= RECENT ORDERS ================= -->
+
+                <div class="dashboard-card">
+
+                    <div class="card-header">
+
+                        <div>
+
+                            <h2>
+                                Recent Orders
+                            </h2>
+
+                            <p>
+                                Latest orders from consumers
+                            </p>
+
+                        </div>
+
+                        <a href="farmer-orders.html">
+                            View All
+                        </a>
+
+                    </div>
+
+
+
+                    <!-- ORDER 1 -->
+
+                    <div class="order-item">
+
+                        <div class="order-product">
+
+                            <div class="product-icon">
+                                🥬
+                            </div>
+
+                            <div>
+
+                                <strong>
+                                    Fresh Vegetables
+                                </strong>
+
+                                <span>
+                                    #AG1025 • Consumer: Rahim
+                                </span>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="order-info">
+
+                            <strong>
+                                ৳850
+                            </strong>
+
+                            <span class="status pending">
+                                Pending
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- ORDER 2 -->
+
+                    <div class="order-item">
+
+                        <div class="order-product">
+
+                            <div class="product-icon">
+                                🥭
+                            </div>
+
+                            <div>
+
+                                <strong>
+                                    Fresh Mangoes
+                                </strong>
+
+                                <span>
+                                    #AG1023 • Consumer: Karim
+                                </span>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="order-info">
+
+                            <strong>
+                                ৳1,450
+                            </strong>
+
+                            <span class="status processing">
+                                Processing
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- ORDER 3 -->
+
+                    <div class="order-item">
+
+                        <div class="order-product">
+
+                            <div class="product-icon">
+                                🌾
+                            </div>
+
+                            <div>
+
+                                <strong>
+                                    Premium Rice
+                                </strong>
+
+                                <span>
+                                    #AG1021 • Consumer: Nabila
+                                </span>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="order-info">
+
+                            <strong>
+                                ৳2,100
+                            </strong>
+
+                            <span class="status completed">
+                                Completed
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+
+
+                <!-- ================= QUICK ACTIONS ================= -->
+
+                <div class="dashboard-card">
+
+                    <div class="card-header">
+
+                        <div>
+
+                            <h2>
+                                Quick Actions
+                            </h2>
+
+                            <p>
+                                Manage your farm
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="quick-actions">
+
+
+                        <a
+                            href="add-product.html"
+                            class="quick-action"
+                        >
+
+                            <span>
+                                ➕
+                            </span>
+
+                            <div>
+
+                                <strong>
+                                    Add Product
+                                </strong>
+
+                                <small>
+                                    List a new product
+                                </small>
+
+                            </div>
+
+                            <b>
+                                →
+                            </b>
+
+                        </a>
+
+
+
+                        <a
+                            href="farmer-products.html"
+                            class="quick-action"
+                        >
+
+                            <span>
+                                🌾
+                            </span>
+
+                            <div>
+
+                                <strong>
+                                    My Products
+                                </strong>
+
+                                <small>
+                                    Manage your listings
+                                </small>
+
+                            </div>
+
+                            <b>
+                                →
+                            </b>
+
+                        </a>
+
+
+
+                        <a
+                            href="farmer-orders.html"
+                            class="quick-action"
+                        >
+
+                            <span>
+                                📦
+                            </span>
+
+                            <div>
+
+                                <strong>
+                                    Manage Orders
+                                </strong>
+
+                                <small>
+                                    View customer orders
+                                </small>
+
+                            </div>
+
+                            <b>
+                                →
+                            </b>
+
+                        </a>
+
+
+
+                        <a
+                            href="farmer-dss.html"
+                            class="quick-action dss-action"
+                        >
+
+                            <span>
+                                📊
+                            </span>
+
+                            <div>
+
+                                <strong>
+                                    Decision Support
+                                </strong>
+
+                                <small>
+                                    Get farming insights
+                                </small>
+
+                            </div>
+
+                            <b>
+                                →
+                            </b>
+
+                        </a>
+
+
+                    </div>
+
+                </div>
+
+
+            </section>
+
+
+
+            <!-- ================= PRODUCT PERFORMANCE ================= -->
+
+            <section class="performance-section">
+
+
+                <div class="section-heading">
+
+                    <div>
+
+                        <span>
+                            PRODUCT PERFORMANCE
+                        </span>
+
+                        <h2>
+                            Your Best Performing Products
+                        </h2>
+
+                    </div>
+
+                    <a href="farmer-products.html">
+                        Manage Products →
+                    </a>
+
+                </div>
+
+
+
+                <div class="performance-grid">
+
+
+                    <!-- PRODUCT 1 -->
+
+                    <div class="performance-card">
+
+                        <div class="performance-icon">
+                            🥬
+                        </div>
+
+                        <div class="performance-content">
+
+                            <h3>
+                                Fresh Vegetables
+                            </h3>
+
+                            <span>
+                                34 orders
+                            </span>
+
+                            <div class="progress-bar">
+
+                                <div
+                                    class="progress"
+                                    style="width: 85%;"
+                                ></div>
+
+                            </div>
+
+                        </div>
+
+                        <strong>
+                            ৳12.4K
+                        </strong>
+
+                    </div>
+
+
+
+                    <!-- PRODUCT 2 -->
+
+                    <div class="performance-card">
+
+                        <div class="performance-icon">
+                            🥭
+                        </div>
+
+                        <div class="performance-content">
+
+                            <h3>
+                                Fresh Mangoes
+                            </h3>
+
+                            <span>
+                                27 orders
+                            </span>
+
+                            <div class="progress-bar">
+
+                                <div
+                                    class="progress"
+                                    style="width: 70%;"
+                                ></div>
+
+                            </div>
+
+                        </div>
+
+                        <strong>
+                            ৳9.8K
+                        </strong>
+
+                    </div>
+
+
+
+                    <!-- PRODUCT 3 -->
+
+                    <div class="performance-card">
+
+                        <div class="performance-icon">
+                            🌾
+                        </div>
+
+                        <div class="performance-content">
+
+                            <h3>
+                                Premium Rice
+                            </h3>
+
+                            <span>
+                                21 orders
+                            </span>
+
+                            <div class="progress-bar">
+
+                                <div
+                                    class="progress"
+                                    style="width: 58%;"
+                                ></div>
+
+                            </div>
+
+                        </div>
+
+                        <strong>
+                            ৳7.6K
+                        </strong>
+
+                    </div>
+
+
+                </div>
+
+            </section>
+
+
+
+            <!-- ================= DSS BANNER ================= -->
+
+            <section class="dss-banner">
+
+                <div class="dss-content">
+
+                    <span class="dss-icon">
+                        📊
+                    </span>
+
+                    <div>
+
+                        <span class="dss-label">
+                            DECISION SUPPORT SYSTEM
+                        </span>
+
+                        <h2>
+                            Make Smarter Farming Decisions
+                        </h2>
+
+                        <p>
+                            Get recommendations based on crop,
+                            soil, weather and market conditions.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <a
+                    href="farmer-dss.html"
+                    class="dss-button"
+                >
+                    Open DSS →
+                </a>
+
+            </section>
+
+
+        </div>
+
+    </main>
+
+
+
+    <!-- ================= FOOTER ================= -->
+
+    <footer class="footer">
+
+        <div class="container footer-grid">
+
+
+            <div class="footer-about">
+
+                <a
+                    href="farmer.html"
+                    class="logo footer-logo"
+                >
+
+                    <span class="logo-icon">
+                        🌱
+                    </span>
+
+                    <span>
+                        Agro<span>Link</span>
+                    </span>
+
+                </a>
+
+                <p>
+                    Connecting farmers and consumers through
+                    a smarter agricultural marketplace.
+                </p>
+
+            </div>
+
+
+
+            <div class="footer-column">
+
+                <h3>
+                    Farmer
+                </h3>
+
+                <a href="farmer-products.html">
+                    My Products
+                </a>
+
+                <a href="add-product.html">
+                    Add Product
+                </a>
+
+                <a href="farmer-orders.html">
+                    Orders
+                </a>
+
+                <a href="farmer-dss.html">
+                    Decision Support
+                </a>
+
+            </div>
+
+
+
+            <div class="footer-column">
+
+                <h3>
+                    Account
+                </h3>
+
+                <a href="#">
+                    My Profile
+                </a>
+
+                <a href="#">
+                    Settings
+                </a>
+
+                <a href="index.html">
+                    Logout
+                </a>
+
+            </div>
+
+
+
+            <div class="footer-column">
+
+                <h3>
+                    Support
+                </h3>
+
+                <a href="#">
+                    Help Center
+                </a>
+
+                <a href="#">
+                    Contact Us
+                </a>
+
+                <a href="#">
+                    FAQ
+                </a>
+
+            </div>
+
+
+        </div>
+
+
+        <div class="footer-bottom">
+
+            <div class="container">
+
+                <p>
+                    © 2026 AgroLink. All Rights Reserved.
+                </p>
+
+                <p>
+                    Academic Project
+                </p>
+
+            </div>
+
+        </div>
+
+    </footer>
+
+
+</body>
+
+</html>

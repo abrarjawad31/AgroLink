@@ -1,0 +1,810 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>My Products | AgroLink</title>
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/farmer-products.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap"
+        rel="stylesheet">
+
+</head>
+
+<body>
+
+
+    <!-- ================= NAVBAR ================= -->
+
+    <header class="header">
+
+        <div class="container navbar">
+
+            <a href="farmer.html" class="logo">
+
+                <span class="logo-icon">
+                    🌱
+                </span>
+
+                <span>
+                    Agro<span>Link</span>
+                </span>
+
+            </a>
+
+
+            <nav class="nav-menu">
+
+                <a href="farmer.html">
+                    Dashboard
+                </a>
+
+                <a href="farmer-products.html" class="active-nav">
+                    My Products
+                </a>
+
+                <a href="farmer-orders.html">
+                    Orders
+                </a>
+
+                <a href="farmer-dss.html">
+                    DSS
+                </a>
+
+            </nav>
+
+
+            <div class="farmer-actions">
+
+                <a href="#" class="notification">
+                    🔔
+                    <span class="notification-count">3</span>
+                </a>
+
+                <a href="#" class="profile-link">
+
+                    <span class="profile-avatar">
+                        A
+                    </span>
+
+                    <span class="profile-name">
+                        Abrar
+                    </span>
+
+                </a>
+
+                <a href="index.html" class="logout-btn">
+                    Logout
+                </a>
+
+            </div>
+
+        </div>
+
+    </header>
+
+
+
+    <!-- ================= MAIN ================= -->
+
+    <main class="products-page">
+
+        <div class="container">
+
+
+            <!-- ================= PAGE HEADER ================= -->
+
+            <section class="page-header">
+
+                <div>
+
+                    <span class="page-tag">
+                        FARM MANAGEMENT
+                    </span>
+
+                    <h1>
+                        My Products
+                    </h1>
+
+                    <p>
+                        Manage the agricultural products you are
+                        selling on AgroLink.
+                    </p>
+
+                </div>
+
+
+                <a
+                    href="add-product.html"
+                    class="add-product-btn"
+                >
+                    + Add New Product
+                </a>
+
+            </section>
+
+
+
+            <!-- ================= PRODUCT SUMMARY ================= -->
+
+            <section class="product-summary">
+
+                <div class="summary-item">
+
+                    <span class="summary-icon">
+                        🌾
+                    </span>
+
+                    <div>
+
+                        <span>
+                            Total Products
+                        </span>
+
+                        <strong>
+                            18
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+                <div class="summary-item">
+
+                    <span class="summary-icon">
+                        🟢
+                    </span>
+
+                    <div>
+
+                        <span>
+                            Active
+                        </span>
+
+                        <strong>
+                            15
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+                <div class="summary-item">
+
+                    <span class="summary-icon">
+                        ⏸️
+                    </span>
+
+                    <div>
+
+                        <span>
+                            Inactive
+                        </span>
+
+                        <strong>
+                            3
+                        </strong>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+
+            <!-- ================= FILTER BAR ================= -->
+
+            <section class="filter-bar">
+
+                <div class="search-box">
+
+                    <span>
+                        🔍
+                    </span>
+
+                    <input
+                        type="text"
+                        placeholder="Search your products..."
+                    >
+
+                </div>
+
+
+                <select>
+
+                    <option value="all">
+                        All Categories
+                    </option>
+
+                    <option value="vegetables">
+                        Vegetables
+                    </option>
+
+                    <option value="fruits">
+                        Fruits
+                    </option>
+
+                    <option value="grains">
+                        Grains
+                    </option>
+
+                    <option value="dairy">
+                        Dairy
+                    </option>
+
+                </select>
+
+
+                <select>
+
+                    <option value="all">
+                        All Status
+                    </option>
+
+                    <option value="active">
+                        Active
+                    </option>
+
+                    <option value="inactive">
+                        Inactive
+                    </option>
+
+                </select>
+
+            </section>
+
+
+
+            <!-- ================= PRODUCTS TABLE ================= -->
+
+            <section class="products-card">
+
+                <div class="table-header">
+
+                    <h2>
+                        Product Listings
+                    </h2>
+
+                    <span>
+                        18 products
+                    </span>
+
+                </div>
+
+
+                <div class="table-wrapper">
+
+                    <table>
+
+                        <thead>
+
+                            <tr>
+
+                                <th>
+                                    Product
+                                </th>
+
+                                <th>
+                                    Category
+                                </th>
+
+                                <th>
+                                    Price
+                                </th>
+
+                                <th>
+                                    Stock
+                                </th>
+
+                                <th>
+                                    Status
+                                </th>
+
+                                <th>
+                                    Actions
+                                </th>
+
+                            </tr>
+
+                        </thead>
+
+
+                        <tbody>
+
+
+                            <!-- PRODUCT 1 -->
+
+                            <tr>
+
+                                <td>
+
+                                    <div class="product-info">
+
+                                        <div class="product-image">
+                                            🥬
+                                        </div>
+
+                                        <div>
+
+                                            <strong>
+                                                Fresh Vegetables
+                                            </strong>
+
+                                            <span>
+                                                Added 2 days ago
+                                            </span>
+
+                                        </div>
+
+                                    </div>
+
+                                </td>
+
+
+                                <td>
+                                    Vegetables
+                                </td>
+
+
+                                <td>
+                                    <strong>
+                                        ৳180/kg
+                                    </strong>
+                                </td>
+
+
+                                <td>
+                                    120 kg
+                                </td>
+
+
+                                <td>
+
+                                    <span class="status active">
+                                        Active
+                                    </span>
+
+                                </td>
+
+
+                                <td>
+
+                                    <div class="actions">
+
+                                        <a
+                                            href="edit-product.html"
+                                            class="edit-btn"
+                                        >
+                                            Edit
+                                        </a>
+
+                                        <button
+                                            class="delete-btn"
+                                            type="button"
+                                        >
+                                            Delete
+                                        </button>
+
+                                    </div>
+
+                                </td>
+
+                            </tr>
+
+
+
+                            <!-- PRODUCT 2 -->
+
+                            <tr>
+
+                                <td>
+
+                                    <div class="product-info">
+
+                                        <div class="product-image">
+                                            🥭
+                                        </div>
+
+                                        <div>
+
+                                            <strong>
+                                                Fresh Mangoes
+                                            </strong>
+
+                                            <span>
+                                                Added 5 days ago
+                                            </span>
+
+                                        </div>
+
+                                    </div>
+
+                                </td>
+
+
+                                <td>
+                                    Fruits
+                                </td>
+
+
+                                <td>
+                                    <strong>
+                                        ৳120/kg
+                                    </strong>
+                                </td>
+
+
+                                <td>
+                                    85 kg
+                                </td>
+
+
+                                <td>
+
+                                    <span class="status active">
+                                        Active
+                                    </span>
+
+                                </td>
+
+
+                                <td>
+
+                                    <div class="actions">
+
+                                        <a
+                                            href="edit-product.html"
+                                            class="edit-btn"
+                                        >
+                                            Edit
+                                        </a>
+
+                                        <button
+                                            class="delete-btn"
+                                            type="button"
+                                        >
+                                            Delete
+                                        </button>
+
+                                    </div>
+
+                                </td>
+
+                            </tr>
+
+
+
+                            <!-- PRODUCT 3 -->
+
+                            <tr>
+
+                                <td>
+
+                                    <div class="product-info">
+
+                                        <div class="product-image">
+                                            🌾
+                                        </div>
+
+                                        <div>
+
+                                            <strong>
+                                                Premium Rice
+                                            </strong>
+
+                                            <span>
+                                                Added 1 week ago
+                                            </span>
+
+                                        </div>
+
+                                    </div>
+
+                                </td>
+
+
+                                <td>
+                                    Grains
+                                </td>
+
+
+                                <td>
+                                    <strong>
+                                        ৳95/kg
+                                    </strong>
+                                </td>
+
+
+                                <td>
+                                    250 kg
+                                </td>
+
+
+                                <td>
+
+                                    <span class="status active">
+                                        Active
+                                    </span>
+
+                                </td>
+
+
+                                <td>
+
+                                    <div class="actions">
+
+                                        <a
+                                            href="edit-product.html"
+                                            class="edit-btn"
+                                        >
+                                            Edit
+                                        </a>
+
+                                        <button
+                                            class="delete-btn"
+                                            type="button"
+                                        >
+                                            Delete
+                                        </button>
+
+                                    </div>
+
+                                </td>
+
+                            </tr>
+
+
+
+                            <!-- PRODUCT 4 -->
+
+                            <tr>
+
+                                <td>
+
+                                    <div class="product-info">
+
+                                        <div class="product-image">
+                                            🥛
+                                        </div>
+
+                                        <div>
+
+                                            <strong>
+                                                Fresh Milk
+                                            </strong>
+
+                                            <span>
+                                                Added 2 weeks ago
+                                            </span>
+
+                                        </div>
+
+                                    </div>
+
+                                </td>
+
+
+                                <td>
+                                    Dairy
+                                </td>
+
+
+                                <td>
+                                    <strong>
+                                        ৳90/L
+                                    </strong>
+                                </td>
+
+
+                                <td>
+                                    35 L
+                                </td>
+
+
+                                <td>
+
+                                    <span class="status inactive">
+                                        Inactive
+                                    </span>
+
+                                </td>
+
+
+                                <td>
+
+                                    <div class="actions">
+
+                                        <a
+                                            href="edit-product.html"
+                                            class="edit-btn"
+                                        >
+                                            Edit
+                                        </a>
+
+                                        <button
+                                            class="delete-btn"
+                                            type="button"
+                                        >
+                                            Delete
+                                        </button>
+
+                                    </div>
+
+                                </td>
+
+                            </tr>
+
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+
+                <!-- PAGINATION -->
+
+                <div class="pagination">
+
+                    <button class="page-btn active">
+                        1
+                    </button>
+
+                    <button class="page-btn">
+                        2
+                    </button>
+
+                    <button class="page-btn">
+                        3
+                    </button>
+
+                    <button class="page-btn">
+                        →
+                    </button>
+
+                </div>
+
+            </section>
+
+
+        </div>
+
+    </main>
+
+
+
+    <!-- ================= FOOTER ================= -->
+
+    <footer class="footer">
+
+        <div class="container footer-grid">
+
+
+            <div class="footer-about">
+
+                <a
+                    href="farmer.html"
+                    class="logo footer-logo"
+                >
+
+                    <span class="logo-icon">
+                        🌱
+                    </span>
+
+                    <span>
+                        Agro<span>Link</span>
+                    </span>
+
+                </a>
+
+                <p>
+                    Connecting farmers and consumers through
+                    a smarter agricultural marketplace.
+                </p>
+
+            </div>
+
+
+            <div class="footer-column">
+
+                <h3>
+                    Farmer
+                </h3>
+
+                <a href="farmer.html">
+                    Dashboard
+                </a>
+
+                <a href="farmer-products.html">
+                    My Products
+                </a>
+
+                <a href="farmer-orders.html">
+                    Orders
+                </a>
+
+                <a href="farmer-dss.html">
+                    Decision Support
+                </a>
+
+            </div>
+
+
+            <div class="footer-column">
+
+                <h3>
+                    Account
+                </h3>
+
+                <a href="#">
+                    My Profile
+                </a>
+
+                <a href="#">
+                    Settings
+                </a>
+
+                <a href="index.html">
+                    Logout
+                </a>
+
+            </div>
+
+
+            <div class="footer-column">
+
+                <h3>
+                    Support
+                </h3>
+
+                <a href="#">
+                    Help Center
+                </a>
+
+                <a href="#">
+                    Contact Us
+                </a>
+
+                <a href="#">
+                    FAQ
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <div class="footer-bottom">
+
+            <div class="container">
+
+                <p>
+                    © 2026 AgroLink. All Rights Reserved.
+                </p>
+
+                <p>
+                    Academic Project
+                </p>
+
+            </div>
+
+        </div>
+
+    </footer>
+
+
+</body>
+
+</html>
