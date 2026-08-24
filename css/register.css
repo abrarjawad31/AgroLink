@@ -1,0 +1,518 @@
+/* =====================================================
+   REGISTER PAGE
+   ===================================================== */
+
+
+/* ================= REGISTER SECTION ================= */
+
+.register-section {
+    min-height: 750px;
+
+    padding: 60px 0;
+
+    background: #f7faf6;
+
+    display: flex;
+
+    align-items: center;
+}
+
+.register-container {
+    width: 90%;
+    max-width: 1050px;
+
+    margin: auto;
+
+    display: grid;
+
+    grid-template-columns: 1fr 460px;
+
+    gap: 65px;
+
+    align-items: center;
+}
+
+
+/* ================= INTRO ================= */
+
+.register-intro {
+    padding-right: 25px;
+}
+
+.register-intro h1 {
+    font-family: "Playfair Display", serif;
+
+    font-size: 42px;
+
+    line-height: 1.2;
+
+    margin: 12px 0 18px;
+}
+
+.register-intro h1 span {
+    color: var(--primary);
+}
+
+.register-intro > p {
+    max-width: 500px;
+
+    color: var(--light-text);
+
+    font-size: 12px;
+
+    line-height: 1.7;
+
+    margin-bottom: 30px;
+}
+
+
+/* ================= HIGHLIGHTS ================= */
+
+.register-highlights {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 18px;
+}
+
+.highlight {
+    display: flex;
+
+    align-items: center;
+
+    gap: 13px;
+}
+
+.highlight-icon {
+    width: 42px;
+    height: 42px;
+
+    flex-shrink: 0;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    background: var(--primary-light);
+
+    border-radius: 50%;
+
+    font-size: 18px;
+}
+
+.highlight strong {
+    display: block;
+
+    font-size: 11px;
+
+    margin-bottom: 3px;
+}
+
+.highlight p {
+    color: var(--light-text);
+
+    font-size: 9px;
+
+    line-height: 1.5;
+}
+
+
+/* ================= REGISTER CARD ================= */
+
+.register-card {
+    background: var(--white);
+
+    border: 1px solid var(--border);
+
+    border-radius: 10px;
+
+    padding: 32px;
+
+    box-shadow: 0 10px 35px rgba(0, 0, 0, 0.05);
+}
+
+.register-card-header {
+    text-align: center;
+
+    margin-bottom: 20px;
+}
+
+.register-card-header h2 {
+    font-family: "Playfair Display", serif;
+
+    font-size: 25px;
+
+    margin-bottom: 5px;
+}
+
+.register-card-header p {
+    color: var(--light-text);
+
+    font-size: 10px;
+}
+
+
+/* =====================================================
+   ROLE SELECTION
+   ===================================================== */
+
+.role-section {
+    margin-bottom: 20px;
+}
+
+.role-title {
+    display: block;
+
+    color: var(--dark);
+
+    font-size: 10px;
+
+    font-weight: 600;
+
+    margin-bottom: 9px;
+}
+
+.role-options {
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    gap: 10px;
+}
+
+
+/* Hide native radio */
+
+.role-option input {
+    position: absolute;
+
+    opacity: 0;
+
+    pointer-events: none;
+}
+
+
+/* Role card */
+
+.role-option {
+    position: relative;
+
+    display: block;
+
+    cursor: pointer;
+}
+
+.role-content {
+    display: flex;
+
+    align-items: center;
+
+    gap: 9px;
+
+    min-height: 62px;
+
+    padding: 10px;
+
+    border: 1px solid var(--border);
+
+    border-radius: 7px;
+
+    background: #fff;
+
+    transition: 0.25s;
+}
+
+
+/* Hover */
+
+.role-option:hover .role-content {
+    border-color: var(--primary);
+
+    background: #fafdf9;
+}
+
+
+/* Selected */
+
+.role-option input:checked + .role-content {
+    border: 2px solid var(--primary);
+
+    background: var(--primary-light);
+
+    padding: 9px;
+}
+
+
+/* Icon */
+
+.role-icon {
+    width: 32px;
+    height: 32px;
+
+    flex-shrink: 0;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background: #f0f5ee;
+
+    font-size: 15px;
+}
+
+
+/* Text */
+
+.role-content div {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 3px;
+}
+
+.role-content strong {
+    color: var(--dark);
+
+    font-size: 10px;
+}
+
+.role-content div span {
+    color: var(--light-text);
+
+    font-size: 8px;
+}
+
+
+/* =====================================================
+   FORM
+   ===================================================== */
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+
+    color: var(--dark);
+
+    font-size: 10px;
+
+    font-weight: 600;
+
+    margin-bottom: 7px;
+}
+
+.form-group input {
+    width: 100%;
+
+    height: 40px;
+
+    padding: 0 12px;
+
+    border: 1px solid var(--border);
+
+    border-radius: 5px;
+
+    outline: none;
+
+    font-family: inherit;
+
+    font-size: 10px;
+
+    transition: 0.3s;
+}
+
+.form-group input:focus {
+    border-color: var(--primary);
+
+    box-shadow: 0 0 0 3px rgba(54, 110, 61, 0.08);
+}
+
+
+/* ================= PASSWORD ROW ================= */
+
+.form-row {
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    gap: 12px;
+}
+
+
+/* ================= TERMS ================= */
+
+.terms-row {
+    margin: 3px 0 20px;
+}
+
+.terms-row label {
+    display: flex;
+
+    align-items: flex-start;
+
+    gap: 7px;
+
+    color: var(--light-text);
+
+    font-size: 8px;
+
+    line-height: 1.5;
+
+    cursor: pointer;
+}
+
+.terms-row input {
+    margin-top: 2px;
+
+    flex-shrink: 0;
+
+    accent-color: var(--primary);
+
+    cursor: pointer;
+}
+
+.terms-row a {
+    color: var(--primary);
+
+    font-weight: 600;
+
+    text-decoration: none;
+}
+
+
+/* ================= REGISTER BUTTON ================= */
+
+.register-submit {
+    width: 100%;
+
+    height: 43px;
+
+    border: none;
+
+    border-radius: 5px;
+
+    background: var(--primary);
+
+    color: var(--white);
+
+    font-family: inherit;
+
+    font-size: 11px;
+
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition: 0.3s;
+}
+
+.register-submit:hover {
+    background: var(--primary-dark);
+
+    transform: translateY(-1px);
+}
+
+
+/* ================= LOGIN PROMPT ================= */
+
+.login-prompt {
+    display: flex;
+
+    justify-content: center;
+
+    gap: 5px;
+
+    margin-top: 20px;
+
+    padding-top: 18px;
+
+    border-top: 1px solid var(--border);
+
+    font-size: 9px;
+}
+
+.login-prompt span {
+    color: var(--light-text);
+}
+
+.login-prompt a {
+    color: var(--primary);
+
+    font-weight: 700;
+
+    text-decoration: none;
+}
+
+
+/* ================= ACTIVE NAV ================= */
+
+.active-register {
+    background: var(--primary) !important;
+
+    color: var(--white) !important;
+}
+
+
+/* ================= RESPONSIVE ================= */
+
+@media (max-width: 850px) {
+
+    .register-container {
+        grid-template-columns: 1fr;
+
+        max-width: 500px;
+
+        gap: 40px;
+    }
+
+    .register-intro {
+        padding-right: 0;
+
+        text-align: center;
+    }
+
+    .register-intro > p {
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .highlight {
+        text-align: left;
+    }
+
+}
+
+
+@media (max-width: 500px) {
+
+    .register-section {
+        padding: 45px 0;
+    }
+
+    .register-intro h1 {
+        font-size: 32px;
+    }
+
+    .register-card {
+        padding: 25px 20px;
+    }
+
+    .role-options {
+        grid-template-columns: 1fr;
+    }
+
+    .form-row {
+        grid-template-columns: 1fr;
+
+        gap: 0;
+    }
+
+}
