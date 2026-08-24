@@ -1,722 +1,647 @@
 /* =====================================================
-   FARMER PROFILE
+   AGROLINK - FARMER PROFILE STYLES
    ===================================================== */
 
+/* ================= NAVBAR & ACTIONS ================= */
 
-/* ================= NAVBAR ================= */
+.active-nav {
+    color: var(--primary) !important;
+}
 
 .farmer-actions {
     display: flex;
     align-items: center;
-    gap: 14px;
+    gap: 16px;
 }
 
 .notification {
+    position: relative;
     color: var(--dark);
+    font-size: 18px;
     text-decoration: none;
-    font-size: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s ease;
+}
+
+.notification:hover {
+    transform: scale(1.1);
+}
+
+.notification-count {
+    position: absolute;
+    top: -6px;
+    right: -8px;
+    width: 16px;
+    height: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: var(--primary);
+    color: white;
+    font-size: 10px;
+    font-weight: 700;
 }
 
 .profile-link {
     display: flex;
     align-items: center;
-    gap: 6px;
-
+    gap: 10px;
     color: var(--dark);
-
-    text-decoration: none;
-
-    font-size: 9px;
+    font-size: 14px;
     font-weight: 600;
+    text-decoration: none;
+    padding: 4px 8px;
+    border-radius: 20px;
+    transition: background-color 0.2s ease;
+}
+
+.profile-link:hover {
+    background-color: #eaf5e8;
 }
 
 .profile-avatar {
-    width: 29px;
-    height: 29px;
-
+    width: 36px;
+    height: 36px;
     display: flex;
     align-items: center;
     justify-content: center;
-
     border-radius: 50%;
-
     background: var(--primary);
     color: white;
-
-    font-size: 10px;
+    font-size: 14px;
     font-weight: 700;
+    box-shadow: 0 2px 6px rgba(47, 125, 50, 0.25);
+}
+
+.profile-name {
+    color: var(--dark);
 }
 
 .logout-btn {
-    padding: 8px 12px;
-
+    padding: 8px 16px;
     border: 1px solid var(--border);
-    border-radius: 5px;
-
+    border-radius: 6px;
     color: var(--dark);
-
-    text-decoration: none;
-
-    font-size: 9px;
+    font-size: 13px;
     font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    background: white;
 }
 
 .logout-btn:hover {
     color: var(--primary);
-
     border-color: var(--primary);
+    background: var(--primary-light);
 }
 
-
-/* ================= PAGE ================= */
+/* ================= PAGE CONTAINER ================= */
 
 .profile-page {
-    min-height: 1000px;
-
-    padding: 45px 0 70px;
-
+    min-height: calc(100vh - 76px);
+    padding: 36px 0 70px;
     background: #f7faf6;
 }
 
-
-/* ================= PROFILE HEADER ================= */
+/* ================= PROFILE HEADER CARD ================= */
 
 .profile-header-card {
     display: flex;
-
     align-items: center;
     justify-content: space-between;
-
-    padding: 25px;
-
-    margin-bottom: 18px;
-
+    padding: 28px 32px;
+    margin-bottom: 24px;
     background: white;
-
     border: 1px solid var(--border);
-
-    border-radius: 9px;
+    border-radius: 12px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.02);
 }
 
 .profile-main {
     display: flex;
-
     align-items: center;
-
-    gap: 16px;
+    gap: 24px;
 }
 
 .large-avatar {
-    width: 72px;
-    height: 72px;
-
+    width: 84px;
+    height: 84px;
     display: flex;
     align-items: center;
     justify-content: center;
-
     border-radius: 50%;
-
-    background: var(--primary);
-
+    background: linear-gradient(135deg, var(--primary), var(--primary-dark));
     color: white;
-
-    font-size: 25px;
+    font-size: 34px;
     font-weight: 700;
+    box-shadow: 0 4px 14px rgba(47, 125, 50, 0.3);
+    flex-shrink: 0;
 }
 
 .profile-role {
+    display: inline-block;
+    padding: 4px 10px;
+    background: var(--primary-light);
     color: var(--primary);
-
-    font-size: 7px;
+    font-size: 11px;
     font-weight: 700;
-
-    letter-spacing: 1px;
+    letter-spacing: 0.8px;
+    border-radius: 20px;
+    margin-bottom: 6px;
 }
 
 .profile-identity h1 {
-    margin: 5px 0;
-
+    margin: 4px 0 6px;
     font-family: "Playfair Display", serif;
-
-    font-size: 24px;
+    font-size: 28px;
+    color: var(--dark);
+    font-weight: 700;
 }
 
 .profile-identity p {
-    color: var(--light-text);
-
-    font-size: 9px;
-
-    margin-bottom: 5px;
+    color: var(--text);
+    font-size: 14px;
+    margin-bottom: 6px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
 }
 
 .member-date {
-    color: #849084;
-
-    font-size: 7px;
+    color: var(--light-text);
+    font-size: 13px;
 }
 
 .edit-profile-btn {
-    padding: 9px 14px;
-
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 20px;
     border: 1px solid var(--border);
-
-    border-radius: 5px;
-
+    border-radius: 8px;
     background: white;
-
     color: var(--dark);
-
     font-family: inherit;
-
-    font-size: 8px;
+    font-size: 14px;
     font-weight: 600;
-
     cursor: pointer;
+    transition: all 0.25s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
 }
 
 .edit-profile-btn:hover {
     border-color: var(--primary);
-
     color: var(--primary);
+    background: var(--primary-light);
+    transform: translateY(-1px);
 }
-
 
 /* ================= STATISTICS ================= */
 
 .profile-stats {
     display: grid;
-
     grid-template-columns: repeat(4, 1fr);
-
-    gap: 14px;
-
-    margin-bottom: 18px;
+    gap: 18px;
+    margin-bottom: 24px;
 }
 
 .stat-card {
     display: flex;
-
     align-items: center;
-
-    gap: 11px;
-
-    padding: 16px;
-
+    gap: 16px;
+    padding: 20px;
     background: white;
-
     border: 1px solid var(--border);
+    border-radius: 12px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
 
-    border-radius: 7px;
+.stat-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.04);
 }
 
 .stat-icon {
-    width: 36px;
-    height: 36px;
-
+    width: 48px;
+    height: 48px;
     display: flex;
-
     align-items: center;
     justify-content: center;
-
     flex-shrink: 0;
-
-    border-radius: 6px;
-
+    border-radius: 10px;
     background: #edf6eb;
-
-    font-size: 16px;
+    font-size: 22px;
 }
 
 .stat-card div span {
     display: block;
-
     margin-bottom: 4px;
-
     color: var(--light-text);
-
-    font-size: 6px;
-
+    font-size: 11px;
     font-weight: 700;
-
-    letter-spacing: 0.5px;
+    letter-spacing: 0.6px;
+    text-transform: uppercase;
 }
 
 .stat-card strong {
-    font-size: 15px;
+    font-size: 22px;
+    color: var(--dark);
+    font-weight: 700;
 }
-
 
 /* ================= PROFILE GRID ================= */
 
 .profile-grid {
     display: grid;
-
     grid-template-columns: 1fr 1fr;
-
-    gap: 18px;
-
-    margin-bottom: 18px;
+    gap: 24px;
+    margin-bottom: 24px;
 }
 
 .information-card {
-    padding: 22px;
-
+    display: flex;
+    flex-direction: column;
+    padding: 26px;
     background: white;
-
     border: 1px solid var(--border);
-
-    border-radius: 8px;
+    border-radius: 12px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.02);
 }
 
 .card-heading {
-    padding-bottom: 15px;
-
-    margin-bottom: 5px;
-
+    padding-bottom: 16px;
+    margin-bottom: 12px;
     border-bottom: 1px solid var(--border);
 }
 
 .heading-tag {
+    display: inline-block;
     color: var(--primary);
-
-    font-size: 7px;
-
+    font-size: 11px;
     font-weight: 700;
-
-    letter-spacing: 0.7px;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    margin-bottom: 4px;
 }
 
 .card-heading h2 {
-    margin-top: 5px;
-
-    font-size: 14px;
+    margin-top: 2px;
+    font-size: 20px;
+    color: var(--dark);
+    font-weight: 700;
 }
 
-
-/* ================= INFORMATION ================= */
+/* ================= INFORMATION LIST ================= */
 
 .information-list {
     display: grid;
-
     grid-template-columns: 1fr 1fr;
-
-    gap: 0;
+    gap: 8px 20px;
+    flex: 1;
 }
 
 .information-item {
     padding: 12px 0;
-
     border-bottom: 1px solid #f0f2ef;
-}
-
-.information-item:nth-child(odd) {
-    margin-right: 15px;
 }
 
 .information-item span {
     display: block;
-
     margin-bottom: 4px;
-
     color: var(--light-text);
-
-    font-size: 7px;
+    font-size: 12px;
+    font-weight: 500;
 }
 
 .information-item strong {
-    font-size: 8px;
+    font-size: 14px;
+    color: var(--dark);
+    font-weight: 600;
 }
 
 .profile-note {
-    padding: 10px;
-
-    margin-top: 14px;
-
-    border-radius: 5px;
-
+    padding: 14px 16px;
+    margin-top: 18px;
+    border-radius: 8px;
     background: #f2f8f0;
-
-    color: #577056;
-
-    font-size: 7px;
-
+    color: #3b633a;
+    font-size: 13px;
     line-height: 1.5;
+    border-left: 3px solid var(--primary);
 }
-
 
 /* ================= FARM INFORMATION ================= */
 
 .farm-info-grid {
     display: grid;
-
     grid-template-columns: 1fr 1fr;
-
-    gap: 10px;
-
-    margin-top: 15px;
+    gap: 14px;
+    margin-top: 8px;
+    flex: 1;
 }
 
 .farm-info-box {
-    padding: 13px;
-
+    padding: 16px;
     border: 1px solid var(--border);
-
-    border-radius: 6px;
-
+    border-radius: 8px;
     background: #fafcf9;
 }
 
 .farm-info-box span {
     display: block;
-
     color: var(--light-text);
-
-    font-size: 7px;
-
-    margin-bottom: 5px;
+    font-size: 12px;
+    margin-bottom: 6px;
 }
 
 .farm-info-box strong {
-    font-size: 9px;
+    font-size: 15px;
+    color: var(--dark);
+    font-weight: 600;
 }
 
 .dss-profile-link {
     display: flex;
-
     align-items: center;
     justify-content: space-between;
-
-    gap: 15px;
-
-    padding: 13px;
-
-    margin-top: 14px;
-
-    border-radius: 6px;
-
+    gap: 16px;
+    padding: 16px 20px;
+    margin-top: 18px;
+    border-radius: 8px;
     background: #f2f8f0;
+    border: 1px solid #e0ede0;
 }
 
 .dss-profile-link strong {
     display: block;
-
-    font-size: 8px;
-
+    font-size: 14px;
+    color: var(--dark);
     margin-bottom: 4px;
 }
 
 .dss-profile-link span {
     display: block;
-
-    color: var(--light-text);
-
-    font-size: 7px;
+    color: var(--text);
+    font-size: 12px;
 }
 
 .dss-profile-link a {
     flex-shrink: 0;
-
-    color: var(--primary);
-
-    font-size: 8px;
-
-    font-weight: 700;
-
+    display: inline-flex;
+    align-items: center;
+    padding: 8px 16px;
+    background: var(--primary);
+    color: white;
+    font-size: 13px;
+    font-weight: 600;
     text-decoration: none;
+    border-radius: 6px;
+    transition: background-color 0.2s ease, transform 0.2s ease;
 }
 
+.dss-profile-link a:hover {
+    background: var(--primary-dark);
+    transform: translateY(-1px);
+}
 
 /* ================= CAREER CARD ================= */
 
 .career-card {
-    padding: 25px;
-
-    margin-bottom: 18px;
-
+    padding: 28px 32px;
+    margin-bottom: 24px;
     background: white;
-
     border: 1px solid var(--border);
-
-    border-radius: 8px;
+    border-radius: 12px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.02);
 }
 
 .career-header {
     display: flex;
-
     align-items: flex-start;
     justify-content: space-between;
-
-    margin-bottom: 25px;
+    margin-bottom: 28px;
 }
 
 .career-header h2 {
-    margin: 5px 0;
-
+    margin: 4px 0 6px;
     font-family: "Playfair Display", serif;
-
-    font-size: 20px;
+    font-size: 24px;
+    color: var(--dark);
 }
 
 .career-header p {
-    color: var(--light-text);
-
-    font-size: 8px;
+    color: var(--text);
+    font-size: 14px;
 }
 
 .career-total {
     text-align: right;
+    background: #fafcf9;
+    padding: 12px 20px;
+    border-radius: 8px;
+    border: 1px solid var(--border);
 }
 
 .career-total span {
     display: block;
-
     color: var(--light-text);
-
-    font-size: 6px;
-
+    font-size: 11px;
     font-weight: 700;
-
-    letter-spacing: 0.5px;
+    letter-spacing: 0.6px;
+    text-transform: uppercase;
 }
 
 .career-total strong {
     display: inline-block;
-
     color: var(--primary);
-
-    font-size: 25px;
-
-    margin-top: 3px;
+    font-size: 32px;
+    font-weight: 700;
+    line-height: 1.1;
+    margin-top: 2px;
 }
 
 .career-total small {
+    display: block;
     color: var(--light-text);
-
-    font-size: 7px;
+    font-size: 12px;
 }
-
 
 /* ================= CHART ================= */
 
 .chart-wrapper {
     display: flex;
-
     width: 100%;
-
     height: 260px;
+    margin-top: 10px;
 }
 
 .y-axis {
-    width: 30px;
-
+    width: 36px;
     display: flex;
-
     flex-direction: column;
-
     justify-content: space-between;
-
-    padding: 0 0 25px;
-
+    padding: 0 8px 30px 0;
     color: var(--light-text);
-
-    font-size: 7px;
-
+    font-size: 12px;
+    font-weight: 600;
     text-align: right;
 }
 
 .chart-area {
     position: relative;
-
     flex: 1;
-
     height: 100%;
 }
 
 .horizontal-line {
     position: absolute;
-
     left: 0;
     right: 0;
-
     border-top: 1px dashed #e4e9e3;
 }
 
-.line-1 {
-    top: 0;
-}
-
-.line-2 {
-    top: 20%;
-}
-
-.line-3 {
-    top: 40%;
-}
-
-.line-4 {
-    top: 60%;
-}
-
-.line-5 {
-    top: 80%;
-}
-
-.line-6 {
-    bottom: 25px;
-}
+.line-1 { top: 0; }
+.line-2 { top: 20%; }
+.line-3 { top: 40%; }
+.line-4 { top: 60%; }
+.line-5 { top: 80%; }
+.line-6 { bottom: 25px; }
 
 .ogive-chart {
     position: absolute;
-
     left: 0;
     top: 0;
-
     width: 100%;
-
     height: calc(100% - 25px);
-
     overflow: visible;
-
     color: var(--primary);
+}
+
+.ogive-chart polyline {
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    filter: drop-shadow(0 4px 6px rgba(47, 125, 50, 0.2));
 }
 
 .ogive-chart circle {
     fill: var(--primary);
+    stroke: white;
+    stroke-width: 2px;
+    transition: r 0.2s ease;
+    cursor: pointer;
+}
+
+.ogive-chart circle:hover {
+    r: 8;
 }
 
 .x-axis {
     position: absolute;
-
     left: 0;
     right: 0;
-
     bottom: 0;
-
     display: flex;
-
     justify-content: space-between;
-
+    padding: 0 10px;
     color: var(--light-text);
-
-    font-size: 7px;
+    font-size: 12px;
+    font-weight: 600;
 }
 
 .chart-description {
     display: flex;
-
-    align-items: flex-start;
-
-    gap: 7px;
-
-    padding: 10px 12px;
-
-    margin-top: 15px;
-
-    border-radius: 5px;
-
+    align-items: center;
+    gap: 10px;
+    padding: 12px 16px;
+    margin-top: 20px;
+    border-radius: 8px;
     background: #f7faf6;
+    border: 1px solid #eef2ec;
 }
 
 .chart-description span {
     color: var(--primary);
-
-    font-size: 10px;
+    font-size: 14px;
 }
 
 .chart-description p {
-    color: var(--light-text);
-
-    font-size: 7px;
-
+    color: var(--text);
+    font-size: 13px;
     line-height: 1.5;
 }
-
 
 /* ================= HIGHLIGHTS ================= */
 
 .highlights-section {
-    margin-top: 5px;
+    margin-top: 10px;
 }
 
 .section-title {
-    margin-bottom: 14px;
+    margin-bottom: 18px;
 }
 
 .section-title h2 {
-    margin-top: 5px;
-
+    margin-top: 4px;
     font-family: "Playfair Display", serif;
-
-    font-size: 20px;
+    font-size: 24px;
+    color: var(--dark);
 }
 
 .highlights-grid {
     display: grid;
-
     grid-template-columns: repeat(4, 1fr);
-
-    gap: 14px;
+    gap: 18px;
 }
 
 .highlight-card {
     display: flex;
-
     align-items: flex-start;
-
-    gap: 10px;
-
-    padding: 16px;
-
+    gap: 14px;
+    padding: 20px;
     background: white;
-
     border: 1px solid var(--border);
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
 
-    border-radius: 7px;
+.highlight-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.04);
 }
 
 .highlight-icon {
-    width: 34px;
-    height: 34px;
-
+    width: 44px;
+    height: 44px;
     display: flex;
-
     align-items: center;
     justify-content: center;
-
     flex-shrink: 0;
-
-    border-radius: 6px;
-
+    border-radius: 10px;
     background: #f0f7ee;
-
-    font-size: 15px;
+    font-size: 20px;
 }
 
 .highlight-card strong {
     display: block;
-
-    margin-bottom: 4px;
-
-    font-size: 8px;
+    margin-bottom: 6px;
+    font-size: 15px;
+    color: var(--dark);
+    font-weight: 700;
 }
 
 .highlight-card p {
-    color: var(--light-text);
-
-    font-size: 7px;
-
+    color: var(--text);
+    font-size: 13px;
     line-height: 1.5;
 }
 
-
 /* ================= RESPONSIVE ================= */
 
-@media (max-width: 1000px) {
-
-    .nav-menu {
-        display: none;
-    }
-
+@media (max-width: 1024px) {
     .profile-stats {
         grid-template-columns: repeat(2, 1fr);
     }
@@ -724,35 +649,36 @@
     .highlights-grid {
         grid-template-columns: repeat(2, 1fr);
     }
-
 }
 
-
-@media (max-width: 750px) {
-
+@media (max-width: 768px) {
     .profile-grid {
         grid-template-columns: 1fr;
     }
 
     .profile-header-card {
         align-items: flex-start;
-
         flex-direction: column;
-
-        gap: 18px;
-    }
-
-    .career-header {
         gap: 20px;
     }
 
+    .career-header {
+        flex-direction: column;
+        gap: 18px;
+    }
+
+    .career-total {
+        text-align: left;
+    }
+
+    .information-list {
+        grid-template-columns: 1fr;
+    }
 }
 
-
-@media (max-width: 550px) {
-
+@media (max-width: 576px) {
     .profile-page {
-        padding: 30px 0 50px;
+        padding: 24px 0 50px;
     }
 
     .profile-stats {
@@ -761,14 +687,6 @@
 
     .highlights-grid {
         grid-template-columns: 1fr;
-    }
-
-    .information-list {
-        grid-template-columns: 1fr;
-    }
-
-    .information-item:nth-child(odd) {
-        margin-right: 0;
     }
 
     .farm-info-grid {
@@ -776,28 +694,23 @@
     }
 
     .profile-main {
+        flex-direction: column;
         align-items: flex-start;
+        gap: 16px;
     }
 
     .large-avatar {
-        width: 58px;
-        height: 58px;
-
-        font-size: 20px;
+        width: 68px;
+        height: 68px;
+        font-size: 28px;
     }
 
     .profile-identity h1 {
-        font-size: 20px;
+        font-size: 22px;
     }
 
-    .career-header {
-        align-items: flex-start;
-
+    .dss-profile-link {
         flex-direction: column;
+        align-items: flex-start;
     }
-
-    .career-total {
-        text-align: left;
-    }
-
 }
