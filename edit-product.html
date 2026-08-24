@@ -16,8 +16,7 @@
 
     <link
         href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap"
-        rel="stylesheet"
-    >
+        rel="stylesheet">
 
 </head>
 
@@ -45,21 +44,17 @@
 
             <nav class="nav-menu">
 
-                <a href="farmer.html">
-                    Dashboard
-                </a>
+                <a href="farmer.html">Dashboard</a>
 
-                <a href="farmer-products.html" class="active-nav">
-                    My Products
-                </a>
+                <a href="farmer-products.html">My Products</a>
 
-                <a href="farmer-orders.html">
-                    Orders
-                </a>
+                <a href="farmer-bookings.html" class="active-nav">Harvest Bookings</a>
 
-                <a href="farmer-dss.html">
-                    DSS
-                </a>
+                <a href="farmer-demands.html">Demand Broadcasts</a>
+
+                <a href="farmer-orders.html">Orders</a>
+
+                <a href="farmer-dss.html">DSS</a>
 
             </nav>
 
@@ -127,10 +122,7 @@
                 </div>
 
 
-                <a
-                    href="farmer-products.html"
-                    class="back-link"
-                >
+                <a href="farmer-products.html" class="back-link">
                     ← Back to My Products
                 </a>
 
@@ -140,12 +132,7 @@
 
             <!-- ================= PRODUCT FORM ================= -->
 
-            <form
-                action="#"
-                method="POST"
-                enctype="multipart/form-data"
-                class="product-form"
-            >
+            <form action="#" method="POST" enctype="multipart/form-data" class="product-form">
 
 
                 <!-- ================= BASIC INFORMATION ================= -->
@@ -185,13 +172,8 @@
                                 <span>*</span>
                             </label>
 
-                            <input
-                                type="text"
-                                id="product-name"
-                                name="product_name"
-                                value="Fresh Organic Tomatoes"
-                                required
-                            >
+                            <input type="text" id="product-name" name="product_name" value="Fresh Organic Tomatoes"
+                                required>
 
                         </div>
 
@@ -206,11 +188,7 @@
                                 <span>*</span>
                             </label>
 
-                            <select
-                                id="category"
-                                name="category"
-                                required
-                            >
+                            <select id="category" name="category" required>
 
                                 <option value="vegetables" selected>
                                     Vegetables
@@ -258,12 +236,7 @@
                                 Subcategory
                             </label>
 
-                            <input
-                                type="text"
-                                id="subcategory"
-                                name="subcategory"
-                                value="Organic Tomato"
-                            >
+                            <input type="text" id="subcategory" name="subcategory" value="Organic Tomato">
 
                         </div>
 
@@ -278,12 +251,8 @@
                                 <span>*</span>
                             </label>
 
-                            <textarea
-                                id="description"
-                                name="description"
-                                rows="5"
-                                required
-                            >Fresh organically grown tomatoes directly from our farm. Carefully harvested and packed to maintain freshness and quality.</textarea>
+                            <textarea id="description" name="description" rows="5"
+                                required>Fresh organically grown tomatoes directly from our farm. Carefully harvested and packed to maintain freshness and quality.</textarea>
 
                         </div>
 
@@ -336,15 +305,7 @@
                                     ৳
                                 </span>
 
-                                <input
-                                    type="number"
-                                    id="price"
-                                    name="price"
-                                    value="180"
-                                    min="0"
-                                    step="0.01"
-                                    required
-                                >
+                                <input type="number" id="price" name="price" value="180" min="0" step="0.01" required>
 
                             </div>
 
@@ -361,11 +322,7 @@
                                 <span>*</span>
                             </label>
 
-                            <select
-                                id="unit"
-                                name="unit"
-                                required
-                            >
+                            <select id="unit" name="unit" required>
 
                                 <option value="kg" selected>
                                     Kilogram (kg)
@@ -406,14 +363,7 @@
                                 <span>*</span>
                             </label>
 
-                            <input
-                                type="number"
-                                id="stock"
-                                name="stock"
-                                value="120"
-                                min="0"
-                                required
-                            >
+                            <input type="number" id="stock" name="stock" value="120" min="0" required>
 
                         </div>
 
@@ -427,13 +377,7 @@
                                 Minimum Order
                             </label>
 
-                            <input
-                                type="number"
-                                id="minimum-order"
-                                name="minimum_order"
-                                value="1"
-                                min="1"
-                            >
+                            <input type="number" id="minimum-order" name="minimum_order" value="1" min="1">
 
                         </div>
 
@@ -503,19 +447,11 @@
                             JPG, JPEG or PNG • Maximum 5MB
                         </p>
 
-                        <label
-                            for="product-image"
-                            class="upload-button"
-                        >
+                        <label for="product-image" class="upload-button">
                             Choose New Image
                         </label>
 
-                        <input
-                            type="file"
-                            id="product-image"
-                            name="product_image"
-                            accept=".jpg,.jpeg,.png"
-                        >
+                        <input type="file" id="product-image" name="product_image" accept=".jpg,.jpeg,.png">
 
                     </div>
 
@@ -560,13 +496,7 @@
                                 <span>*</span>
                             </label>
 
-                            <input
-                                type="text"
-                                id="district"
-                                name="district"
-                                value="Dhaka"
-                                required
-                            >
+                            <input type="text" id="district" name="district" value="Dhaka" required>
 
                         </div>
 
@@ -580,12 +510,7 @@
                                 Area / Upazila
                             </label>
 
-                            <input
-                                type="text"
-                                id="area"
-                                name="area"
-                                value="Savar"
-                            >
+                            <input type="text" id="area" name="area" value="Savar">
 
                         </div>
 
@@ -599,15 +524,9 @@
                                 Delivery Availability
                             </label>
 
-                            <select
-                                id="delivery"
-                                name="delivery"
-                            >
+                            <select id="delivery" name="delivery">
 
-                                <option
-                                    value="home-delivery"
-                                    selected
-                                >
+                                <option value="home-delivery" selected>
                                     Home Delivery Available
                                 </option>
 
@@ -656,12 +575,7 @@
 
                     <label class="availability-option">
 
-                        <input
-                            type="radio"
-                            name="availability"
-                            value="active"
-                            checked
-                        >
+                        <input type="radio" name="availability" value="active" checked>
 
                         <span class="custom-radio"></span>
 
@@ -682,11 +596,7 @@
 
                     <label class="availability-option">
 
-                        <input
-                            type="radio"
-                            name="availability"
-                            value="inactive"
-                        >
+                        <input type="radio" name="availability" value="inactive">
 
                         <span class="custom-radio"></span>
 
@@ -712,17 +622,11 @@
 
                 <div class="form-actions">
 
-                    <a
-                        href="farmer-products.html"
-                        class="cancel-btn"
-                    >
+                    <a href="farmer-products.html" class="cancel-btn">
                         Cancel
                     </a>
 
-                    <button
-                        type="submit"
-                        class="save-btn"
-                    >
+                    <button type="submit" class="save-btn">
                         ✓ Save Changes
                     </button>
 
@@ -746,10 +650,7 @@
 
             <div class="footer-about">
 
-                <a
-                    href="farmer.html"
-                    class="logo footer-logo"
-                >
+                <a href="farmer.html" class="logo footer-logo">
 
                     <span class="logo-icon">
                         🌱

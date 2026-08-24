@@ -16,8 +16,7 @@
 
     <link
         href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap"
-        rel="stylesheet"
-    >
+        rel="stylesheet">
 
 </head>
 
@@ -45,21 +44,17 @@
 
             <nav class="nav-menu">
 
-                <a href="farmer.html">
-                    Dashboard
-                </a>
+                <a href="farmer.html">Dashboard</a>
 
-                <a href="farmer-products.html" class="active-nav">
-                    My Products
-                </a>
+                <a href="farmer-products.html">My Products</a>
 
-                <a href="farmer-orders.html">
-                    Orders
-                </a>
+                <a href="farmer-bookings.html" class="active-nav">Harvest Bookings</a>
 
-                <a href="farmer-dss.html">
-                    DSS
-                </a>
+                <a href="farmer-demands.html">Demand Broadcasts</a>
+
+                <a href="farmer-orders.html">Orders</a>
+
+                <a href="farmer-dss.html">DSS</a>
 
             </nav>
 
@@ -128,10 +123,7 @@
                 </div>
 
 
-                <a
-                    href="farmer-products.html"
-                    class="back-link"
-                >
+                <a href="farmer-products.html" class="back-link">
                     ← Back to My Products
                 </a>
 
@@ -141,12 +133,7 @@
 
             <!-- ================= FORM ================= -->
 
-            <form
-                action="#"
-                method="POST"
-                enctype="multipart/form-data"
-                class="product-form"
-            >
+            <form action="#" method="POST" enctype="multipart/form-data" class="product-form">
 
 
                 <!-- ================= BASIC INFORMATION ================= -->
@@ -186,13 +173,8 @@
                                 <span>*</span>
                             </label>
 
-                            <input
-                                type="text"
-                                id="product-name"
-                                name="product_name"
-                                placeholder="e.g. Fresh Organic Tomatoes"
-                                required
-                            >
+                            <input type="text" id="product-name" name="product_name"
+                                placeholder="e.g. Fresh Organic Tomatoes" required>
 
                         </div>
 
@@ -207,11 +189,7 @@
                                 <span>*</span>
                             </label>
 
-                            <select
-                                id="category"
-                                name="category"
-                                required
-                            >
+                            <select id="category" name="category" required>
 
                                 <option value="">
                                     Select category
@@ -263,12 +241,8 @@
                                 Subcategory
                             </label>
 
-                            <input
-                                type="text"
-                                id="subcategory"
-                                name="subcategory"
-                                placeholder="e.g. Tomato, Mango, Rice"
-                            >
+                            <input type="text" id="subcategory" name="subcategory"
+                                placeholder="e.g. Tomato, Mango, Rice">
 
                         </div>
 
@@ -283,13 +257,9 @@
                                 <span>*</span>
                             </label>
 
-                            <textarea
-                                id="description"
-                                name="description"
-                                rows="5"
+                            <textarea id="description" name="description" rows="5"
                                 placeholder="Describe your product, quality, farming method, freshness, etc."
-                                required
-                            ></textarea>
+                                required></textarea>
 
                         </div>
 
@@ -342,15 +312,8 @@
                                     ৳
                                 </span>
 
-                                <input
-                                    type="number"
-                                    id="price"
-                                    name="price"
-                                    min="0"
-                                    step="0.01"
-                                    placeholder="0.00"
-                                    required
-                                >
+                                <input type="number" id="price" name="price" min="0" step="0.01" placeholder="0.00"
+                                    required>
 
                             </div>
 
@@ -367,11 +330,7 @@
                                 <span>*</span>
                             </label>
 
-                            <select
-                                id="unit"
-                                name="unit"
-                                required
-                            >
+                            <select id="unit" name="unit" required>
 
                                 <option value="">
                                     Select unit
@@ -416,14 +375,7 @@
                                 <span>*</span>
                             </label>
 
-                            <input
-                                type="number"
-                                id="stock"
-                                name="stock"
-                                min="0"
-                                placeholder="e.g. 100"
-                                required
-                            >
+                            <input type="number" id="stock" name="stock" min="0" placeholder="e.g. 100" required>
 
                         </div>
 
@@ -437,13 +389,7 @@
                                 Minimum Order
                             </label>
 
-                            <input
-                                type="number"
-                                id="minimum-order"
-                                name="minimum_order"
-                                min="1"
-                                placeholder="e.g. 1"
-                            >
+                            <input type="number" id="minimum-order" name="minimum_order" min="1" placeholder="e.g. 1">
 
                         </div>
 
@@ -492,19 +438,11 @@
                             JPG, JPEG or PNG • Maximum 5MB
                         </p>
 
-                        <label
-                            for="product-image"
-                            class="upload-button"
-                        >
+                        <label for="product-image" class="upload-button">
                             Choose Image
                         </label>
 
-                        <input
-                            type="file"
-                            id="product-image"
-                            name="product_image"
-                            accept=".jpg,.jpeg,.png"
-                        >
+                        <input type="file" id="product-image" name="product_image" accept=".jpg,.jpeg,.png">
 
                     </div>
 
@@ -549,13 +487,7 @@
                                 <span>*</span>
                             </label>
 
-                            <input
-                                type="text"
-                                id="district"
-                                name="district"
-                                placeholder="e.g. Dhaka"
-                                required
-                            >
+                            <input type="text" id="district" name="district" placeholder="e.g. Dhaka" required>
 
                         </div>
 
@@ -569,12 +501,7 @@
                                 Area / Upazila
                             </label>
 
-                            <input
-                                type="text"
-                                id="area"
-                                name="area"
-                                placeholder="e.g. Savar"
-                            >
+                            <input type="text" id="area" name="area" placeholder="e.g. Savar">
 
                         </div>
 
@@ -588,10 +515,7 @@
                                 Delivery Availability
                             </label>
 
-                            <select
-                                id="delivery"
-                                name="delivery"
-                            >
+                            <select id="delivery" name="delivery">
 
                                 <option value="home-delivery">
                                     Home Delivery Available
@@ -642,12 +566,7 @@
 
                     <label class="availability-option">
 
-                        <input
-                            type="radio"
-                            name="availability"
-                            value="active"
-                            checked
-                        >
+                        <input type="radio" name="availability" value="active" checked>
 
                         <span class="custom-radio"></span>
 
@@ -668,11 +587,7 @@
 
                     <label class="availability-option">
 
-                        <input
-                            type="radio"
-                            name="availability"
-                            value="inactive"
-                        >
+                        <input type="radio" name="availability" value="inactive">
 
                         <span class="custom-radio"></span>
 
@@ -698,17 +613,11 @@
 
                 <div class="form-actions">
 
-                    <a
-                        href="farmer-products.html"
-                        class="cancel-btn"
-                    >
+                    <a href="farmer-products.html" class="cancel-btn">
                         Cancel
                     </a>
 
-                    <button
-                        type="submit"
-                        class="save-btn"
-                    >
+                    <button type="submit" class="save-btn">
                         + Add Product
                     </button>
 
@@ -732,10 +641,7 @@
 
             <div class="footer-about">
 
-                <a
-                    href="farmer.html"
-                    class="logo footer-logo"
-                >
+                <a href="farmer.html" class="logo footer-logo">
 
                     <span class="logo-icon">
                         🌱

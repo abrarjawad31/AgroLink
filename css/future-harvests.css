@@ -1,0 +1,200 @@
+/* =====================================================
+   AGROLINK - FUTURE HARVEST BOOKINGS (CONSUMER)
+   ===================================================== */
+
+.harvest-hero {
+    background: linear-gradient(rgba(29, 42, 32, 0.85), rgba(29, 42, 32, 0.9)),
+        url("https://images.unsplash.com/photo-1500937386664-56d1dfef3854?auto=format&fit=crop&w=1600&q=80");
+    background-size: cover;
+    background-position: center;
+    color: white;
+    padding: 60px 0;
+    text-align: center;
+}
+
+.harvest-hero h1 {
+    font-family: "Playfair Display", serif;
+    font-size: 36px;
+    margin: 10px 0;
+}
+
+.harvest-hero h1 span {
+    color: #81c784;
+}
+
+.harvest-hero p {
+    color: #c8d6c9;
+    font-size: 16px;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.harvest-container {
+    padding: 50px 0 80px;
+    background: #f7faf6;
+    min-height: 800px;
+}
+
+.harvest-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    gap: 24px;
+    margin-top: 30px;
+}
+
+.harvest-card {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.02);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+    display: flex;
+    flex-direction: column;
+}
+
+.harvest-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+}
+
+.harvest-image {
+    position: relative;
+    height: 190px;
+    overflow: hidden;
+}
+
+.harvest-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.harvest-badge {
+    position: absolute;
+    top: 14px;
+    left: 14px;
+    background: var(--primary);
+    color: white;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 4px 10px;
+    border-radius: 20px;
+    letter-spacing: 0.5px;
+}
+
+.harvest-countdown {
+    position: absolute;
+    bottom: 12px;
+    right: 12px;
+    background: rgba(0, 0, 0, 0.75);
+    backdrop-filter: blur(4px);
+    color: #a5d6a7;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 4px 10px;
+    border-radius: 6px;
+}
+
+.harvest-info {
+    padding: 22px;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.harvest-info h3 {
+    font-size: 18px;
+    color: var(--dark);
+    margin-bottom: 4px;
+}
+
+.harvest-farmer {
+    color: var(--light-text);
+    font-size: 13px;
+    margin-bottom: 14px;
+}
+
+.progress-container {
+    margin-bottom: 16px;
+}
+
+.progress-labels {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    margin-bottom: 6px;
+    color: var(--text);
+}
+
+.progress-track {
+    width: 100%;
+    height: 8px;
+    background: #edf2eb;
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+.progress-bar {
+    height: 100%;
+    background: linear-gradient(90deg, #2f7d32, #66bb6a);
+    border-radius: 6px;
+}
+
+.harvest-meta-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    background: #fafcf9;
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    margin-bottom: 18px;
+    font-size: 12px;
+}
+
+.harvest-meta-grid span {
+    color: var(--light-text);
+    display: block;
+}
+
+.harvest-meta-grid strong {
+    color: var(--dark);
+    font-size: 14px;
+}
+
+.harvest-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: auto;
+    padding-top: 14px;
+    border-top: 1px solid var(--border);
+}
+
+.harvest-price strong {
+    font-size: 20px;
+    color: var(--primary);
+    font-weight: 700;
+}
+
+.harvest-price span {
+    font-size: 12px;
+    color: var(--light-text);
+}
+
+.book-btn {
+    padding: 10px 18px;
+    background: var(--primary);
+    color: white;
+    font-weight: 600;
+    font-size: 13px;
+    border-radius: 6px;
+    text-decoration: none;
+    transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.book-btn:hover {
+    background: var(--primary-dark);
+    transform: translateY(-1px);
+}
