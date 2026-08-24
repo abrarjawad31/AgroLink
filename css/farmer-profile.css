@@ -1,0 +1,803 @@
+/* =====================================================
+   FARMER PROFILE
+   ===================================================== */
+
+
+/* ================= NAVBAR ================= */
+
+.farmer-actions {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.notification {
+    color: var(--dark);
+    text-decoration: none;
+    font-size: 15px;
+}
+
+.profile-link {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+
+    color: var(--dark);
+
+    text-decoration: none;
+
+    font-size: 9px;
+    font-weight: 600;
+}
+
+.profile-avatar {
+    width: 29px;
+    height: 29px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background: var(--primary);
+    color: white;
+
+    font-size: 10px;
+    font-weight: 700;
+}
+
+.logout-btn {
+    padding: 8px 12px;
+
+    border: 1px solid var(--border);
+    border-radius: 5px;
+
+    color: var(--dark);
+
+    text-decoration: none;
+
+    font-size: 9px;
+    font-weight: 600;
+}
+
+.logout-btn:hover {
+    color: var(--primary);
+
+    border-color: var(--primary);
+}
+
+
+/* ================= PAGE ================= */
+
+.profile-page {
+    min-height: 1000px;
+
+    padding: 45px 0 70px;
+
+    background: #f7faf6;
+}
+
+
+/* ================= PROFILE HEADER ================= */
+
+.profile-header-card {
+    display: flex;
+
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 25px;
+
+    margin-bottom: 18px;
+
+    background: white;
+
+    border: 1px solid var(--border);
+
+    border-radius: 9px;
+}
+
+.profile-main {
+    display: flex;
+
+    align-items: center;
+
+    gap: 16px;
+}
+
+.large-avatar {
+    width: 72px;
+    height: 72px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background: var(--primary);
+
+    color: white;
+
+    font-size: 25px;
+    font-weight: 700;
+}
+
+.profile-role {
+    color: var(--primary);
+
+    font-size: 7px;
+    font-weight: 700;
+
+    letter-spacing: 1px;
+}
+
+.profile-identity h1 {
+    margin: 5px 0;
+
+    font-family: "Playfair Display", serif;
+
+    font-size: 24px;
+}
+
+.profile-identity p {
+    color: var(--light-text);
+
+    font-size: 9px;
+
+    margin-bottom: 5px;
+}
+
+.member-date {
+    color: #849084;
+
+    font-size: 7px;
+}
+
+.edit-profile-btn {
+    padding: 9px 14px;
+
+    border: 1px solid var(--border);
+
+    border-radius: 5px;
+
+    background: white;
+
+    color: var(--dark);
+
+    font-family: inherit;
+
+    font-size: 8px;
+    font-weight: 600;
+
+    cursor: pointer;
+}
+
+.edit-profile-btn:hover {
+    border-color: var(--primary);
+
+    color: var(--primary);
+}
+
+
+/* ================= STATISTICS ================= */
+
+.profile-stats {
+    display: grid;
+
+    grid-template-columns: repeat(4, 1fr);
+
+    gap: 14px;
+
+    margin-bottom: 18px;
+}
+
+.stat-card {
+    display: flex;
+
+    align-items: center;
+
+    gap: 11px;
+
+    padding: 16px;
+
+    background: white;
+
+    border: 1px solid var(--border);
+
+    border-radius: 7px;
+}
+
+.stat-icon {
+    width: 36px;
+    height: 36px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    flex-shrink: 0;
+
+    border-radius: 6px;
+
+    background: #edf6eb;
+
+    font-size: 16px;
+}
+
+.stat-card div span {
+    display: block;
+
+    margin-bottom: 4px;
+
+    color: var(--light-text);
+
+    font-size: 6px;
+
+    font-weight: 700;
+
+    letter-spacing: 0.5px;
+}
+
+.stat-card strong {
+    font-size: 15px;
+}
+
+
+/* ================= PROFILE GRID ================= */
+
+.profile-grid {
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    gap: 18px;
+
+    margin-bottom: 18px;
+}
+
+.information-card {
+    padding: 22px;
+
+    background: white;
+
+    border: 1px solid var(--border);
+
+    border-radius: 8px;
+}
+
+.card-heading {
+    padding-bottom: 15px;
+
+    margin-bottom: 5px;
+
+    border-bottom: 1px solid var(--border);
+}
+
+.heading-tag {
+    color: var(--primary);
+
+    font-size: 7px;
+
+    font-weight: 700;
+
+    letter-spacing: 0.7px;
+}
+
+.card-heading h2 {
+    margin-top: 5px;
+
+    font-size: 14px;
+}
+
+
+/* ================= INFORMATION ================= */
+
+.information-list {
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    gap: 0;
+}
+
+.information-item {
+    padding: 12px 0;
+
+    border-bottom: 1px solid #f0f2ef;
+}
+
+.information-item:nth-child(odd) {
+    margin-right: 15px;
+}
+
+.information-item span {
+    display: block;
+
+    margin-bottom: 4px;
+
+    color: var(--light-text);
+
+    font-size: 7px;
+}
+
+.information-item strong {
+    font-size: 8px;
+}
+
+.profile-note {
+    padding: 10px;
+
+    margin-top: 14px;
+
+    border-radius: 5px;
+
+    background: #f2f8f0;
+
+    color: #577056;
+
+    font-size: 7px;
+
+    line-height: 1.5;
+}
+
+
+/* ================= FARM INFORMATION ================= */
+
+.farm-info-grid {
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    gap: 10px;
+
+    margin-top: 15px;
+}
+
+.farm-info-box {
+    padding: 13px;
+
+    border: 1px solid var(--border);
+
+    border-radius: 6px;
+
+    background: #fafcf9;
+}
+
+.farm-info-box span {
+    display: block;
+
+    color: var(--light-text);
+
+    font-size: 7px;
+
+    margin-bottom: 5px;
+}
+
+.farm-info-box strong {
+    font-size: 9px;
+}
+
+.dss-profile-link {
+    display: flex;
+
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 15px;
+
+    padding: 13px;
+
+    margin-top: 14px;
+
+    border-radius: 6px;
+
+    background: #f2f8f0;
+}
+
+.dss-profile-link strong {
+    display: block;
+
+    font-size: 8px;
+
+    margin-bottom: 4px;
+}
+
+.dss-profile-link span {
+    display: block;
+
+    color: var(--light-text);
+
+    font-size: 7px;
+}
+
+.dss-profile-link a {
+    flex-shrink: 0;
+
+    color: var(--primary);
+
+    font-size: 8px;
+
+    font-weight: 700;
+
+    text-decoration: none;
+}
+
+
+/* ================= CAREER CARD ================= */
+
+.career-card {
+    padding: 25px;
+
+    margin-bottom: 18px;
+
+    background: white;
+
+    border: 1px solid var(--border);
+
+    border-radius: 8px;
+}
+
+.career-header {
+    display: flex;
+
+    align-items: flex-start;
+    justify-content: space-between;
+
+    margin-bottom: 25px;
+}
+
+.career-header h2 {
+    margin: 5px 0;
+
+    font-family: "Playfair Display", serif;
+
+    font-size: 20px;
+}
+
+.career-header p {
+    color: var(--light-text);
+
+    font-size: 8px;
+}
+
+.career-total {
+    text-align: right;
+}
+
+.career-total span {
+    display: block;
+
+    color: var(--light-text);
+
+    font-size: 6px;
+
+    font-weight: 700;
+
+    letter-spacing: 0.5px;
+}
+
+.career-total strong {
+    display: inline-block;
+
+    color: var(--primary);
+
+    font-size: 25px;
+
+    margin-top: 3px;
+}
+
+.career-total small {
+    color: var(--light-text);
+
+    font-size: 7px;
+}
+
+
+/* ================= CHART ================= */
+
+.chart-wrapper {
+    display: flex;
+
+    width: 100%;
+
+    height: 260px;
+}
+
+.y-axis {
+    width: 30px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: space-between;
+
+    padding: 0 0 25px;
+
+    color: var(--light-text);
+
+    font-size: 7px;
+
+    text-align: right;
+}
+
+.chart-area {
+    position: relative;
+
+    flex: 1;
+
+    height: 100%;
+}
+
+.horizontal-line {
+    position: absolute;
+
+    left: 0;
+    right: 0;
+
+    border-top: 1px dashed #e4e9e3;
+}
+
+.line-1 {
+    top: 0;
+}
+
+.line-2 {
+    top: 20%;
+}
+
+.line-3 {
+    top: 40%;
+}
+
+.line-4 {
+    top: 60%;
+}
+
+.line-5 {
+    top: 80%;
+}
+
+.line-6 {
+    bottom: 25px;
+}
+
+.ogive-chart {
+    position: absolute;
+
+    left: 0;
+    top: 0;
+
+    width: 100%;
+
+    height: calc(100% - 25px);
+
+    overflow: visible;
+
+    color: var(--primary);
+}
+
+.ogive-chart circle {
+    fill: var(--primary);
+}
+
+.x-axis {
+    position: absolute;
+
+    left: 0;
+    right: 0;
+
+    bottom: 0;
+
+    display: flex;
+
+    justify-content: space-between;
+
+    color: var(--light-text);
+
+    font-size: 7px;
+}
+
+.chart-description {
+    display: flex;
+
+    align-items: flex-start;
+
+    gap: 7px;
+
+    padding: 10px 12px;
+
+    margin-top: 15px;
+
+    border-radius: 5px;
+
+    background: #f7faf6;
+}
+
+.chart-description span {
+    color: var(--primary);
+
+    font-size: 10px;
+}
+
+.chart-description p {
+    color: var(--light-text);
+
+    font-size: 7px;
+
+    line-height: 1.5;
+}
+
+
+/* ================= HIGHLIGHTS ================= */
+
+.highlights-section {
+    margin-top: 5px;
+}
+
+.section-title {
+    margin-bottom: 14px;
+}
+
+.section-title h2 {
+    margin-top: 5px;
+
+    font-family: "Playfair Display", serif;
+
+    font-size: 20px;
+}
+
+.highlights-grid {
+    display: grid;
+
+    grid-template-columns: repeat(4, 1fr);
+
+    gap: 14px;
+}
+
+.highlight-card {
+    display: flex;
+
+    align-items: flex-start;
+
+    gap: 10px;
+
+    padding: 16px;
+
+    background: white;
+
+    border: 1px solid var(--border);
+
+    border-radius: 7px;
+}
+
+.highlight-icon {
+    width: 34px;
+    height: 34px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    flex-shrink: 0;
+
+    border-radius: 6px;
+
+    background: #f0f7ee;
+
+    font-size: 15px;
+}
+
+.highlight-card strong {
+    display: block;
+
+    margin-bottom: 4px;
+
+    font-size: 8px;
+}
+
+.highlight-card p {
+    color: var(--light-text);
+
+    font-size: 7px;
+
+    line-height: 1.5;
+}
+
+
+/* ================= RESPONSIVE ================= */
+
+@media (max-width: 1000px) {
+
+    .nav-menu {
+        display: none;
+    }
+
+    .profile-stats {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .highlights-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+}
+
+
+@media (max-width: 750px) {
+
+    .profile-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .profile-header-card {
+        align-items: flex-start;
+
+        flex-direction: column;
+
+        gap: 18px;
+    }
+
+    .career-header {
+        gap: 20px;
+    }
+
+}
+
+
+@media (max-width: 550px) {
+
+    .profile-page {
+        padding: 30px 0 50px;
+    }
+
+    .profile-stats {
+        grid-template-columns: 1fr;
+    }
+
+    .highlights-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .information-list {
+        grid-template-columns: 1fr;
+    }
+
+    .information-item:nth-child(odd) {
+        margin-right: 0;
+    }
+
+    .farm-info-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .profile-main {
+        align-items: flex-start;
+    }
+
+    .large-avatar {
+        width: 58px;
+        height: 58px;
+
+        font-size: 20px;
+    }
+
+    .profile-identity h1 {
+        font-size: 20px;
+    }
+
+    .career-header {
+        align-items: flex-start;
+
+        flex-direction: column;
+    }
+
+    .career-total {
+        text-align: left;
+    }
+
+}
