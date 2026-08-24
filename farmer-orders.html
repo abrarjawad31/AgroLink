@@ -1,0 +1,957 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Orders | AgroLink</title>
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/farmer-orders.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin">
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap"
+        rel="stylesheet"
+    >
+
+</head>
+
+<body>
+
+
+    <!-- ================= NAVBAR ================= -->
+
+    <header class="header">
+
+        <div class="container navbar">
+
+            <a href="farmer.html" class="logo">
+
+                <span class="logo-icon">
+                    🌱
+                </span>
+
+                <span>
+                    Agro<span>Link</span>
+                </span>
+
+            </a>
+
+
+            <nav class="nav-menu">
+
+                <a href="farmer.html">
+                    Dashboard
+                </a>
+
+                <a href="farmer-products.html">
+                    My Products
+                </a>
+
+                <a href="farmer-orders.html" class="active-nav">
+                    Orders
+                </a>
+
+                <a href="farmer-dss.html">
+                    DSS
+                </a>
+
+            </nav>
+
+
+            <div class="farmer-actions">
+
+                <a href="#" class="notification">
+
+                    🔔
+
+                    <span class="notification-count">
+                        3
+                    </span>
+
+                </a>
+
+
+                <a href="#" class="profile-link">
+
+                    <span class="profile-avatar">
+                        A
+                    </span>
+
+                    <span class="profile-name">
+                        Abrar
+                    </span>
+
+                </a>
+
+
+                <a href="index.html" class="logout-btn">
+                    Logout
+                </a>
+
+            </div>
+
+        </div>
+
+    </header>
+
+
+
+    <!-- ================= MAIN ================= -->
+
+    <main class="orders-page">
+
+        <div class="container">
+
+
+            <!-- ================= PAGE HEADER ================= -->
+
+            <section class="page-header">
+
+                <div>
+
+                    <span class="page-tag">
+                        FARM MANAGEMENT
+                    </span>
+
+                    <h1>
+                        Customer Orders
+                    </h1>
+
+                    <p>
+                        View and manage orders placed by consumers
+                        for your products.
+                    </p>
+
+                </div>
+
+            </section>
+
+
+
+            <!-- ================= ORDER SUMMARY ================= -->
+
+            <section class="order-summary">
+
+
+                <div class="summary-card">
+
+                    <div class="summary-icon">
+                        📦
+                    </div>
+
+                    <div>
+
+                        <span>
+                            Total Orders
+                        </span>
+
+                        <strong>
+                            24
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+                <div class="summary-card">
+
+                    <div class="summary-icon pending-icon">
+                        ⏳
+                    </div>
+
+                    <div>
+
+                        <span>
+                            Pending
+                        </span>
+
+                        <strong>
+                            5
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+                <div class="summary-card">
+
+                    <div class="summary-icon processing-icon">
+                        🔄
+                    </div>
+
+                    <div>
+
+                        <span>
+                            Processing
+                        </span>
+
+                        <strong>
+                            7
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+                <div class="summary-card">
+
+                    <div class="summary-icon completed-icon">
+                        ✓
+                    </div>
+
+                    <div>
+
+                        <span>
+                            Completed
+                        </span>
+
+                        <strong>
+                            12
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+            </section>
+
+
+
+            <!-- ================= FILTER BAR ================= -->
+
+            <section class="filter-bar">
+
+
+                <div class="search-box">
+
+                    <span>
+                        🔍
+                    </span>
+
+                    <input
+                        type="text"
+                        placeholder="Search order ID or customer..."
+                    >
+
+                </div>
+
+
+                <select>
+
+                    <option value="all">
+                        All Status
+                    </option>
+
+                    <option value="pending">
+                        Pending
+                    </option>
+
+                    <option value="processing">
+                        Processing
+                    </option>
+
+                    <option value="shipped">
+                        Shipped
+                    </option>
+
+                    <option value="completed">
+                        Completed
+                    </option>
+
+                    <option value="cancelled">
+                        Cancelled
+                    </option>
+
+                </select>
+
+
+                <select>
+
+                    <option value="recent">
+                        Newest First
+                    </option>
+
+                    <option value="oldest">
+                        Oldest First
+                    </option>
+
+                    <option value="highest">
+                        Highest Amount
+                    </option>
+
+                    <option value="lowest">
+                        Lowest Amount
+                    </option>
+
+                </select>
+
+            </section>
+
+
+
+            <!-- ================= ORDERS ================= -->
+
+            <section class="orders-card">
+
+
+                <div class="orders-card-header">
+
+                    <div>
+
+                        <h2>
+                            Recent Orders
+                        </h2>
+
+                        <p>
+                            Orders received from consumers
+                        </p>
+
+                    </div>
+
+                    <span>
+                        24 total
+                    </span>
+
+                </div>
+
+
+                <div class="orders-table-wrapper">
+
+                    <table>
+
+                        <thead>
+
+                            <tr>
+
+                                <th>
+                                    Order
+                                </th>
+
+                                <th>
+                                    Customer
+                                </th>
+
+                                <th>
+                                    Product
+                                </th>
+
+                                <th>
+                                    Quantity
+                                </th>
+
+                                <th>
+                                    Total
+                                </th>
+
+                                <th>
+                                    Date
+                                </th>
+
+                                <th>
+                                    Status
+                                </th>
+
+                                <th>
+                                    Action
+                                </th>
+
+                            </tr>
+
+                        </thead>
+
+
+                        <tbody>
+
+
+                            <!-- ORDER 1 -->
+
+                            <tr>
+
+                                <td>
+
+                                    <strong class="order-id">
+                                        #AGL-1024
+                                    </strong>
+
+                                </td>
+
+
+                                <td>
+
+                                    <div class="customer-info">
+
+                                        <span class="customer-avatar">
+                                            R
+                                        </span>
+
+                                        <div>
+
+                                            <strong>
+                                                Rahim Ahmed
+                                            </strong>
+
+                                            <span>
+                                                Dhaka
+                                            </span>
+
+                                        </div>
+
+                                    </div>
+
+                                </td>
+
+
+                                <td>
+                                    Fresh Tomatoes
+                                </td>
+
+
+                                <td>
+                                    5 kg
+                                </td>
+
+
+                                <td>
+                                    <strong>
+                                        ৳900
+                                    </strong>
+                                </td>
+
+
+                                <td>
+                                    Aug 24, 2026
+                                </td>
+
+
+                                <td>
+
+                                    <span class="status pending">
+                                        Pending
+                                    </span>
+
+                                </td>
+
+
+                                <td>
+
+                                    <a
+                                        href="#"
+                                        class="view-btn"
+                                    >
+                                        View
+                                    </a>
+
+                                </td>
+
+                            </tr>
+
+
+
+                            <!-- ORDER 2 -->
+
+                            <tr>
+
+                                <td>
+
+                                    <strong class="order-id">
+                                        #AGL-1023
+                                    </strong>
+
+                                </td>
+
+
+                                <td>
+
+                                    <div class="customer-info">
+
+                                        <span class="customer-avatar">
+                                            S
+                                        </span>
+
+                                        <div>
+
+                                            <strong>
+                                                Sadia Islam
+                                            </strong>
+
+                                            <span>
+                                                Mirpur
+                                            </span>
+
+                                        </div>
+
+                                    </div>
+
+                                </td>
+
+
+                                <td>
+                                    Premium Rice
+                                </td>
+
+
+                                <td>
+                                    10 kg
+                                </td>
+
+
+                                <td>
+                                    <strong>
+                                        ৳950
+                                    </strong>
+                                </td>
+
+
+                                <td>
+                                    Aug 23, 2026
+                                </td>
+
+
+                                <td>
+
+                                    <span class="status processing">
+                                        Processing
+                                    </span>
+
+                                </td>
+
+
+                                <td>
+
+                                    <a
+                                        href="#"
+                                        class="view-btn"
+                                    >
+                                        View
+                                    </a>
+
+                                </td>
+
+                            </tr>
+
+
+
+                            <!-- ORDER 3 -->
+
+                            <tr>
+
+                                <td>
+
+                                    <strong class="order-id">
+                                        #AGL-1022
+                                    </strong>
+
+                                </td>
+
+
+                                <td>
+
+                                    <div class="customer-info">
+
+                                        <span class="customer-avatar">
+                                            T
+                                        </span>
+
+                                        <div>
+
+                                            <strong>
+                                                Tanvir Hasan
+                                            </strong>
+
+                                            <span>
+                                                Uttara
+                                            </span>
+
+                                        </div>
+
+                                    </div>
+
+                                </td>
+
+
+                                <td>
+                                    Fresh Mangoes
+                                </td>
+
+
+                                <td>
+                                    8 kg
+                                </td>
+
+
+                                <td>
+                                    <strong>
+                                        ৳960
+                                    </strong>
+                                </td>
+
+
+                                <td>
+                                    Aug 22, 2026
+                                </td>
+
+
+                                <td>
+
+                                    <span class="status shipped">
+                                        Shipped
+                                    </span>
+
+                                </td>
+
+
+                                <td>
+
+                                    <a
+                                        href="#"
+                                        class="view-btn"
+                                    >
+                                        View
+                                    </a>
+
+                                </td>
+
+                            </tr>
+
+
+
+                            <!-- ORDER 4 -->
+
+                            <tr>
+
+                                <td>
+
+                                    <strong class="order-id">
+                                        #AGL-1021
+                                    </strong>
+
+                                </td>
+
+
+                                <td>
+
+                                    <div class="customer-info">
+
+                                        <span class="customer-avatar">
+                                            N
+                                        </span>
+
+                                        <div>
+
+                                            <strong>
+                                                Nusrat Jahan
+                                            </strong>
+
+                                            <span>
+                                                Dhanmondi
+                                            </span>
+
+                                        </div>
+
+                                    </div>
+
+                                </td>
+
+
+                                <td>
+                                    Organic Vegetables
+                                </td>
+
+
+                                <td>
+                                    4 kg
+                                </td>
+
+
+                                <td>
+                                    <strong>
+                                        ৳720
+                                    </strong>
+                                </td>
+
+
+                                <td>
+                                    Aug 21, 2026
+                                </td>
+
+
+                                <td>
+
+                                    <span class="status completed">
+                                        Completed
+                                    </span>
+
+                                </td>
+
+
+                                <td>
+
+                                    <a
+                                        href="#"
+                                        class="view-btn"
+                                    >
+                                        View
+                                    </a>
+
+                                </td>
+
+                            </tr>
+
+
+
+                            <!-- ORDER 5 -->
+
+                            <tr>
+
+                                <td>
+
+                                    <strong class="order-id">
+                                        #AGL-1020
+                                    </strong>
+
+                                </td>
+
+
+                                <td>
+
+                                    <div class="customer-info">
+
+                                        <span class="customer-avatar">
+                                            F
+                                        </span>
+
+                                        <div>
+
+                                            <strong>
+                                                Fahim Chowdhury
+                                            </strong>
+
+                                            <span>
+                                                Banani
+                                            </span>
+
+                                        </div>
+
+                                    </div>
+
+                                </td>
+
+
+                                <td>
+                                    Fresh Milk
+                                </td>
+
+
+                                <td>
+                                    6 L
+                                </td>
+
+
+                                <td>
+                                    <strong>
+                                        ৳540
+                                    </strong>
+
+                                </td>
+
+
+                                <td>
+                                    Aug 20, 2026
+                                </td>
+
+
+                                <td>
+
+                                    <span class="status cancelled">
+                                        Cancelled
+                                    </span>
+
+                                </td>
+
+
+                                <td>
+
+                                    <a
+                                        href="#"
+                                        class="view-btn"
+                                    >
+                                        View
+                                    </a>
+
+                                </td>
+
+                            </tr>
+
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+
+
+                <!-- ================= PAGINATION ================= -->
+
+                <div class="pagination">
+
+                    <button class="page-btn active">
+                        1
+                    </button>
+
+                    <button class="page-btn">
+                        2
+                    </button>
+
+                    <button class="page-btn">
+                        3
+                    </button>
+
+                    <button class="page-btn">
+                        →
+                    </button>
+
+                </div>
+
+
+            </section>
+
+        </div>
+
+    </main>
+
+
+
+    <!-- ================= FOOTER ================= -->
+
+    <footer class="footer">
+
+        <div class="container footer-grid">
+
+
+            <div class="footer-about">
+
+                <a
+                    href="farmer.html"
+                    class="logo footer-logo"
+                >
+
+                    <span class="logo-icon">
+                        🌱
+                    </span>
+
+                    <span>
+                        Agro<span>Link</span>
+                    </span>
+
+                </a>
+
+                <p>
+                    Connecting farmers and consumers through
+                    a smarter agricultural marketplace.
+                </p>
+
+            </div>
+
+
+            <div class="footer-column">
+
+                <h3>
+                    Farmer
+                </h3>
+
+                <a href="farmer.html">
+                    Dashboard
+                </a>
+
+                <a href="farmer-products.html">
+                    My Products
+                </a>
+
+                <a href="farmer-orders.html">
+                    Orders
+                </a>
+
+                <a href="farmer-dss.html">
+                    Decision Support
+                </a>
+
+            </div>
+
+
+            <div class="footer-column">
+
+                <h3>
+                    Account
+                </h3>
+
+                <a href="#">
+                    My Profile
+                </a>
+
+                <a href="#">
+                    Settings
+                </a>
+
+                <a href="index.html">
+                    Logout
+                </a>
+
+            </div>
+
+
+            <div class="footer-column">
+
+                <h3>
+                    Support
+                </h3>
+
+                <a href="#">
+                    Help Center
+                </a>
+
+                <a href="#">
+                    Contact Us
+                </a>
+
+                <a href="#">
+                    FAQ
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <div class="footer-bottom">
+
+            <div class="container">
+
+                <p>
+                    © 2026 AgroLink. All Rights Reserved.
+                </p>
+
+                <p>
+                    Academic Project
+                </p>
+
+            </div>
+
+        </div>
+
+    </footer>
+
+
+</body>
+
+</html>
