@@ -1,3 +1,18 @@
+<?php
+
+require_once "auth.php";
+
+// Only logged-in Consumers can access this page
+requireConsumer();
+
+// Get logged-in user's name
+$userName = $_SESSION["user_name"] ?? "Consumer";
+
+// Get first letter for profile avatar
+$avatarLetter = strtoupper(substr($userName, 0, 1));
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -12,8 +27,7 @@
     <link rel="stylesheet" href="css/consumer.css">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
     <link
         href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap"
@@ -33,7 +47,7 @@
 
             <!-- LOGO -->
 
-            <a href="consumer.html" class="logo">
+            <a href="consumer-dashboard.php" class="logo">
 
                 <span class="logo-icon">
                     🌱
@@ -49,19 +63,35 @@
             <!-- NAVIGATION -->
 
             <nav class="nav-menu">
-    <a href="consumer.html" class="active-nav">Home</a>
-    <a href="marketplace.html">Marketplace</a>
-    <a href="my-orders.html">My Orders</a>
-    <a href="consumer-bookings.html">My Bookings</a>
-    <a href="consumer-demands.html">My Demands</a>
-</nav>
+
+                <a href="consumer-dashboard.php" class="active-nav">
+                    Home
+                </a>
+
+                <a href="marketplace.php">
+                    Marketplace
+                </a>
+
+                <a href="future-harvests.php">
+                    Future Harvest
+                </a>
+
+                <a href="my-orders.php">
+                    My Orders
+                </a>
+
+                <a href="consumer-demands.php">
+                    My Demands
+                </a>
+
+            </nav>
 
 
             <!-- USER AREA -->
 
             <div class="consumer-actions">
 
-                <a href="cart.html" class="cart-link">
+                <a href="cart.php" class="cart-link">
 
                     <span>
                         🛒
@@ -70,26 +100,26 @@
                     Cart
 
                     <span class="cart-count">
-                        2
+                        0
                     </span>
 
                 </a>
 
 
-                <a href="consumer-profile.html" class="profile-link">
+                <a href="consumer-profile.php" class="profile-link">
 
                     <span class="profile-avatar">
-                        A
+                        <?php echo htmlspecialchars($avatarLetter); ?>
                     </span>
 
                     <span class="profile-name">
-                        Abrar
+                        <?php echo htmlspecialchars($userName); ?>
                     </span>
 
                 </a>
 
 
-                <a href="index.html" class="logout-btn">
+                <a href="index.php" class="logout-btn">
                     Logout
                 </a>
 
@@ -100,11 +130,9 @@
     </header>
 
 
-
     <!-- ================= DASHBOARD ================= -->
 
     <main class="dashboard">
-
 
         <div class="container">
 
@@ -120,7 +148,11 @@
                     </span>
 
                     <h1>
-                        Welcome back, <span>Abrar!</span> 👋
+                        Welcome,
+                        <span>
+                            <?php echo htmlspecialchars($userName); ?>!
+                        </span>
+                        👋
                     </h1>
 
                     <p>
@@ -132,14 +164,13 @@
 
 
                 <a
-                    href="marketplace.html"
+                    href="marketplace.php"
                     class="shop-button"
                 >
                     Browse Marketplace
                 </a>
 
             </section>
-
 
 
             <!-- ================= STAT CARDS ================= -->
@@ -162,13 +193,12 @@
                         </span>
 
                         <h2>
-                            8
+                            0
                         </h2>
 
                     </div>
 
                 </div>
-
 
 
                 <!-- PROCESSING -->
@@ -186,13 +216,12 @@
                         </span>
 
                         <h2>
-                            2
+                            0
                         </h2>
 
                     </div>
 
                 </div>
-
 
 
                 <!-- COMPLETED -->
@@ -210,13 +239,12 @@
                         </span>
 
                         <h2>
-                            6
+                            0
                         </h2>
 
                     </div>
 
                 </div>
-
 
 
                 <!-- CART -->
@@ -234,7 +262,7 @@
                         </span>
 
                         <h2>
-                            2
+                            0
                         </h2>
 
                     </div>
@@ -243,7 +271,6 @@
 
 
             </section>
-
 
 
             <!-- ================= MAIN CONTENT ================= -->
@@ -269,138 +296,38 @@
 
                         </div>
 
-                        <a href="my-orders.html">
+                        <a href="my-orders.php">
                             View All
                         </a>
 
                     </div>
 
 
-
-                    <!-- ORDER 1 -->
-
                     <div class="order-item">
 
                         <div class="order-product">
 
                             <div class="product-icon">
-                                🥬
+                                📦
                             </div>
 
                             <div>
 
                                 <strong>
-                                    Fresh Vegetables
+                                    No orders yet
                                 </strong>
 
                                 <span>
-                                    Order #AG1024
+                                    Start shopping from the marketplace.
                                 </span>
 
                             </div>
 
                         </div>
 
-
-                        <div class="order-info">
-
-                            <strong>
-                                ৳850
-                            </strong>
-
-                            <span class="status delivered">
-                                Delivered
-                            </span>
-
-                        </div>
-
                     </div>
-
-
-
-                    <!-- ORDER 2 -->
-
-                    <div class="order-item">
-
-                        <div class="order-product">
-
-                            <div class="product-icon">
-                                🌾
-                            </div>
-
-                            <div>
-
-                                <strong>
-                                    Premium Rice
-                                </strong>
-
-                                <span>
-                                    Order #AG1025
-                                </span>
-
-                            </div>
-
-                        </div>
-
-
-                        <div class="order-info">
-
-                            <strong>
-                                ৳1,250
-                            </strong>
-
-                            <span class="status processing">
-                                Processing
-                            </span>
-
-                        </div>
-
-                    </div>
-
-
-
-                    <!-- ORDER 3 -->
-
-                    <div class="order-item">
-
-                        <div class="order-product">
-
-                            <div class="product-icon">
-                                🥭
-                            </div>
-
-                            <div>
-
-                                <strong>
-                                    Fresh Mangoes
-                                </strong>
-
-                                <span>
-                                    Order #AG1023
-                                </span>
-
-                            </div>
-
-                        </div>
-
-
-                        <div class="order-info">
-
-                            <strong>
-                                ৳650
-                            </strong>
-
-                            <span class="status delivered">
-                                Delivered
-                            </span>
-
-                        </div>
-
-                    </div>
-
 
                 </div>
-
 
 
                 <!-- ================= QUICK ACTIONS ================= -->
@@ -427,8 +354,10 @@
                     <div class="quick-actions">
 
 
+                        <!-- SHOP -->
+
                         <a
-                            href="marketplace.html"
+                            href="marketplace.php"
                             class="quick-action"
                         >
 
@@ -455,9 +384,10 @@
                         </a>
 
 
+                        <!-- ORDERS -->
 
                         <a
-                            href="my-orders.html"
+                            href="my-orders.php"
                             class="quick-action"
                         >
 
@@ -484,9 +414,10 @@
                         </a>
 
 
+                        <!-- PROFILE -->
 
                         <a
-                            href="consumer-profile.html"
+                            href="consumer-profile.php"
                             class="quick-action"
                         >
 
@@ -521,7 +452,6 @@
             </section>
 
 
-
             <!-- ================= FEATURED PRODUCTS ================= -->
 
             <section class="featured-section">
@@ -541,12 +471,11 @@
 
                     </div>
 
-                    <a href="marketplace.html">
+                    <a href="marketplace.php">
                         View Marketplace →
                     </a>
 
                 </div>
-
 
 
                 <div class="product-grid">
@@ -581,7 +510,7 @@
                                     <small>/kg</small>
                                 </strong>
 
-                                <a href="product-details.html">
+                                <a href="marketplace.php">
                                     View
                                 </a>
 
@@ -590,7 +519,6 @@
                         </div>
 
                     </div>
-
 
 
                     <!-- PRODUCT 2 -->
@@ -622,7 +550,7 @@
                                     <small>/kg</small>
                                 </strong>
 
-                                <a href="product-details.html">
+                                <a href="marketplace.php">
                                     View
                                 </a>
 
@@ -631,7 +559,6 @@
                         </div>
 
                     </div>
-
 
 
                     <!-- PRODUCT 3 -->
@@ -663,7 +590,7 @@
                                     <small>/kg</small>
                                 </strong>
 
-                                <a href="product-details.html">
+                                <a href="marketplace.php">
                                     View
                                 </a>
 
@@ -672,7 +599,6 @@
                         </div>
 
                     </div>
-
 
 
                 </div>
@@ -685,7 +611,6 @@
     </main>
 
 
-
     <!-- ================= FOOTER ================= -->
 
     <footer class="footer">
@@ -696,7 +621,7 @@
             <div class="footer-about">
 
                 <a
-                    href="consumer.html"
+                    href="consumer-dashboard.php"
                     class="logo footer-logo"
                 >
 
@@ -724,15 +649,15 @@
                     Consumer
                 </h3>
 
-                <a href="marketplace.html">
+                <a href="marketplace.php">
                     Marketplace
                 </a>
 
-                <a href="my-orders.html">
+                <a href="my-orders.php">
                     My Orders
                 </a>
 
-                <a href="cart.html">
+                <a href="cart.php">
                     Cart
                 </a>
 
@@ -745,11 +670,11 @@
                     Support
                 </h3>
 
-                <a href="#">
+                <a href="about.php">
                     About Us
                 </a>
 
-                <a href="#">
+                <a href="contact.php">
                     Contact Us
                 </a>
 
@@ -766,7 +691,7 @@
                     Account
                 </h3>
 
-                <a href="consumer-profile.html">
+                <a href="consumer-profile.php">
                     My Profile
                 </a>
 
@@ -774,7 +699,7 @@
                     Settings
                 </a>
 
-                <a href="index.html">
+                <a href="logout.php">
                     Logout
                 </a>
 

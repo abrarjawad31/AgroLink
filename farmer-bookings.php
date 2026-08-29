@@ -30,7 +30,7 @@
 
         <div class="container navbar">
 
-            <a href="farmer.html" class="logo">
+            <a href="farmer.php" class="logo">
 
                 <span class="logo-icon">🌱</span>
 
@@ -41,17 +41,17 @@
 
             <nav class="nav-menu">
 
-                <a href="farmer.html">Dashboard</a>
+                <a href="farmer.php">Dashboard</a>
 
-                <a href="farmer-products.html">My Products</a>
+                <a href="farmer-products.php">My Products</a>
 
-                <a href="farmer-bookings.html" class="active-nav">Harvest Bookings</a>
+                <a href="farmer-bookings.php" class="active-nav">Harvest Bookings</a>
 
-                <a href="farmer-demands.html">Demand Broadcasts</a>
+                <a href="farmer-demands.php">Demand Broadcasts</a>
 
-                <a href="farmer-orders.html">Orders</a>
+                <a href="farmer-orders.php">Orders</a>
 
-                <a href="farmer-dss.html">DSS</a>
+                <a href="farmer-dss.php">DSS</a>
 
             </nav>
 
@@ -60,12 +60,12 @@
 
                 <a href="#" style="text-decoration: none; font-size: 16px;">🔔</a>
 
-                <a href="farmer-profile.html" style="text-decoration: none; display: flex; align-items: center; gap: 8px; color: var(--dark); font-weight: 600; font-size: 14px;">
+                <a href="farmer-profile.php" style="text-decoration: none; display: flex; align-items: center; gap: 8px; color: var(--dark); font-weight: 600; font-size: 14px;">
                     <span style="width: 32px; height: 32px; border-radius: 50%; background: var(--primary); color: white; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 13px;">A</span>
                     Abrar
                 </a>
 
-                <a href="index.html" style="text-decoration: none; padding: 8px 12px; border: 1px solid var(--border); border-radius: 5px; font-size: 13px; font-weight: 600; color: var(--dark);">Logout</a>
+                <a href="index.php" style="text-decoration: none; padding: 8px 12px; border: 1px solid var(--border); border-radius: 5px; font-size: 13px; font-weight: 600; color: var(--dark);">Logout</a>
 
             </div>
 
@@ -101,7 +101,7 @@
                 </div>
 
 
-                <a href="add-product.html" style="padding: 10px 18px; background: var(--primary); color: white; border-radius: 8px; font-size: 13px; font-weight: 600; text-decoration: none;">
+                <a href="add-product.php" style="padding: 10px 18px; background: var(--primary); color: white; border-radius: 8px; font-size: 13px; font-weight: 600; text-decoration: none;">
                     + Publish Future Harvest Batch
                 </a>
 
@@ -332,7 +332,7 @@
 
             <div class="footer-about">
 
-                <a href="farmer.html" class="logo footer-logo">
+                <a href="farmer.php" class="logo footer-logo">
 
                     <span class="logo-icon">🌱</span>
 
@@ -351,15 +351,15 @@
 
                 <h3>Farmer</h3>
 
-                <a href="farmer.html">Dashboard</a>
+                <a href="farmer.php">Dashboard</a>
 
-                <a href="farmer-products.html">My Products</a>
+                <a href="farmer-products.php">My Products</a>
 
-                <a href="farmer-bookings.html">Harvest Bookings</a>
+                <a href="farmer-bookings.php">Harvest Bookings</a>
 
-                <a href="farmer-orders.html">Orders</a>
+                <a href="farmer-orders.php">Orders</a>
 
-                <a href="farmer-dss.html">Decision Support</a>
+                <a href="farmer-dss.php">Decision Support</a>
 
             </div>
 
@@ -368,9 +368,9 @@
 
                 <h3>Account</h3>
 
-                <a href="farmer-profile.html">My Profile</a>
+                <a href="farmer-profile.php">My Profile</a>
 
-                <a href="index.html">Logout</a>
+                <a href="index.php">Logout</a>
 
             </div>
 

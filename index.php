@@ -21,21 +21,20 @@
     <header class="header">
         <div class="container navbar">
 
-            <a href="index.html" class="logo">
+            <a href="index.php" class="logo">
                 <span class="logo-icon">🌱</span>
                 <span>Agro<span>Link</span></span>
             </a>
 
             <nav class="nav-menu">
-                <a href="index.html" class="active">Home</a>
-                <a href="marketplace.html">Marketplace</a>
-                <a href="about.html">About</a>
-                <a href="contact.html">Contact</a>
+                <a href="index.php" class="active">Home</a>
+                <a href="about.php">About</a>
+                <a href="contact.php">Contact</a>
             </nav>
 
             <div class="nav-buttons">
-                <a href="login.html" class="login-btn">Login</a>
-                <a href="register.html" class="register-btn">Register</a>
+                <a href="login.php" class="login-btn">Login</a>
+                <a href="register.php" class="register-btn">Register</a>
             </div>
 
         </div>
@@ -68,16 +67,6 @@
                         directly with consumers, making fresh agricultural
                         products easier to discover and purchase.
                     </p>
-
-                    <div class="hero-buttons">
-                        <a href="marketplace.html" class="primary-btn">
-                            Explore Marketplace →
-                        </a>
-
-                        <a href="#" class="secondary-btn">
-                            Sell Your Products
-                        </a>
-                    </div>
 
                     <div class="hero-stats">
 
@@ -152,37 +141,37 @@
 
                 <div class="category-grid">
 
-                    <a href="#" class="category-card">
+                    <a href="categories.php?category=vegetables" class="category-card">
                         <div class="category-icon">🥬</div>
                         <h3>Vegetables</h3>
                         <span>120+ Products</span>
                     </a>
 
-                    <a href="#" class="category-card">
+                    <a href="categories.php?category=fruits" class="category-card">
                         <div class="category-icon">🍎</div>
                         <h3>Fruits</h3>
                         <span>85+ Products</span>
                     </a>
 
-                    <a href="#" class="category-card">
+                    <a href="categories.php?category=grains" class="category-card">
                         <div class="category-icon">🌾</div>
                         <h3>Grains</h3>
                         <span>60+ Products</span>
                     </a>
 
-                    <a href="#" class="category-card">
+                    <a href="categories.php?category=dairy" class="category-card">
                         <div class="category-icon">🥛</div>
                         <h3>Dairy</h3>
                         <span>45+ Products</span>
                     </a>
 
-                    <a href="#" class="category-card">
+                    <a href="categories.php?category=seeds" class="category-card">
                         <div class="category-icon">🌱</div>
                         <h3>Seeds</h3>
                         <span>70+ Products</span>
                     </a>
 
-                    <a href="#" class="category-card">
+                    <a href="categories.php?category=fertilizers" class="category-card">
                         <div class="category-icon">🧪</div>
                         <h3>Fertilizers</h3>
                         <span>35+ Products</span>
@@ -215,7 +204,7 @@
 
                     </div>
 
-                    <a href="#" class="view-all">
+                    <a href="marketplace.php" class="view-all">
                         View All Products →
                     </a>
 
@@ -259,9 +248,9 @@
                                     ৳80 <span>/ kg</span>
                                 </div>
 
-                                <button class="cart-btn">
+                                <a href="login.php" class="cart-btn">
                                     🛒
-                                </button>
+                                </a>
 
                             </div>
 
@@ -305,9 +294,9 @@
                                     ৳150 <span>/ kg</span>
                                 </div>
 
-                                <button class="cart-btn">
+                                <a href="login.php" class="cart-btn">
                                     🛒
-                                </button>
+                                </a>
 
                             </div>
 
@@ -351,9 +340,9 @@
                                     ৳75 <span>/ kg</span>
                                 </div>
 
-                                <button class="cart-btn">
+                                <a href="login.php" class="cart-btn">
                                     🛒
-                                </button>
+                                </a>
 
                             </div>
 
@@ -397,9 +386,9 @@
                                     ৳60 <span>/ kg</span>
                                 </div>
 
-                                <button class="cart-btn">
+                                <a href="login.php" class="cart-btn">
                                     🛒
-                                </button>
+                                </a>
 
                             </div>
 
@@ -620,7 +609,7 @@
 
             <div class="footer-about">
 
-                <a href="index.html" class="logo footer-logo">
+                <a href="index.php" class="logo footer-logo">
                     <span class="logo-icon">🌱</span>
                     <span>Agro<span>Link</span></span>
                 </a>

@@ -26,13 +26,17 @@
 
     <!-- ================= NAVBAR ================= -->
 
+    <!-- ================= NAVBAR ================= -->
+
     <header class="header">
 
         <div class="container navbar">
 
-            <a href="consumer.html" class="logo">
+            <a href="consumer.php" class="logo">
 
-                <span class="logo-icon">🌱</span>
+                <span class="logo-icon">
+                    🌱
+                </span>
 
                 <span>
                     Agro<span>Link</span>
@@ -42,17 +46,16 @@
 
 
             <nav class="nav-menu">
-                <a href="consumer.html">Home</a>
-                <a href="marketplace.html">Marketplace</a>
-                <a href="my-orders.html">My Orders</a>
-                <a href="consumer-bookings.html">My Bookings</a>
-                <a href="consumer-demands.html">My Demands</a>
+                <a href="consumer-dashboard.php">Home</a>
+                <a href="marketplace.php">Marketplace</a>
+                <a href="my-orders.php">My Orders</a>
+                <a href="consumer-demands.php">My Demands</a>
             </nav>
 
 
             <div class="consumer-actions">
 
-                <a href="cart.html" class="cart-link">
+                <a href="cart.php" class="cart-link">
 
                     <span>
                         🛒
@@ -66,8 +69,7 @@
 
                 </a>
 
-
-                <a href="consumer-profile.html" class="profile-link">
+                <a href="consumer-profile.php" class="profile-link active-profile">
 
                     <span class="profile-avatar">
                         A
@@ -79,8 +81,7 @@
 
                 </a>
 
-
-                <a href="index.html" class="logout-btn">
+                <a href="index.php" class="logout-btn">
                     Logout
                 </a>
 
@@ -141,7 +142,7 @@
 
                     </div>
 
-                    <a href="marketplace.html">
+                    <a href="marketplace.php">
                         ← Continue Shopping
                     </a>
 
@@ -155,10 +156,8 @@
 
                     <div class="cart-product-image">
 
-                        <img
-                            src="https://images.unsplash.com/photo-1546094096-0df4bcaaa337?auto=format&fit=crop&w=300&q=80"
-                            alt="Fresh Tomatoes"
-                        >
+                        <img src="https://images.unsplash.com/photo-1546094096-0df4bcaaa337?auto=format&fit=crop&w=300&q=80"
+                            alt="Fresh Tomatoes">
 
                     </div>
 
@@ -228,10 +227,8 @@
 
                     <div class="cart-product-image">
 
-                        <img
-                            src="https://images.unsplash.com/photo-1553279768-865429fa0078?auto=format&fit=crop&w=300&q=80"
-                            alt="Fresh Mangoes"
-                        >
+                        <img src="https://images.unsplash.com/photo-1553279768-865429fa0078?auto=format&fit=crop&w=300&q=80"
+                            alt="Fresh Mangoes">
 
                     </div>
 
@@ -301,10 +298,8 @@
 
                     <div class="cart-product-image">
 
-                        <img
-                            src="https://images.unsplash.com/photo-1586201375761-83865001e31c?auto=format&fit=crop&w=300&q=80"
-                            alt="Premium Rice"
-                        >
+                        <img src="https://images.unsplash.com/photo-1586201375761-83865001e31c?auto=format&fit=crop&w=300&q=80"
+                            alt="Premium Rice">
 
                     </div>
 
@@ -435,7 +430,7 @@
                 </div>
 
 
-                <a href="checkout.html" class="checkout-btn">
+                <a href="checkout.php" class="checkout-btn">
                     Proceed to Checkout →
                 </a>
 
@@ -467,7 +462,7 @@
 
             <div class="footer-about">
 
-                <a href="index.html" class="logo footer-logo">
+                <a href="index.php" class="logo footer-logo">
 
                     <span class="logo-icon">
                         🌱
@@ -504,7 +499,7 @@
                     Marketplace
                 </h3>
 
-                <a href="marketplace.html">
+                <a href="marketplace.php">
                     All Products
                 </a>
 

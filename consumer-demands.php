@@ -30,32 +30,61 @@
 
         <div class="container navbar">
 
-            <a href="consumer.html" class="logo">
+            <a href="consumer-dashboard.php" class="logo">
 
-                <span class="logo-icon">🌱</span>
+                <span class="logo-icon">
+                    🌱
+                </span>
 
-                <span>Agro<span>Link</span></span>
+                <span>
+                    Agro<span>Link</span>
+                </span>
 
             </a>
 
 
             <nav class="nav-menu">
-                <a href="consumer.html">Home</a>
-                <a href="marketplace.html">Marketplace</a>
-                <a href="my-orders.html">My Orders</a>
-                <a href="consumer-bookings.html">My Bookings</a>
-                <a href="consumer-demands.html" class="active-nav">My Demands</a>
+                <a href="consumer-dashboard.php">Home</a>
+                <a href="marketplace.php">Marketplace</a>
+                <a href="future-harvests.php">
+                    Future Harvest
+                </a>
+                <a href="my-orders.php">My Orders</a>
+                <a href="consumer-demands.php">My Demands</a>
             </nav>
 
 
-            <div class="consumer-actions" style="display: flex; align-items: center; gap: 16px;">
+            <div class="consumer-actions">
 
-                <a href="consumer-profile.html" style="text-decoration: none; display: flex; align-items: center; gap: 8px; color: var(--dark); font-weight: 600; font-size: 14px;">
-                    <span style="width: 32px; height: 32px; border-radius: 50%; background: var(--primary); color: white; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 13px;">A</span>
-                    Abrar
+                <a href="cart.php" class="cart-link">
+
+                    <span>
+                        🛒
+                    </span>
+
+                    Cart
+
+                    <span class="cart-count">
+                        2
+                    </span>
+
                 </a>
 
-                <a href="index.html" style="text-decoration: none; padding: 8px 14px; border: 1px solid var(--border); border-radius: 6px; font-size: 13px; font-weight: 600; color: var(--dark);">Logout</a>
+                <a href="consumer-profile.php" class="profile-link active-profile">
+
+                    <span class="profile-avatar">
+                        A
+                    </span>
+
+                    <span class="profile-name">
+                        Abrar
+                    </span>
+
+                </a>
+
+                <a href="index.php" class="logout-btn">
+                    Logout
+                </a>
 
             </div>
 
@@ -90,7 +119,7 @@
                 </div>
 
 
-                <a href="post-demand.html" style="padding: 10px 18px; background: var(--primary); color: white; border-radius: 8px; font-size: 13px; font-weight: 600; text-decoration: none;">
+                <a href="post-demand.php" style="padding: 10px 18px; background: var(--primary); color: white; border-radius: 8px; font-size: 13px; font-weight: 600; text-decoration: none;">
                     + Broadcast New Demand Request
                 </a>
 
@@ -172,11 +201,11 @@
 
                             <div style="display: flex; gap: 8px;">
 
-                                <a href="negotiation.html?offer=1" style="padding: 8px 14px; background: white; border: 1px solid var(--border); color: var(--dark); border-radius: 6px; font-size: 12px; font-weight: 600; text-decoration: none;">
+                                <a href="negotiation.php?offer=1" style="padding: 8px 14px; background: white; border: 1px solid var(--border); color: var(--dark); border-radius: 6px; font-size: 12px; font-weight: 600; text-decoration: none;">
                                     Negotiate / Counter 💬
                                 </a>
 
-                                <a href="negotiation.html?offer=1&action=accept" style="padding: 8px 14px; background: var(--primary); color: white; border-radius: 6px; font-size: 12px; font-weight: 600; text-decoration: none;">
+                                <a href="negotiation.php?offer=1&action=accept" style="padding: 8px 14px; background: var(--primary); color: white; border-radius: 6px; font-size: 12px; font-weight: 600; text-decoration: none;">
                                     Accept Offer ✓
                                 </a>
 
@@ -224,11 +253,11 @@
 
                             <div style="display: flex; gap: 8px;">
 
-                                <a href="negotiation.html?offer=2" style="padding: 8px 14px; background: white; border: 1px solid var(--border); color: var(--dark); border-radius: 6px; font-size: 12px; font-weight: 600; text-decoration: none;">
+                                <a href="negotiation.php?offer=2" style="padding: 8px 14px; background: white; border: 1px solid var(--border); color: var(--dark); border-radius: 6px; font-size: 12px; font-weight: 600; text-decoration: none;">
                                     Negotiate / Counter 💬
                                 </a>
 
-                                <a href="negotiation.html?offer=2&action=accept" style="padding: 8px 14px; background: var(--primary); color: white; border-radius: 6px; font-size: 12px; font-weight: 600; text-decoration: none;">
+                                <a href="negotiation.php?offer=2&action=accept" style="padding: 8px 14px; background: var(--primary); color: white; border-radius: 6px; font-size: 12px; font-weight: 600; text-decoration: none;">
                                     Accept Offer ✓
                                 </a>
 
@@ -256,7 +285,7 @@
 
             <div class="footer-about">
 
-                <a href="consumer.html" class="logo footer-logo">
+                <a href="consumer.php" class="logo footer-logo">
 
                     <span class="logo-icon">🌱</span>
 
@@ -275,13 +304,13 @@
 
                 <h3>Consumer</h3>
 
-                <a href="consumer.html">Dashboard</a>
+                <a href="consumer.php">Dashboard</a>
 
-                <a href="marketplace.html">Marketplace</a>
+                <a href="marketplace.php">Marketplace</a>
 
-                <a href="future-harvests.html">Future Harvests</a>
+                <a href="future-harvests.php">Future Harvests</a>
 
-                <a href="consumer-demands.html">Demand Broadcasts</a>
+                <a href="consumer-demands.php">Demand Broadcasts</a>
 
             </div>
 
@@ -290,11 +319,11 @@
 
                 <h3>Account</h3>
 
-                <a href="consumer-profile.html">My Profile</a>
+                <a href="consumer-profile.php">My Profile</a>
 
-                <a href="my-orders.html">My Orders</a>
+                <a href="my-orders.php">My Orders</a>
 
-                <a href="index.html">Logout</a>
+                <a href="index.php">Logout</a>
 
             </div>
 

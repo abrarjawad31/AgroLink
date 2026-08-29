@@ -34,7 +34,7 @@
 
         <div class="container navbar">
 
-            <a href="index.html" class="logo">
+            <a href="consumer-dashboard.php" class="logo">
 
                 <span class="logo-icon">
                     🌱
@@ -48,11 +48,10 @@
 
 
             <nav class="nav-menu">
-                <a href="consumer.html">Home</a>
-                <a href="marketplace.html">Marketplace</a>
-                <a href="my-orders.html">My Orders</a>
-                <a href="consumer-bookings.html">My Bookings</a>
-                <a href="consumer-demands.html">My Demands</a>
+                <a href="consumer-dashboard.php">Home</a>
+                <a href="marketplace.php">Marketplace</a>
+                <a href="my-orders.php">My Orders</a>
+                <a href="consumer-demands.php">My Demands</a>
             </nav>
 
 
@@ -398,11 +397,11 @@
 
             <div class="confirmation-actions">
 
-                <a href="marketplace.html" class="continue-shopping-btn">
+                <a href="marketplace.php" class="continue-shopping-btn">
                     Continue Shopping
                 </a>
 
-                <a href="my-orders.html" class="view-orders-btn">
+                <a href="my-orders.php" class="view-orders-btn">
                     View My Orders
                 </a>
 
@@ -438,7 +437,7 @@
 
             <div class="footer-about">
 
-                <a href="index.html" class="logo footer-logo">
+                <a href="index.php" class="logo footer-logo">
 
                     <span class="logo-icon">
                         🌱
@@ -475,7 +474,7 @@
                     Marketplace
                 </h3>
 
-                <a href="marketplace.html">
+                <a href="marketplace.php">
                     All Products
                 </a>
 

@@ -30,7 +30,7 @@
 
         <div class="container navbar">
 
-            <a href="consumer.html" class="logo">
+            <a href="consumer-dashboard.php" class="logo">
 
                 <span class="logo-icon">
                     🌱
@@ -44,17 +44,16 @@
 
 
             <nav class="nav-menu">
-                <a href="consumer.html">Home</a>
-                <a href="marketplace.html">Marketplace</a>
-                <a href="my-orders.html">My Orders</a>
-                <a href="consumer-bookings.html">My Bookings</a>
-                <a href="consumer-demands.html">My Demands</a>
+                <a href="consumer-dashboard.php">Home</a>
+                <a href="marketplace.php">Marketplace</a>
+                <a href="my-orders.php">My Orders</a>
+                <a href="consumer-demands.php">My Demands</a>
             </nav>
 
 
             <div class="consumer-actions">
 
-                <a href="cart.html" class="cart-link">
+                <a href="cart.php" class="cart-link">
 
                     <span>
                         🛒
@@ -68,7 +67,7 @@
 
                 </a>
 
-                <a href="consumer-profile.html" class="profile-link active-profile">
+                <a href="consumer-profile.php" class="profile-link active-profile">
 
                     <span class="profile-avatar">
                         A
@@ -80,7 +79,7 @@
 
                 </a>
 
-                <a href="index.html" class="logout-btn">
+                <a href="index.php" class="logout-btn">
                     Logout
                 </a>
 
@@ -444,7 +443,7 @@
 
                         </div>
 
-                        <a href="marketplace.html">
+                        <a href="marketplace.php">
                             Marketplace →
                         </a>
 
@@ -699,7 +698,7 @@
                             Recent Purchase Activity Log
                         </h3>
 
-                        <a href="my-orders.html" class="view-all-orders">
+                        <a href="my-orders.php" class="view-all-orders">
                             View All Orders (24) →
                         </a>
 
@@ -963,7 +962,7 @@
             <div class="footer-about">
 
                 <a
-                    href="consumer.html"
+                    href="consumer.php"
                     class="logo footer-logo"
                 >
 
@@ -991,19 +990,19 @@
                     Consumer
                 </h3>
 
-                <a href="consumer.html">
+                <a href="consumer.php">
                     Dashboard
                 </a>
 
-                <a href="marketplace.html">
+                <a href="marketplace.php">
                     Marketplace
                 </a>
 
-                <a href="my-orders.html">
+                <a href="my-orders.php">
                     My Orders
                 </a>
 
-                <a href="cart.html">
+                <a href="cart.php">
                     Shopping Cart
                 </a>
 
@@ -1016,11 +1015,11 @@
                     Account
                 </h3>
 
-                <a href="consumer-profile.html">
+                <a href="consumer-profile.php">
                     My Profile
                 </a>
 
-                <a href="index.html">
+                <a href="index.php">
                     Logout
                 </a>
 

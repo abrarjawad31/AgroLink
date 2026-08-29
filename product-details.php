@@ -30,7 +30,7 @@
 
         <div class="container navbar">
 
-            <a href="index.html" class="logo">
+            <a href="consumer-dashboard.php" class="logo">
 
                 <span class="logo-icon">🌱</span>
 
@@ -43,11 +43,11 @@
 
             <nav class="nav-menu">
 
-                <a href="index.html">
+                <a href="consumer-dashboard.php">
                     Home
                 </a>
 
-                <a href="marketplace.html" class="active">
+                <a href="marketplace.php" class="active">
                     Marketplace
                 </a>
 
@@ -61,19 +61,6 @@
 
             </nav>
 
-
-            <div class="nav-buttons">
-
-                <a href="#" class="login-btn">
-                    Login
-                </a>
-
-                <a href="#" class="register-btn">
-                    Register
-                </a>
-
-            </div>
-
         </div>
 
     </header>
@@ -86,13 +73,13 @@
 
         <div class="container">
 
-            <a href="index.html">
+            <a href="consumer-dashboard.php">
                 Home
             </a>
 
             <span>›</span>
 
-            <a href="marketplace.html">
+            <a href="marketplace.php">
                 Marketplace
             </a>
 
@@ -338,7 +325,7 @@
                         </div>
 
 
-                        <a href="cart.html" class="details-cart-btn">
+                        <a href="cart.php" class="details-cart-btn">
                             🛒 Add to Cart
                         </a>        
 
@@ -687,7 +674,7 @@
 
             <div class="footer-about">
 
-                <a href="index.html" class="logo footer-logo">
+                <a href="index.php" class="logo footer-logo">
 
                     <span class="logo-icon">
                         🌱
@@ -726,7 +713,7 @@
                     Marketplace
                 </h3>
 
-                <a href="marketplace.html">
+                <a href="marketplace.php">
                     All Products
                 </a>
 

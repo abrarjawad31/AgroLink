@@ -6,10 +6,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Add Product | AgroLink</title>
+    <title>Edit Product | AgroLink</title>
 
     <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/add-product.css">
+    <link rel="stylesheet" href="css/edit-product.css">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -29,7 +29,7 @@
 
         <div class="container navbar">
 
-            <a href="farmer.html" class="logo">
+            <a href="farmer.php" class="logo">
 
                 <span class="logo-icon">
                     🌱
@@ -44,17 +44,17 @@
 
             <nav class="nav-menu">
 
-                <a href="farmer.html">Dashboard</a>
+                <a href="farmer.php">Dashboard</a>
 
-                <a href="farmer-products.html">My Products</a>
+                <a href="farmer-products.php">My Products</a>
 
-                <a href="farmer-bookings.html" class="active-nav">Harvest Bookings</a>
+                <a href="farmer-bookings.php" class="active-nav">Harvest Bookings</a>
 
-                <a href="farmer-demands.html">Demand Broadcasts</a>
+                <a href="farmer-demands.php">Demand Broadcasts</a>
 
-                <a href="farmer-orders.html">Orders</a>
+                <a href="farmer-orders.php">Orders</a>
 
-                <a href="farmer-dss.html">DSS</a>
+                <a href="farmer-dss.php">DSS</a>
 
             </nav>
 
@@ -72,7 +72,7 @@
                 </a>
 
 
-                <a href="farmer-profile.html" class="profile-link">
+                <a href="farmer-profile.php" class="profile-link">
                     <span class="profile-avatar">
                         A
                     </span>
@@ -82,7 +82,7 @@
                 </a>
 
 
-                <a href="index.html" class="logout-btn">
+                <a href="index.php" class="logout-btn">
                     Logout
                 </a>
 
@@ -96,7 +96,7 @@
 
     <!-- ================= MAIN ================= -->
 
-    <main class="add-product-page">
+    <main class="edit-product-page">
 
         <div class="container">
 
@@ -112,18 +112,17 @@
                     </span>
 
                     <h1>
-                        Add New Product
+                        Edit Product
                     </h1>
 
                     <p>
-                        Add your agricultural product to the
-                        AgroLink marketplace.
+                        Update the information of your marketplace product.
                     </p>
 
                 </div>
 
 
-                <a href="farmer-products.html" class="back-link">
+                <a href="farmer-products.php" class="back-link">
                     ← Back to My Products
                 </a>
 
@@ -131,7 +130,7 @@
 
 
 
-            <!-- ================= FORM ================= -->
+            <!-- ================= PRODUCT FORM ================= -->
 
             <form action="#" method="POST" enctype="multipart/form-data" class="product-form">
 
@@ -149,7 +148,7 @@
                             </h2>
 
                             <p>
-                                Provide the basic details of your product.
+                                Update the basic details of your product.
                             </p>
 
                         </div>
@@ -173,8 +172,8 @@
                                 <span>*</span>
                             </label>
 
-                            <input type="text" id="product-name" name="product_name"
-                                placeholder="e.g. Fresh Organic Tomatoes" required>
+                            <input type="text" id="product-name" name="product_name" value="Fresh Organic Tomatoes"
+                                required>
 
                         </div>
 
@@ -191,11 +190,7 @@
 
                             <select id="category" name="category" required>
 
-                                <option value="">
-                                    Select category
-                                </option>
-
-                                <option value="vegetables">
+                                <option value="vegetables" selected>
                                     Vegetables
                                 </option>
 
@@ -241,8 +236,7 @@
                                 Subcategory
                             </label>
 
-                            <input type="text" id="subcategory" name="subcategory"
-                                placeholder="e.g. Tomato, Mango, Rice">
+                            <input type="text" id="subcategory" name="subcategory" value="Organic Tomato">
 
                         </div>
 
@@ -258,8 +252,7 @@
                             </label>
 
                             <textarea id="description" name="description" rows="5"
-                                placeholder="Describe your product, quality, farming method, freshness, etc."
-                                required></textarea>
+                                required>Fresh organically grown tomatoes directly from our farm. Carefully harvested and packed to maintain freshness and quality.</textarea>
 
                         </div>
 
@@ -282,7 +275,7 @@
                             </h2>
 
                             <p>
-                                Set your selling price and available quantity.
+                                Update your product price and available stock.
                             </p>
 
                         </div>
@@ -312,8 +305,7 @@
                                     ৳
                                 </span>
 
-                                <input type="number" id="price" name="price" min="0" step="0.01" placeholder="0.00"
-                                    required>
+                                <input type="number" id="price" name="price" value="180" min="0" step="0.01" required>
 
                             </div>
 
@@ -332,11 +324,7 @@
 
                             <select id="unit" name="unit" required>
 
-                                <option value="">
-                                    Select unit
-                                </option>
-
-                                <option value="kg">
+                                <option value="kg" selected>
                                     Kilogram (kg)
                                 </option>
 
@@ -375,7 +363,7 @@
                                 <span>*</span>
                             </label>
 
-                            <input type="number" id="stock" name="stock" min="0" placeholder="e.g. 100" required>
+                            <input type="number" id="stock" name="stock" value="120" min="0" required>
 
                         </div>
 
@@ -389,7 +377,7 @@
                                 Minimum Order
                             </label>
 
-                            <input type="number" id="minimum-order" name="minimum_order" min="1" placeholder="e.g. 1">
+                            <input type="number" id="minimum-order" name="minimum_order" value="1" min="1">
 
                         </div>
 
@@ -412,7 +400,7 @@
                             </h2>
 
                             <p>
-                                Upload a clear image of your product.
+                                Replace the current product image if needed.
                             </p>
 
                         </div>
@@ -424,6 +412,27 @@
                     </div>
 
 
+                    <div class="current-image">
+
+                        <div class="current-image-preview">
+                            🍅
+                        </div>
+
+                        <div>
+
+                            <strong>
+                                Current Product Image
+                            </strong>
+
+                            <span>
+                                organic-tomatoes.jpg
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
                     <div class="upload-area">
 
                         <div class="upload-icon">
@@ -431,7 +440,7 @@
                         </div>
 
                         <h3>
-                            Upload Product Image
+                            Replace Product Image
                         </h3>
 
                         <p>
@@ -439,7 +448,7 @@
                         </p>
 
                         <label for="product-image" class="upload-button">
-                            Choose Image
+                            Choose New Image
                         </label>
 
                         <input type="file" id="product-image" name="product_image" accept=".jpg,.jpeg,.png">
@@ -463,7 +472,7 @@
                             </h2>
 
                             <p>
-                                Tell consumers where the product is available.
+                                Update where your product is available.
                             </p>
 
                         </div>
@@ -487,7 +496,7 @@
                                 <span>*</span>
                             </label>
 
-                            <input type="text" id="district" name="district" placeholder="e.g. Dhaka" required>
+                            <input type="text" id="district" name="district" value="Dhaka" required>
 
                         </div>
 
@@ -501,7 +510,7 @@
                                 Area / Upazila
                             </label>
 
-                            <input type="text" id="area" name="area" placeholder="e.g. Savar">
+                            <input type="text" id="area" name="area" value="Savar">
 
                         </div>
 
@@ -517,7 +526,7 @@
 
                             <select id="delivery" name="delivery">
 
-                                <option value="home-delivery">
+                                <option value="home-delivery" selected>
                                     Home Delivery Available
                                 </option>
 
@@ -552,7 +561,7 @@
                             </h2>
 
                             <p>
-                                Choose whether consumers can currently purchase this product.
+                                Control whether consumers can purchase this product.
                             </p>
 
                         </div>
@@ -577,7 +586,7 @@
                             </strong>
 
                             <small>
-                                Product will be visible in the marketplace.
+                                Product is visible and available in the marketplace.
                             </small>
 
                         </span>
@@ -598,7 +607,7 @@
                             </strong>
 
                             <small>
-                                Product will be saved but hidden from consumers.
+                                Product will be hidden from consumers.
                             </small>
 
                         </span>
@@ -613,12 +622,12 @@
 
                 <div class="form-actions">
 
-                    <a href="farmer-products.html" class="cancel-btn">
+                    <a href="farmer-products.php" class="cancel-btn">
                         Cancel
                     </a>
 
                     <button type="submit" class="save-btn">
-                        + Add Product
+                        ✓ Save Changes
                     </button>
 
                 </div>
@@ -641,7 +650,7 @@
 
             <div class="footer-about">
 
-                <a href="farmer.html" class="logo footer-logo">
+                <a href="farmer.php" class="logo footer-logo">
 
                     <span class="logo-icon">
                         🌱
@@ -667,19 +676,19 @@
                     Farmer
                 </h3>
 
-                <a href="farmer.html">
+                <a href="farmer.php">
                     Dashboard
                 </a>
 
-                <a href="farmer-products.html">
+                <a href="farmer-products.php">
                     My Products
                 </a>
 
-                <a href="farmer-orders.html">
+                <a href="farmer-orders.php">
                     Orders
                 </a>
 
-                <a href="farmer-dss.html">
+                <a href="farmer-dss.php">
                     Decision Support
                 </a>
 
@@ -692,7 +701,7 @@
                     Account
                 </h3>
 
-                <a href="farmer-profile.html">
+                <a href="farmer-profile.php">
                     My Profile
                 </a>
 
@@ -700,7 +709,7 @@
                     Settings
                 </a>
 
-                <a href="index.html">
+                <a href="index.php">
                     Logout
                 </a>
 

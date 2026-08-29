@@ -1,7 +1,101 @@
 /* =====================================================
    AGROLINK - CONSUMER DEMAND MANAGEMENT & OFFERS
    ===================================================== */
+/* ================= NAVBAR & ACTIONS ================= */
 
+.active-nav {
+    color: var(--primary) !important;
+}
+
+.consumer-actions {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.cart-link {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--dark);
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+    padding: 6px 12px;
+    border-radius: 20px;
+    border: 1px solid var(--border);
+    transition: all 0.2s ease;
+    background: white;
+}
+
+.cart-link:hover {
+    border-color: var(--primary);
+    color: var(--primary);
+    background: var(--primary-light);
+}
+
+.cart-count {
+    background: var(--primary);
+    color: white;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 2px 7px;
+    border-radius: 10px;
+}
+
+.profile-link {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--dark);
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+    padding: 4px 10px;
+    border-radius: 20px;
+    transition: background-color 0.2s ease;
+}
+
+.profile-link:hover,
+.profile-link.active-profile {
+    background-color: #eaf5e8;
+}
+
+.profile-avatar {
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: var(--primary);
+    color: white;
+    font-size: 14px;
+    font-weight: 700;
+    box-shadow: 0 2px 6px rgba(47, 125, 50, 0.25);
+}
+
+.profile-name {
+    color: var(--dark);
+}
+
+.logout-btn {
+    padding: 8px 16px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    color: var(--dark);
+    font-size: 13px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    background: white;
+}
+
+.logout-btn:hover {
+    color: var(--primary);
+    border-color: var(--primary);
+    background: var(--primary-light);
+}
 .demands-page {
     padding: 40px 0 80px;
     background: #f7faf6;

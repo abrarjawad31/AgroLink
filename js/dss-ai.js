@@ -228,7 +228,7 @@ function runAIPrediction(params) {
                     </div>
 
                     <div style="display: flex; gap: 10px;">
-                        <a href="add-product.html" style="flex: 1; text-align: center; background: var(--primary); color: white; padding: 9px 12px; border-radius: 6px; font-size: 13px; font-weight: 600; text-decoration: none;">
+                        <a href="add-product.php" style="flex: 1; text-align: center; background: var(--primary); color: white; padding: 9px 12px; border-radius: 6px; font-size: 13px; font-weight: 600; text-decoration: none;">
                             List This Harvest
                         </a>
                         <a href="#agrobot" onclick="askAgroBotAbout('${crop.name}')" style="background: white; border: 1px solid var(--border); color: var(--dark); padding: 9px 12px; border-radius: 6px; font-size: 13px; font-weight: 600; text-decoration: none;">
@@ -270,11 +270,11 @@ function runAIPrediction(params) {
                 <div style="display: flex; flex-direction: column; gap: 8px;">
                     <div style="padding: 10px 14px; background: #f7faf6; border-radius: 6px; border-left: 3px solid #f57c00; font-size: 13px; display: flex; justify-content: space-between; align-items: center;">
                         <span>🛒 <strong>42 Buyers</strong> want <em>Organic Tomatoes</em> (Target: ৳75/kg)</span>
-                        <a href="farmer-demands.html" style="color: var(--primary); font-weight: 700; font-size: 12px; text-decoration: none;">View →</a>
+                        <a href="farmer-demands.php" style="color: var(--primary); font-weight: 700; font-size: 12px; text-decoration: none;">View →</a>
                     </div>
                     <div style="padding: 10px 14px; background: #f7faf6; border-radius: 6px; border-left: 3px solid #2e7d32; font-size: 13px; display: flex; justify-content: space-between; align-items: center;">
                         <span>🛒 <strong>28 Buyers</strong> want <em>Diamond Potatoes</em> (Target: ৳38/kg)</span>
-                        <a href="farmer-demands.html" style="color: var(--primary); font-weight: 700; font-size: 12px; text-decoration: none;">View →</a>
+                        <a href="farmer-demands.php" style="color: var(--primary); font-weight: 700; font-size: 12px; text-decoration: none;">View →</a>
                     </div>
                 </div>
             </div>

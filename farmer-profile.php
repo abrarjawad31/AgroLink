@@ -30,7 +30,7 @@
 
         <div class="container navbar">
 
-            <a href="farmer.html" class="logo">
+            <a href="farmer.php" class="logo">
 
                 <span class="logo-icon">
                     🌱
@@ -45,21 +45,21 @@
 
             <nav class="nav-menu">
 
-                <a href="farmer.html">
+                <a href="farmer.php">
                     Dashboard
                 </a>
 
-                <a href="farmer-products.html">
+                <a href="farmer-products.php">
                     My Products
                 </a>
-                <a href="farmer-bookings.html">Harvest Bookings</a>
-                <a href="farmer-demands.html">Demand Broadcasts</a>
+                <a href="farmer-bookings.php">Harvest Bookings</a>
+                <a href="farmer-demands.php">Demand Broadcasts</a>
 
-                <a href="farmer-orders.html">
+                <a href="farmer-orders.php">
                     Orders
                 </a>
 
-                <a href="farmer-dss.html">
+                <a href="farmer-dss.php">
                     DSS
                 </a>
 
@@ -73,7 +73,7 @@
                     <span class="notification-count">3</span>
                 </a>
 
-                <a href="farmer-profile.html" class="profile-link">
+                <a href="farmer-profile.php" class="profile-link">
 
                     <span class="profile-avatar">
                         A
@@ -85,7 +85,7 @@
 
                 </a>
 
-                <a href="index.html" class="logout-btn">
+                <a href="index.php" class="logout-btn">
                     Logout
                 </a>
 
@@ -447,7 +447,7 @@
 
                         </div>
 
-                        <a href="farmer-dss.html">
+                        <a href="farmer-dss.php">
                             Open DSS →
                         </a>
 
@@ -775,7 +775,7 @@
             <div class="footer-about">
 
                 <a
-                    href="farmer.html"
+                    href="farmer.php"
                     class="logo footer-logo"
                 >
 
@@ -803,19 +803,19 @@
                     Farmer
                 </h3>
 
-                <a href="farmer.html">
+                <a href="farmer.php">
                     Dashboard
                 </a>
 
-                <a href="farmer-products.html">
+                <a href="farmer-products.php">
                     My Products
                 </a>
 
-                <a href="farmer-orders.html">
+                <a href="farmer-orders.php">
                     Orders
                 </a>
 
-                <a href="farmer-dss.html">
+                <a href="farmer-dss.php">
                     Decision Support
                 </a>
 
@@ -828,11 +828,11 @@
                     Account
                 </h3>
 
-                <a href="farmer-profile.html">
+                <a href="farmer-profile.php">
                     My Profile
                 </a>
 
-                <a href="index.html">
+                <a href="index.php">
                     Logout
                 </a>
 

@@ -30,7 +30,7 @@
 
         <div class="container navbar">
 
-            <a href="consumer.html" class="logo">
+            <a href="consumer-dashboard.php" class="logo">
 
                 <span class="logo-icon">🌱</span>
 
@@ -41,27 +41,27 @@
 
             <nav class="nav-menu">
 
-                <a href="consumer.html">Home</a>
+                <a href="consumer-dashboard.php">Home</a>
 
-                <a href="marketplace.html">Marketplace</a>
+                <a href="marketplace.php">Marketplace</a>
 
-                <a href="future-harvests.html">Future Harvests</a>
+                <a href="future-harvests.php">Future Harvests</a>
 
-                <a href="consumer-demands.html" class="active">Demand Hub</a>
+                <a href="consumer-demands.php" class="active">Demand Hub</a>
 
-                <a href="my-orders.html">My Orders</a>
+                <a href="my-orders.php">My Orders</a>
 
             </nav>
 
 
             <div class="consumer-actions" style="display: flex; align-items: center; gap: 16px;">
 
-                <a href="consumer-profile.html" style="text-decoration: none; display: flex; align-items: center; gap: 8px; color: var(--dark); font-weight: 600; font-size: 14px;">
+                <a href="consumer-profile.php" style="text-decoration: none; display: flex; align-items: center; gap: 8px; color: var(--dark); font-weight: 600; font-size: 14px;">
                     <span style="width: 32px; height: 32px; border-radius: 50%; background: var(--primary); color: white; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 13px;">A</span>
                     Abrar
                 </a>
 
-                <a href="index.html" style="text-decoration: none; padding: 8px 14px; border: 1px solid var(--border); border-radius: 6px; font-size: 13px; font-weight: 600; color: var(--dark);">Logout</a>
+                <a href="index.php" style="text-decoration: none; padding: 8px 14px; border: 1px solid var(--border); border-radius: 6px; font-size: 13px; font-weight: 600; color: var(--dark);">Logout</a>
 
             </div>
 
@@ -96,7 +96,7 @@
                 </div>
 
 
-                <form action="consumer-demands.html" method="GET">
+                <form action="consumer-demands.php" method="GET">
 
                     <div class="demand-grid">
 
@@ -214,7 +214,7 @@
 
             <div class="footer-about">
 
-                <a href="consumer.html" class="logo footer-logo">
+                <a href="consumer.php" class="logo footer-logo">
 
                     <span class="logo-icon">🌱</span>
 
@@ -233,13 +233,13 @@
 
                 <h3>Consumer</h3>
 
-                <a href="consumer.html">Dashboard</a>
+                <a href="consumer.php">Dashboard</a>
 
-                <a href="marketplace.html">Marketplace</a>
+                <a href="marketplace.php">Marketplace</a>
 
-                <a href="future-harvests.html">Future Harvests</a>
+                <a href="future-harvests.php">Future Harvests</a>
 
-                <a href="consumer-demands.html">Demand Broadcasts</a>
+                <a href="consumer-demands.php">Demand Broadcasts</a>
 
             </div>
 
@@ -248,11 +248,11 @@
 
                 <h3>Account</h3>
 
-                <a href="consumer-profile.html">My Profile</a>
+                <a href="consumer-profile.php">My Profile</a>
 
-                <a href="my-orders.html">My Orders</a>
+                <a href="my-orders.php">My Orders</a>
 
-                <a href="index.html">Logout</a>
+                <a href="index.php">Logout</a>
 
             </div>
 
