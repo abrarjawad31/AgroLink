@@ -44,13 +44,27 @@
 
 
             <nav class="nav-menu">
-                <a href="consumer-dashboard.php">Home</a>
-                <a href="marketplace.php">Marketplace</a>
-                <a href="future-harvests.php">
-                    Future Harvest
+
+                <a href="consumer-dashboard.php">
+                    Home
                 </a>
-                <a href="my-orders.php">My Orders</a>
-                <a href="consumer-demands.php">My Demands</a>
+
+                <a href="marketplace.php">
+                    Marketplace
+                </a>
+
+                <a href="future-harvests.php">
+                    Pre Bookings
+                </a>
+
+                <a href="my-orders.php">
+                    My Orders
+                </a>
+
+                <a href="consumer-demands.php" class="active-nav">
+                    My Demands
+                </a>
+
             </nav>
 
 

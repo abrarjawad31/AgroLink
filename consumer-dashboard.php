@@ -73,7 +73,7 @@ $avatarLetter = strtoupper(substr($userName, 0, 1));
                 </a>
 
                 <a href="future-harvests.php">
-                    Future Harvest
+                    Pre Bookings
                 </a>
 
                 <a href="my-orders.php">

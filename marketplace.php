@@ -480,30 +480,27 @@ function buildPageUrl($page_number)
 
         <nav class="nav-menu">
 
-            <a href="consumer-dashboard.php">
-                Home
-            </a>
+                <a href="consumer-dashboard.php"">
+                    Home
+                </a>
 
-            <a
-                href="marketplace.php"
-                class="active"
-            >
-                Marketplace
-            </a>
+                <a href="marketplace.php" class="active-nav">
+                    Marketplace
+                </a>
 
-            <a href="my-orders.php">
-                My Orders
-            </a>
+                <a href="future-harvests.php">
+                    Pre Bookings
+                </a>
 
-            <a href="consumer-bookings.php">
-                My Bookings
-            </a>
+                <a href="my-orders.php">
+                    My Orders
+                </a>
 
-            <a href="consumer-demands.php">
-                My Demands
-            </a>
+                <a href="consumer-demands.php">
+                    My Demands
+                </a>
 
-        </nav>
+            </nav>
 
 
         <!-- CONSUMER ACTIONS -->

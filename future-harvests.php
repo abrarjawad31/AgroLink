@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Future Harvest Booking | AgroLink</title>
+    <title>Pre Harvest Booking | AgroLink</title>
 
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/future-harvests.css">
@@ -45,7 +45,7 @@
 
                 <a href="marketplace.php">Marketplace</a>
 
-                <a href="future-harvests.php" class="active">Future Harvests</a>
+                <a href="future-harvests.php" class="active">Pre Bookings</a>
 
                 <a href="consumer-demands.php">Demand Hub</a>
 
