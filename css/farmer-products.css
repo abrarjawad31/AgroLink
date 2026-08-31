@@ -11,19 +11,14 @@
 
 .farmer-actions {
     display: flex;
-
     align-items: center;
-
     gap: 14px;
 }
 
 .notification {
     position: relative;
-
     color: var(--dark);
-
     font-size: 15px;
-
     text-decoration: none;
 }
 
@@ -37,14 +32,12 @@
     height: 14px;
 
     display: flex;
-
     align-items: center;
     justify-content: center;
 
     border-radius: 50%;
 
     background: var(--primary);
-
     color: white;
 
     font-size: 7px;
@@ -52,7 +45,6 @@
 
 .profile-link {
     display: flex;
-
     align-items: center;
 
     gap: 6px;
@@ -60,7 +52,6 @@
     color: var(--dark);
 
     font-size: 10px;
-
     font-weight: 600;
 
     text-decoration: none;
@@ -71,18 +62,15 @@
     height: 29px;
 
     display: flex;
-
     align-items: center;
     justify-content: center;
 
     border-radius: 50%;
 
     background: var(--primary);
-
     color: white;
 
     font-size: 10px;
-
     font-weight: 700;
 }
 
@@ -90,21 +78,20 @@
     padding: 8px 12px;
 
     border: 1px solid var(--border);
-
     border-radius: 5px;
 
     color: var(--dark);
 
     font-size: 9px;
-
     font-weight: 600;
 
     text-decoration: none;
+
+    transition: 0.2s;
 }
 
 .logout-btn:hover {
     border-color: var(--primary);
-
     color: var(--primary);
 }
 
@@ -120,13 +107,12 @@
 }
 
 
-/* ================= HEADER ================= */
+/* ================= PAGE HEADER ================= */
 
 .page-header {
     display: flex;
 
     align-items: center;
-
     justify-content: space-between;
 
     margin-bottom: 30px;
@@ -136,7 +122,6 @@
     color: var(--primary);
 
     font-size: 8px;
-
     font-weight: 700;
 
     letter-spacing: 1px;
@@ -157,16 +142,16 @@
 }
 
 .add-product-btn {
+    display: inline-block;
+
     padding: 12px 18px;
 
     border-radius: 5px;
 
     background: var(--primary);
-
     color: white;
 
     font-size: 10px;
-
     font-weight: 700;
 
     text-decoration: none;
@@ -240,7 +225,7 @@
 }
 
 
-/* ================= FILTER ================= */
+/* ================= FILTER BAR ================= */
 
 .filter-bar {
     display: flex;
@@ -286,11 +271,11 @@
     width: 100%;
 
     border: none;
-
     outline: none;
 
-    font-family: inherit;
+    background: transparent;
 
+    font-family: inherit;
     font-size: 9px;
 }
 
@@ -310,14 +295,13 @@
     outline: none;
 
     font-family: inherit;
-
     font-size: 9px;
 
     cursor: pointer;
 }
 
 
-/* ================= TABLE CARD ================= */
+/* ================= PRODUCTS CARD ================= */
 
 .products-card {
     overflow: hidden;
@@ -333,7 +317,6 @@
     display: flex;
 
     align-items: center;
-
     justify-content: space-between;
 
     padding: 20px 22px;
@@ -363,7 +346,7 @@ table {
 
     border-collapse: collapse;
 
-    min-width: 750px;
+    min-width: 800px;
 }
 
 thead {
@@ -376,7 +359,6 @@ th {
     color: var(--light-text);
 
     font-size: 8px;
-
     font-weight: 700;
 
     text-align: left;
@@ -394,6 +376,14 @@ td {
     color: var(--dark);
 
     font-size: 9px;
+}
+
+tbody tr {
+    transition: background 0.2s;
+}
+
+tbody tr:hover {
+    background: #fbfdfb;
 }
 
 
@@ -418,11 +408,22 @@ td {
 
     flex-shrink: 0;
 
+    overflow: hidden;
+
     border-radius: 6px;
 
     background: var(--primary-light);
 
     font-size: 18px;
+}
+
+.product-image img {
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+
+    display: block;
 }
 
 .product-info strong {
@@ -452,20 +453,22 @@ td {
     border-radius: 20px;
 
     font-size: 7px;
-
     font-weight: 700;
 }
 
 .status.active {
     background: #e8f5e9;
-
     color: #2e7d32;
 }
 
 .status.inactive {
     background: #f1f1f1;
-
     color: #777;
+}
+
+.status.out-of-stock {
+    background: #fff3e0;
+    color: #e65100;
 }
 
 
@@ -481,6 +484,8 @@ td {
 
 .edit-btn,
 .delete-btn {
+    display: inline-block;
+
     padding: 6px 9px;
 
     border-radius: 4px;
@@ -488,12 +493,13 @@ td {
     font-family: inherit;
 
     font-size: 7px;
-
     font-weight: 700;
 
     text-decoration: none;
 
     cursor: pointer;
+
+    transition: 0.2s;
 }
 
 .edit-btn {
@@ -521,46 +527,53 @@ td {
 }
 
 
-/* ================= PAGINATION ================= */
+/* ================= EMPTY PRODUCTS ================= */
 
-.pagination {
+.empty-products {
+    padding: 60px 20px !important;
+
+    text-align: center;
+}
+
+.empty-products > div {
     display: flex;
 
-    justify-content: flex-end;
+    align-items: center;
+    justify-content: center;
 
-    gap: 5px;
-
-    padding: 15px 20px;
-
-    border-top: 1px solid var(--border);
+    flex-direction: column;
 }
 
-.page-btn {
-    width: 28px;
-    height: 28px;
+.empty-icon {
+    width: 55px;
+    height: 55px;
 
-    border: 1px solid var(--border);
+    display: flex;
 
-    border-radius: 4px;
+    align-items: center;
+    justify-content: center;
 
-    background: white;
+    margin-bottom: 12px;
 
-    color: var(--dark);
+    border-radius: 50%;
 
-    font-family: inherit;
+    background: var(--primary-light);
 
-    font-size: 8px;
-
-    cursor: pointer;
+    font-size: 25px;
 }
 
-.page-btn.active,
-.page-btn:hover {
-    border-color: var(--primary);
+.empty-products h3 {
+    margin-bottom: 5px;
 
-    background: var(--primary);
+    font-size: 15px;
+}
 
-    color: white;
+.empty-products p {
+    margin-bottom: 18px;
+
+    color: var(--light-text);
+
+    font-size: 9px;
 }
 
 
@@ -577,6 +590,7 @@ td {
     }
 
 }
+
 
 @media (max-width: 650px) {
 
@@ -607,6 +621,7 @@ td {
     }
 
 }
+
 
 @media (max-width: 450px) {
 
