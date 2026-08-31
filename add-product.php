@@ -44,8 +44,6 @@ if ($user_stmt) {
 // ============================================================
 // NOTIFICATION COUNT
 // ============================================================
-// No notification table has been provided yet.
-// Keep this as 0 until notification functionality is connected.
 
 $notification_count = 0;
 
@@ -59,7 +57,7 @@ $category = "";
 $description = "";
 $price = "";
 $unit = "kg";
-$stock = "";
+$quantity = "";
 $district = "";
 $area = "";
 $availability = "available";
@@ -84,12 +82,12 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
 
     // --------------------------------------------------------
-    // PRICE & STOCK
+    // PRICE & QUANTITY
     // --------------------------------------------------------
 
     $price = trim($_POST["price"] ?? "");
     $unit = trim($_POST["unit"] ?? "kg");
-    $stock = trim($_POST["stock"] ?? "");
+    $quantity = trim($_POST["quantity"] ?? "");
 
 
     // --------------------------------------------------------
@@ -121,7 +119,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $description === "" ||
         $price === "" ||
         $unit === "" ||
-        $stock === "" ||
+        $quantity === "" ||
         $district === ""
     ) {
 
@@ -131,9 +129,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
         $error_message = "Please enter a valid product price.";
 
-    } elseif (!is_numeric($stock) || (float) $stock < 0) {
+    } elseif (!is_numeric($quantity) || (float) $quantity < 0) {
 
-        $error_message = "Please enter a valid stock quantity.";
+        $error_message = "Please enter a valid quantity.";
 
     } else {
 
@@ -256,16 +254,15 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
         if ($error_message === "") {
 
-            $quantity = (float) $stock;
             $product_price = (float) $price;
+            $product_quantity = (float) $quantity;
 
 
             // ------------------------------------------------
-            // If farmer enters 0 stock, mark out_of_stock.
-            // Otherwise use selected availability.
+            // DETERMINE STATUS
             // ------------------------------------------------
 
-            if ($quantity <= 0) {
+            if ($product_quantity <= 0) {
 
                 $status = "out_of_stock";
 
@@ -274,6 +271,10 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 $status = $availability;
             }
 
+
+            // ------------------------------------------------
+            // PREPARE INSERT
+            // ------------------------------------------------
 
             $insert_stmt = $conn->prepare("
                 INSERT INTO products
@@ -332,12 +333,16 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                     $description,
                     $product_price,
                     $unit,
-                    $quantity,
+                    $product_quantity,
                     $location,
                     $image_name,
                     $status
                 );
 
+
+                // ------------------------------------------------
+                // EXECUTE INSERT
+                // ------------------------------------------------
 
                 if ($insert_stmt->execute()) {
 
@@ -349,7 +354,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
                 } else {
 
-                    $error_message = "Unable to add the product. Please try again.";
+                    $error_message =
+                        "Unable to add the product. Please try again.";
 
                     // Delete uploaded image if DB insertion failed
                     if ($image_name !== null) {
@@ -369,19 +375,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             }
         }
     }
-}
-
-
-// ============================================================
-// SUCCESS MESSAGE FROM REDIRECT
-// ============================================================
-
-if (
-    isset($_GET["success"]) &&
-    $_GET["success"] === "product_added"
-) {
-
-    $success_message = "Product added successfully.";
 }
 
 ?>
@@ -469,31 +462,24 @@ if (
 
             <a
                 href="farmer-products.php"
+                class="active-nav"
             >
                 My Products
             </a>
 
-            <a
-                href="farmer-bookings.php"
-            >
+            <a href="farmer-bookings.php">
                 Harvest Bookings
             </a>
 
-            <a
-                href="farmer-demands.php"
-            >
+            <a href="farmer-demands.php">
                 Demand Broadcasts
             </a>
 
-            <a
-                href="farmer-orders.php"
-            >
+            <a href="farmer-orders.php">
                 Orders
             </a>
 
-            <a
-                href="farmer-dss.php"
-            >
+            <a href="farmer-dss.php">
                 DSS
             </a>
 
@@ -572,9 +558,7 @@ if (
     <div class="container">
 
 
-        <!-- =====================================================
-             PAGE HEADER
-        ====================================================== -->
+        <!-- PAGE HEADER -->
 
         <div class="page-header">
 
@@ -607,52 +591,24 @@ if (
 
 
 
-        <!-- =====================================================
-             SUCCESS MESSAGE
-        ====================================================== -->
+        <!-- SUCCESS MESSAGE -->
 
         <?php if ($success_message !== ""): ?>
 
-            <div
-                style="
-                    margin-bottom:20px;
-                    padding:12px 15px;
-                    border:1px solid #cfe5cf;
-                    border-radius:6px;
-                    background:#f1faf1;
-                    color:#2e7d32;
-                    font-size:10px;
-                "
-            >
-
+            <div class="message success-message">
                 <?= htmlspecialchars($success_message) ?>
-
             </div>
 
         <?php endif; ?>
 
 
 
-        <!-- =====================================================
-             ERROR MESSAGE
-        ====================================================== -->
+        <!-- ERROR MESSAGE -->
 
         <?php if ($error_message !== ""): ?>
 
-            <div
-                style="
-                    margin-bottom:20px;
-                    padding:12px 15px;
-                    border:1px solid #ead0d0;
-                    border-radius:6px;
-                    background:#fff5f5;
-                    color:#c62828;
-                    font-size:10px;
-                "
-            >
-
+            <div class="message error-message">
                 <?= htmlspecialchars($error_message) ?>
-
             </div>
 
         <?php endif; ?>
@@ -719,6 +675,7 @@ if (
                             name="product_name"
                             value="<?= htmlspecialchars($product_name) ?>"
                             placeholder="e.g. Fresh Organic Tomatoes"
+                            maxlength="150"
                             required
                         >
 
@@ -810,20 +767,67 @@ if (
 
 
 
-                    <!-- SUBCATEGORY -->
+                    <!-- UNIT -->
 
                     <div class="form-group">
 
-                        <label for="subcategory">
-                            Subcategory
+                        <label for="unit">
+
+                            Selling Unit
+
+                            <span>*</span>
+
                         </label>
 
-                        <input
-                            type="text"
-                            id="subcategory"
-                            name="subcategory"
-                            placeholder="e.g. Tomato, Mango, Rice"
+                        <select
+                            id="unit"
+                            name="unit"
+                            required
                         >
+
+                            <option
+                                value="kg"
+                                <?= $unit === "kg" ? "selected" : "" ?>
+                            >
+                                Kilogram (kg)
+                            </option>
+
+                            <option
+                                value="gram"
+                                <?= $unit === "gram" ? "selected" : "" ?>
+                            >
+                                Gram (g)
+                            </option>
+
+                            <option
+                                value="liter"
+                                <?= $unit === "liter" ? "selected" : "" ?>
+                            >
+                                Liter (L)
+                            </option>
+
+                            <option
+                                value="piece"
+                                <?= $unit === "piece" ? "selected" : "" ?>
+                            >
+                                Piece
+                            </option>
+
+                            <option
+                                value="dozen"
+                                <?= $unit === "dozen" ? "selected" : "" ?>
+                            >
+                                Dozen
+                            </option>
+
+                            <option
+                                value="bag"
+                                <?= $unit === "bag" ? "selected" : "" ?>
+                            >
+                                Bag
+                            </option>
+
+                        </select>
 
                     </div>
 
@@ -922,79 +926,13 @@ if (
 
 
 
-                    <!-- UNIT -->
+                    <!-- QUANTITY -->
 
                     <div class="form-group">
 
-                        <label for="unit">
+                        <label for="quantity">
 
-                            Unit
-
-                            <span>*</span>
-
-                        </label>
-
-                        <select
-                            id="unit"
-                            name="unit"
-                            required
-                        >
-
-                            <option
-                                value="kg"
-                                <?= $unit === "kg" ? "selected" : "" ?>
-                            >
-                                Kilogram (kg)
-                            </option>
-
-                            <option
-                                value="gram"
-                                <?= $unit === "gram" ? "selected" : "" ?>
-                            >
-                                Gram (g)
-                            </option>
-
-                            <option
-                                value="liter"
-                                <?= $unit === "liter" ? "selected" : "" ?>
-                            >
-                                Liter (L)
-                            </option>
-
-                            <option
-                                value="piece"
-                                <?= $unit === "piece" ? "selected" : "" ?>
-                            >
-                                Piece
-                            </option>
-
-                            <option
-                                value="dozen"
-                                <?= $unit === "dozen" ? "selected" : "" ?>
-                            >
-                                Dozen
-                            </option>
-
-                            <option
-                                value="bag"
-                                <?= $unit === "bag" ? "selected" : "" ?>
-                            >
-                                Bag
-                            </option>
-
-                        </select>
-
-                    </div>
-
-
-
-                    <!-- STOCK -->
-
-                    <div class="form-group">
-
-                        <label for="stock">
-
-                            Available Stock
+                            Available Quantity
 
                             <span>*</span>
 
@@ -1002,33 +940,13 @@ if (
 
                         <input
                             type="number"
-                            id="stock"
-                            name="stock"
-                            value="<?= htmlspecialchars($stock) ?>"
+                            id="quantity"
+                            name="quantity"
+                            value="<?= htmlspecialchars($quantity) ?>"
                             min="0"
                             step="0.01"
                             placeholder="e.g. 100"
                             required
-                        >
-
-                    </div>
-
-
-
-                    <!-- MINIMUM ORDER -->
-
-                    <div class="form-group">
-
-                        <label for="minimum-order">
-                            Minimum Order
-                        </label>
-
-                        <input
-                            type="number"
-                            id="minimum-order"
-                            name="minimum_order"
-                            min="1"
-                            placeholder="e.g. 1"
                         >
 
                     </div>
@@ -1094,6 +1012,12 @@ if (
                         accept=".jpg,.jpeg,.png"
                     >
 
+                    <span
+                        id="file-name"
+                        class="file-name"
+                    >
+                    </span>
+
                 </div>
 
             </section>
@@ -1148,6 +1072,7 @@ if (
                             name="district"
                             value="<?= htmlspecialchars($district) ?>"
                             placeholder="e.g. Dhaka"
+                            maxlength="150"
                             required
                         >
 
@@ -1170,37 +1095,6 @@ if (
                             value="<?= htmlspecialchars($area) ?>"
                             placeholder="e.g. Savar"
                         >
-
-                    </div>
-
-
-
-                    <!-- DELIVERY -->
-
-                    <div class="form-group full-width">
-
-                        <label for="delivery">
-                            Delivery Availability
-                        </label>
-
-                        <select
-                            id="delivery"
-                            name="delivery"
-                        >
-
-                            <option value="home-delivery">
-                                Home Delivery Available
-                            </option>
-
-                            <option value="pickup">
-                                Farmer Pickup Only
-                            </option>
-
-                            <option value="both">
-                                Home Delivery & Pickup
-                            </option>
-
-                        </select>
 
                     </div>
 
@@ -1398,7 +1292,7 @@ if (
                 Settings
             </a>
 
-            <a href="index.php">
+            <a href="logout.php">
                 Logout
             </a>
 
@@ -1447,6 +1341,37 @@ if (
     </div>
 
 </footer>
+
+
+
+<!-- =========================================================
+     IMAGE FILE NAME
+========================================================= -->
+
+<script>
+
+const imageInput = document.getElementById("product-image");
+const fileName = document.getElementById("file-name");
+
+if (imageInput) {
+
+    imageInput.addEventListener("change", function () {
+
+        if (this.files && this.files.length > 0) {
+
+            fileName.textContent = this.files[0].name;
+
+        } else {
+
+            fileName.textContent = "";
+
+        }
+
+    });
+
+}
+
+</script>
 
 
 </body>

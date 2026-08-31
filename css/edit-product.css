@@ -153,6 +153,57 @@
 }
 
 
+/* ================= MESSAGES ================= */
+
+.success-message {
+    max-width: 900px;
+
+    margin: 0 auto 20px;
+
+    padding: 12px 15px;
+
+    border: 1px solid #cfe5cf;
+    border-radius: 6px;
+
+    background: #f1faf1;
+    color: #2e7d32;
+
+    font-size: 10px;
+}
+
+.error-message {
+    max-width: 900px;
+
+    margin: 0 auto 20px;
+
+    padding: 12px 15px;
+
+    border: 1px solid #ead0d0;
+    border-radius: 6px;
+
+    background: #fff5f5;
+    color: #c62828;
+
+    font-size: 10px;
+}
+
+.stock-warning {
+    margin-top: 14px;
+
+    padding: 11px 13px;
+
+    border: 1px solid #f0dfbd;
+    border-radius: 6px;
+
+    background: #fffaf0;
+    color: #856404;
+
+    font-size: 8px;
+
+    line-height: 1.5;
+}
+
+
 /* ================= FORM ================= */
 
 .product-form {
@@ -288,6 +339,11 @@
     box-shadow: 0 0 0 2px rgba(56, 142, 60, 0.08);
 }
 
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+    color: #a8afa7;
+}
+
 
 /* ================= PRICE ================= */
 
@@ -336,19 +392,32 @@
 }
 
 .current-image-preview {
-    width: 55px;
-    height: 55px;
+    width: 65px;
+    height: 65px;
 
     display: flex;
 
     align-items: center;
     justify-content: center;
 
+    flex-shrink: 0;
+
+    overflow: hidden;
+
     border-radius: 6px;
 
     background: var(--primary-light);
 
     font-size: 25px;
+}
+
+.current-image-preview img {
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+
+    display: block;
 }
 
 .current-image strong {
@@ -363,6 +432,8 @@
     color: var(--light-text);
 
     font-size: 7px;
+
+    word-break: break-all;
 }
 
 
@@ -387,6 +458,12 @@
     background: #fbfdfb;
 
     text-align: center;
+
+    transition: 0.2s;
+}
+
+.upload-area:hover {
+    border-color: var(--primary);
 }
 
 .upload-icon {
@@ -441,6 +518,8 @@
     font-weight: 700;
 
     cursor: pointer;
+
+    transition: 0.2s;
 }
 
 .upload-button:hover {
@@ -468,9 +547,11 @@
     border-radius: 6px;
 
     cursor: pointer;
+
+    transition: 0.2s;
 }
 
-.availability-option:last-child {
+.availability-option:last-of-type {
     margin-bottom: 0;
 }
 
@@ -655,6 +736,10 @@
     .cancel-btn,
     .save-btn {
         text-align: center;
+    }
+
+    .current-image {
+        align-items: flex-start;
     }
 
 }

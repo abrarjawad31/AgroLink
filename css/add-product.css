@@ -17,13 +17,17 @@
 
 .notification {
     position: relative;
+
     color: var(--dark);
+
     font-size: 15px;
+
     text-decoration: none;
 }
 
 .notification-count {
     position: absolute;
+
     top: -7px;
     right: -7px;
 
@@ -31,6 +35,7 @@
     height: 14px;
 
     display: flex;
+
     align-items: center;
     justify-content: center;
 
@@ -44,7 +49,9 @@
 
 .profile-link {
     display: flex;
+
     align-items: center;
+
     gap: 6px;
 
     color: var(--dark);
@@ -60,6 +67,7 @@
     height: 29px;
 
     display: flex;
+
     align-items: center;
     justify-content: center;
 
@@ -88,6 +96,7 @@
 
 .logout-btn:hover {
     border-color: var(--primary);
+
     color: var(--primary);
 }
 
@@ -153,13 +162,47 @@
 }
 
 
-/* ================= FORM CARD ================= */
+/* ================= MESSAGES ================= */
+
+.message {
+    max-width: 900px;
+
+    margin: 0 auto 20px;
+
+    padding: 12px 15px;
+
+    border-radius: 6px;
+
+    font-size: 10px;
+}
+
+.success-message {
+    border: 1px solid #cfe5cf;
+
+    background: #f1faf1;
+
+    color: #2e7d32;
+}
+
+.error-message {
+    border: 1px solid #ead0d0;
+
+    background: #fff5f5;
+
+    color: #c62828;
+}
+
+
+/* ================= FORM ================= */
 
 .product-form {
     max-width: 900px;
 
     margin: auto;
 }
+
+
+/* ================= FORM CARD ================= */
 
 .form-card {
     margin-bottom: 18px;
@@ -405,6 +448,24 @@
     color: white;
 }
 
+.file-name {
+    display: block;
+
+    max-width: 80%;
+
+    margin-top: 10px;
+
+    overflow: hidden;
+
+    color: var(--light-text);
+
+    font-size: 8px;
+
+    text-overflow: ellipsis;
+
+    white-space: nowrap;
+}
+
 
 /* ================= AVAILABILITY ================= */
 
@@ -562,6 +623,7 @@
 
 }
 
+
 @media (max-width: 650px) {
 
     .page-header {
@@ -589,6 +651,7 @@
     }
 
 }
+
 
 @media (max-width: 450px) {
 
