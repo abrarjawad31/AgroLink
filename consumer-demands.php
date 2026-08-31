@@ -96,7 +96,7 @@
 
                 </a>
 
-                <a href="index.php" class="logout-btn">
+                <a href="logout.php" class="logout-btn">
                     Logout
                 </a>
 
@@ -337,7 +337,7 @@
 
                 <a href="my-orders.php">My Orders</a>
 
-                <a href="index.php">Logout</a>
+                <a href="logout.php">Logout</a>
 
             </div>
 

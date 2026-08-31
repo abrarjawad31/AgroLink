@@ -136,7 +136,7 @@ if ($cart_id > 0) {
 // CART CALCULATIONS
 // ============================================================
 
-$total_items = 0;
+$cart_count = 0;
 $subtotal = 0;
 
 foreach ($cart_items as $item) {
@@ -144,7 +144,7 @@ foreach ($cart_items as $item) {
     $quantity = (float) $item["cart_quantity"];
     $price = (float) $item["price"];
 
-    $total_items += $quantity;
+    $cart_count += $quantity;
 
     $subtotal += ($quantity * $price);
 }
@@ -273,35 +273,32 @@ function getProductImage($image)
 
         <nav class="nav-menu">
 
-            <a href="consumer-dashboard.php">
-                Home
-            </a>
+                <a href="consumer-dashboard.php"">
+                    Home
+                </a>
 
-            <a href="marketplace.php">
-                Marketplace
-            </a>
+                <a href="marketplace.php" class="active-nav">
+                    Marketplace
+                </a>
 
-            <a href="my-orders.php">
-                My Orders
-            </a>
+                <a href="future-harvests.php">
+                    Pre Bookings
+                </a>
 
-            <a href="consumer-bookings.php">
-                My Bookings
-            </a>
+                <a href="my-orders.php">
+                    My Orders
+                </a>
 
-            <a href="consumer-demands.php">
-                My Demands
-            </a>
+                <a href="consumer-demands.php">
+                    My Demands
+                </a>
 
-        </nav>
+            </nav>
 
 
         <!-- CONSUMER ACTIONS -->
 
         <div class="consumer-actions">
-
-
-            <!-- CART -->
 
             <a
                 href="cart.php"
@@ -315,13 +312,11 @@ function getProductImage($image)
                 Cart
 
                 <span class="cart-count">
-                    <?php echo (int) $total_items; ?>
+                    <?= $cart_count ?>
                 </span>
 
             </a>
 
-
-            <!-- PROFILE -->
 
             <a
                 href="consumer-profile.php"
@@ -329,25 +324,24 @@ function getProductImage($image)
             >
 
                 <span class="profile-avatar">
-                    <?php echo htmlspecialchars($avatar_letter); ?>
+                    <?= htmlspecialchars(
+                        strtoupper(substr($consumer_name, 0, 1))
+                    ) ?>
                 </span>
 
                 <span class="profile-name">
-                    <?php echo htmlspecialchars($consumer_name); ?>
+                    <?= htmlspecialchars($consumer_name) ?>
                 </span>
 
             </a>
 
 
-            <!-- LOGOUT -->
-
             <a
-                href="index.php"
+                href="logout.php"
                 class="logout-btn"
             >
                 Logout
             </a>
-
 
         </div>
 

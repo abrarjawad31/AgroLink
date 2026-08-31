@@ -1,6 +1,11 @@
 <?php
 
-// Start session if it has not already started
+/*
+|--------------------------------------------------------------------------
+| Start Session
+|--------------------------------------------------------------------------
+*/
+
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
@@ -8,7 +13,7 @@ if (session_status() === PHP_SESSION_NONE) {
 
 /*
 |--------------------------------------------------------------------------
-| Check if user is logged in
+| Check if User is Logged In
 |--------------------------------------------------------------------------
 */
 
@@ -18,13 +23,14 @@ function requireLogin()
 
         header("Location: login.php");
         exit();
+
     }
 }
 
 
 /*
 |--------------------------------------------------------------------------
-| Check if user is a Consumer
+| Check if User is a Consumer
 |--------------------------------------------------------------------------
 */
 
@@ -32,17 +38,28 @@ function requireConsumer()
 {
     requireLogin();
 
-    if ($_SESSION["role"] !== "consumer") {
+    if (!isset($_SESSION["role"]) || $_SESSION["role"] !== "consumer") {
+
+        if (isset($_SESSION["role"]) && $_SESSION["role"] === "farmer") {
+            header("Location: farmer.php");
+            exit();
+        }
+
+        if (isset($_SESSION["role"]) && $_SESSION["role"] === "admin") {
+            header("Location: admin-dashboard.php");
+            exit();
+        }
 
         header("Location: index.php");
         exit();
+
     }
 }
 
 
 /*
 |--------------------------------------------------------------------------
-| Check if user is a Farmer
+| Check if User is a Farmer
 |--------------------------------------------------------------------------
 */
 
@@ -50,17 +67,28 @@ function requireFarmer()
 {
     requireLogin();
 
-    if ($_SESSION["role"] !== "farmer") {
+    if (!isset($_SESSION["role"]) || $_SESSION["role"] !== "farmer") {
+
+        if (isset($_SESSION["role"]) && $_SESSION["role"] === "consumer") {
+            header("Location: consumer-dashboard.php");
+            exit();
+        }
+
+        if (isset($_SESSION["role"]) && $_SESSION["role"] === "admin") {
+            header("Location: admin-dashboard.php");
+            exit();
+        }
 
         header("Location: index.php");
         exit();
+
     }
 }
 
 
 /*
 |--------------------------------------------------------------------------
-| Check if user is an Admin
+| Check if User is an Admin
 |--------------------------------------------------------------------------
 */
 
@@ -68,10 +96,21 @@ function requireAdmin()
 {
     requireLogin();
 
-    if ($_SESSION["role"] !== "admin") {
+    if (!isset($_SESSION["role"]) || $_SESSION["role"] !== "admin") {
+
+        if (isset($_SESSION["role"]) && $_SESSION["role"] === "consumer") {
+            header("Location: consumer-dashboard.php");
+            exit();
+        }
+
+        if (isset($_SESSION["role"]) && $_SESSION["role"] === "farmer") {
+            header("Location: farmer.php");
+            exit();
+        }
 
         header("Location: index.php");
         exit();
+
     }
 }
 

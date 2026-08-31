@@ -1,10 +1,37 @@
+<?php
+
+/*
+|--------------------------------------------------------------------------
+| Farmer Authentication
+|--------------------------------------------------------------------------
+*/
+
+require_once "auth.php";
+
+requireFarmer();
+
+
+/*
+|--------------------------------------------------------------------------
+| Get Logged-in Farmer Information
+|--------------------------------------------------------------------------
+*/
+
+$farmerName = $_SESSION["user_name"] ?? "Farmer";
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
 
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
     <title>Farmer Dashboard | AgroLink</title>
 
@@ -12,11 +39,16 @@
     <link rel="stylesheet" href="css/farmer.css">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
 
     <link
         href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap"
-        rel="stylesheet">
+        rel="stylesheet"
+    >
 
 </head>
 
@@ -29,6 +61,7 @@
     <header class="header">
 
         <div class="container navbar">
+
 
             <!-- LOGO -->
 
@@ -49,17 +82,32 @@
 
             <nav class="nav-menu">
 
-                <a href="farmer.php" class="active-nav">Dashboard</a>
+                <a
+                    href="farmer.php"
+                    class="active-nav"
+                >
+                    Dashboard
+                </a>
 
-                <a href="farmer-products.php">My Products</a>
+                <a href="farmer-products.php">
+                    My Products
+                </a>
 
-                <a href="farmer-bookings.php">Harvest Bookings</a>
+                <a href="farmer-bookings.php">
+                    Harvest Bookings
+                </a>
 
-                <a href="farmer-demands.php">Demand Broadcasts</a>
+                <a href="farmer-demands.php">
+                    Demand Broadcasts
+                </a>
 
-                <a href="farmer-orders.php">Orders</a>
+                <a href="farmer-orders.php">
+                    Orders
+                </a>
 
-                <a href="farmer-dss.php">DSS</a>
+                <a href="farmer-dss.php">
+                    DSS
+                </a>
 
             </nav>
 
@@ -68,7 +116,13 @@
 
             <div class="farmer-actions">
 
-                <a href="#" class="notification">
+
+                <!-- NOTIFICATION -->
+
+                <a
+                    href="#"
+                    class="notification"
+                >
 
                     🔔
 
@@ -79,19 +133,45 @@
                 </a>
 
 
-                <a href="farmer-profile.php" class="profile-link">
+                <!-- PROFILE -->
+
+                <a
+                    href="farmer-profile.php"
+                    class="profile-link"
+                >
+
                     <span class="profile-avatar">
-                        A
+
+                        <?php
+                        echo htmlspecialchars(
+                            strtoupper(
+                                substr($farmerName, 0, 1)
+                            )
+                        );
+                        ?>
+
                     </span>
+
                     <span class="profile-name">
-                        Abrar
+
+                        <?php
+                        echo htmlspecialchars($farmerName);
+                        ?>
+
                     </span>
+
                 </a>
 
 
-                <a href="index.php" class="logout-btn">
+                <!-- LOGOUT -->
+
+                <a
+                    href="logout.php"
+                    class="logout-btn"
+                >
                     Logout
                 </a>
+
 
             </div>
 
@@ -119,7 +199,17 @@
                     </span>
 
                     <h1>
-                        Welcome back, <span>Abrar!</span> 👋
+
+                        Welcome back,
+
+                        <span>
+                            <?php
+                            echo htmlspecialchars($farmerName);
+                            ?>!
+                        </span>
+
+                        👋
+
                     </h1>
 
                     <p>
@@ -426,6 +516,8 @@
                     <div class="quick-actions">
 
 
+                        <!-- ADD PRODUCT -->
+
                         <a
                             href="add-product.php"
                             class="quick-action"
@@ -454,6 +546,8 @@
                         </a>
 
 
+
+                        <!-- MY PRODUCTS -->
 
                         <a
                             href="farmer-products.php"
@@ -484,6 +578,8 @@
 
 
 
+                        <!-- MANAGE ORDERS -->
+
                         <a
                             href="farmer-orders.php"
                             class="quick-action"
@@ -512,6 +608,8 @@
                         </a>
 
 
+
+                        <!-- DSS -->
 
                         <a
                             href="farmer-dss.php"
@@ -749,6 +847,8 @@
         <div class="container footer-grid">
 
 
+            <!-- ABOUT -->
+
             <div class="footer-about">
 
                 <a
@@ -774,6 +874,8 @@
             </div>
 
 
+
+            <!-- FARMER -->
 
             <div class="footer-column">
 
@@ -801,6 +903,8 @@
 
 
 
+            <!-- ACCOUNT -->
+
             <div class="footer-column">
 
                 <h3>
@@ -815,13 +919,15 @@
                     Settings
                 </a>
 
-                <a href="index.php">
+                <a href="logout.php">
                     Logout
                 </a>
 
             </div>
 
 
+
+            <!-- SUPPORT -->
 
             <div class="footer-column">
 
@@ -833,7 +939,7 @@
                     Help Center
                 </a>
 
-                <a href="#">
+                <a href="contact.php">
                     Contact Us
                 </a>
 
@@ -846,6 +952,8 @@
 
         </div>
 
+
+        <!-- FOOTER BOTTOM -->
 
         <div class="footer-bottom">
 

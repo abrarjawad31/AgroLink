@@ -85,7 +85,7 @@
 
                 </a>
 
-                <a href="index.php" class="logout-btn">
+                <a href="logout.php" class="logout-btn">
                     Logout
                 </a>
 

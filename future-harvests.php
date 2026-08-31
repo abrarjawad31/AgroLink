@@ -47,7 +47,7 @@
 
                 <a href="future-harvests.php" class="active">Pre Bookings</a>
 
-                <a href="consumer-demands.php">Demand Hub</a>
+                <a href="consumer-demands.php">My Demands</a>
 
                 <a href="my-orders.php">My Orders</a>
 
@@ -65,7 +65,7 @@
                     Abrar
                 </a>
 
-                <a href="index.php" style="text-decoration: none; padding: 8px 14px; border: 1px solid var(--border); border-radius: 6px; font-size: 13px; font-weight: 600; color: var(--dark);">Logout</a>
+                <a href="logout.php" style="text-decoration: none; padding: 8px 14px; border: 1px solid var(--border); border-radius: 6px; font-size: 13px; font-weight: 600; color: var(--dark);">Logout</a>
 
             </div>
 
@@ -494,7 +494,7 @@
 
                 <a href="my-orders.php">My Orders</a>
 
-                <a href="index.php">Logout</a>
+                <a href="logout.php">Logout</a>
 
             </div>
 

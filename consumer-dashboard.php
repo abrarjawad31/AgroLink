@@ -119,7 +119,7 @@ $avatarLetter = strtoupper(substr($userName, 0, 1));
                 </a>
 
 
-                <a href="index.php" class="logout-btn">
+                <a href="logout.php" class="logout-btn">
                     Logout
                 </a>
 
