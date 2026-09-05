@@ -47,9 +47,10 @@
 
                 <a href="future-harvests.php" class="active">Pre Bookings</a>
 
+                <a href="my-orders.php">My Orders</a>
+
                 <a href="consumer-demands.php">My Demands</a>
 
-                <a href="my-orders.php">My Orders</a>
 
             </nav>
 
