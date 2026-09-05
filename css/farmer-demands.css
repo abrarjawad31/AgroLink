@@ -8,12 +8,117 @@
     min-height: calc(100vh - 76px);
 }
 
+
+/* ================= PAGE HEADING ================= */
+
+.page-heading {
+    margin-bottom: 24px;
+}
+
+.module-label {
+    color: var(--primary);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+}
+
+.page-heading h1 {
+    font-family: "Playfair Display", serif;
+    font-size: 28px;
+    color: var(--dark);
+    margin: 4px 0;
+}
+
+.page-heading p {
+    color: var(--light-text);
+    font-size: 14px;
+    margin: 0;
+    line-height: 1.6;
+}
+
+
+/* ================= FARMER NAV ================= */
+
+.farmer-actions {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.notification-link {
+    text-decoration: none;
+    font-size: 16px;
+}
+
+.farmer-profile-link {
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--dark);
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.farmer-avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: var(--primary);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 13px;
+}
+
+.logout-btn {
+    text-decoration: none;
+    padding: 8px 12px;
+    border: 1px solid var(--border);
+    border-radius: 5px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--dark);
+}
+
+
+/* ================= ALERT ================= */
+
+.demand-alert {
+    padding: 13px 16px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.demand-alert.success {
+    background: #e8f5e9;
+    border: 1px solid #c8e6c9;
+    color: #2e7d32;
+}
+
+.demand-alert.error {
+    background: #ffebee;
+    border: 1px solid #ffcdd2;
+    color: #c62828;
+}
+
+
+/* ================= DEMAND GRID ================= */
+
 .demand-market-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
     gap: 20px;
     margin-top: 24px;
 }
+
+
+/* ================= DEMAND CARD ================= */
 
 .demand-market-card {
     background: white;
@@ -26,17 +131,32 @@
     justify-content: space-between;
 }
 
+
+/* ================= DEMAND TOP ================= */
+
 .demand-market-top {
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
+    gap: 15px;
     margin-bottom: 12px;
 }
 
 .demand-market-top h3 {
     font-size: 17px;
     color: var(--dark);
+    margin: 0 0 5px;
+    line-height: 1.35;
 }
+
+.demand-poster {
+    font-size: 12px;
+    color: var(--light-text);
+    line-height: 1.4;
+}
+
+
+/* ================= STATUS TAG ================= */
 
 .demand-tag {
     background: #e8f5e9;
@@ -45,7 +165,16 @@
     border-radius: 12px;
     font-size: 11px;
     font-weight: 700;
+    white-space: nowrap;
 }
+
+.demand-tag.negotiating {
+    background: #fff3e0;
+    color: #ef6c00;
+}
+
+
+/* ================= DEMAND SPECS ================= */
 
 .demand-specs {
     background: #fafcf9;
@@ -56,11 +185,223 @@
     margin-bottom: 16px;
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 8px;
+    gap: 10px;
 }
+
+.demand-specs div {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.demand-specs span {
+    color: var(--light-text);
+}
+
+.demand-specs strong {
+    color: var(--dark);
+}
+
+.budget-price {
+    color: #2e7d32 !important;
+}
+
+
+/* ================= DESCRIPTION ================= */
+
+.demand-description {
+    font-size: 13px;
+    color: var(--text);
+    line-height: 1.5;
+    margin: 0 0 12px;
+}
+
+
+/* ================= OFFER BOX ================= */
 
 .submit-offer-box {
     margin-top: 10px;
     padding-top: 14px;
     border-top: 1px solid var(--border);
+}
+
+.offer-form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.offer-form-row {
+    display: flex;
+    gap: 8px;
+    align-items: flex-end;
+}
+
+.offer-field {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.offer-field label {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--dark);
+}
+
+.offer-field input,
+.offer-field select {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 8px 10px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    font-family: "DM Sans", sans-serif;
+    font-size: 13px;
+    background: white;
+    color: var(--dark);
+}
+
+.offer-field input:focus,
+.offer-field select:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 2px rgba(46, 125, 50, 0.08);
+}
+
+.offer-message-field {
+    flex: 1;
+}
+
+.submit-offer-btn {
+    padding: 9px 14px;
+    background: var(--primary);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-family: "DM Sans", sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+.submit-offer-btn:hover {
+    opacity: 0.92;
+}
+
+
+/* ================= EXISTING OFFER ================= */
+
+.existing-offer-message {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 11px 12px;
+    background: #fff8e1;
+    border: 1px solid #ffe082;
+    border-radius: 7px;
+}
+
+.existing-offer-message strong {
+    color: #ef6c00;
+    font-size: 13px;
+}
+
+.existing-offer-message span {
+    color: #795548;
+    font-size: 12px;
+    line-height: 1.4;
+}
+
+
+/* ================= EMPTY STATE ================= */
+
+.empty-demand-state {
+    grid-column: 1 / -1;
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 55px 25px;
+    text-align: center;
+}
+
+.empty-demand-icon {
+    font-size: 38px;
+    margin-bottom: 10px;
+}
+
+.empty-demand-state h3 {
+    margin: 0 0 7px;
+    color: var(--dark);
+    font-size: 18px;
+}
+
+.empty-demand-state p {
+    max-width: 520px;
+    margin: 0 auto;
+    color: var(--light-text);
+    font-size: 13px;
+    line-height: 1.6;
+}
+
+
+/* ================= RESPONSIVE ================= */
+
+@media (max-width: 900px) {
+
+    .offer-form-row {
+        flex-wrap: wrap;
+    }
+
+    .offer-field {
+        flex: 1 1 140px;
+    }
+
+    .offer-message-field {
+        flex: 1 1 100%;
+    }
+
+    .submit-offer-btn {
+        flex: 1 1 100%;
+    }
+}
+
+
+@media (max-width: 700px) {
+
+    .demand-market-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .demand-market-top {
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .demand-specs {
+        grid-template-columns: 1fr;
+    }
+
+    .farmer-actions {
+        gap: 7px;
+    }
+
+}
+
+
+@media (max-width: 500px) {
+
+    .farmer-demands-page {
+        padding: 25px 0 50px;
+    }
+
+    .page-heading h1 {
+        font-size: 24px;
+    }
+
+    .demand-market-card {
+        padding: 17px;
+    }
+
 }
