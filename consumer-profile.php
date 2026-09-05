@@ -1,3 +1,568 @@
+<?php
+
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
+require_once "auth.php";
+requireConsumer();
+
+require_once "config.php";
+
+/* =========================================================
+   HELPER FUNCTIONS
+========================================================= */
+
+function e($value)
+{
+    return htmlspecialchars((string)$value, ENT_QUOTES, 'UTF-8');
+}
+
+function formatBDT($amount)
+{
+    return '৳' . number_format((float)$amount, 0);
+}
+
+function orderStatusLabel($status)
+{
+    $labels = [
+        'pending'    => 'Pending',
+        'confirmed'  => 'Confirmed',
+        'processing' => 'Processing',
+        'shipped'    => 'Shipped',
+        'delivered'  => 'Delivered',
+        'cancelled'  => 'Cancelled'
+    ];
+
+    return $labels[$status] ?? ucfirst($status);
+}
+
+function orderStatusClass($status)
+{
+    $classes = [
+        'pending'    => 'pending',
+        'confirmed'  => 'processing',
+        'processing' => 'processing',
+        'shipped'    => 'shipped',
+        'delivered'  => 'delivered',
+        'cancelled'  => 'cancelled'
+    ];
+
+    return $classes[$status] ?? 'pending';
+}
+
+/* =========================================================
+   CURRENT CONSUMER
+========================================================= */
+
+$consumerId = (int)($_SESSION['user_id'] ?? 0);
+
+if ($consumerId <= 0) {
+    header("Location: login.php");
+    exit;
+}
+
+/* Get fresh user information from database */
+
+$user = null;
+
+$stmt = $conn->prepare("
+    SELECT 
+        id,
+        name,
+        email,
+        phone,
+        address,
+        role,
+        status,
+        created_at
+    FROM users
+    WHERE id = ?
+      AND role = 'consumer'
+    LIMIT 1
+");
+
+$stmt->bind_param("i", $consumerId);
+$stmt->execute();
+
+$result = $stmt->get_result();
+$user = $result->fetch_assoc();
+
+$stmt->close();
+
+if (!$user) {
+    session_destroy();
+    header("Location: login.php");
+    exit;
+}
+
+$userName = $user['name'] ?: 'Consumer';
+$avatarLetter = strtoupper(substr(trim($userName), 0, 1));
+
+/* =========================================================
+   CART COUNT
+========================================================= */
+
+$cartCount = 0;
+
+$stmt = $conn->prepare("
+    SELECT COALESCE(SUM(ci.quantity), 0) AS cart_count
+    FROM cart c
+    LEFT JOIN cart_items ci 
+        ON ci.cart_id = c.id
+    WHERE c.consumer_id = ?
+");
+
+$stmt->bind_param("i", $consumerId);
+$stmt->execute();
+
+$result = $stmt->get_result();
+
+if ($row = $result->fetch_assoc()) {
+    $cartCount = (int)$row['cart_count'];
+}
+
+$stmt->close();
+
+/* =========================================================
+   BASIC ORDER STATISTICS
+========================================================= */
+
+/* Total orders */
+
+$totalOrders = 0;
+
+$stmt = $conn->prepare("
+    SELECT COUNT(*) AS total_orders
+    FROM orders
+    WHERE consumer_id = ?
+");
+
+$stmt->bind_param("i", $consumerId);
+$stmt->execute();
+
+$result = $stmt->get_result();
+
+if ($row = $result->fetch_assoc()) {
+    $totalOrders = (int)$row['total_orders'];
+}
+
+$stmt->close();
+
+/* Delivered orders */
+
+$completedOrders = 0;
+
+$stmt = $conn->prepare("
+    SELECT COUNT(*) AS completed_orders
+    FROM orders
+    WHERE consumer_id = ?
+      AND status = 'delivered'
+");
+
+$stmt->bind_param("i", $consumerId);
+$stmt->execute();
+
+$result = $stmt->get_result();
+
+if ($row = $result->fetch_assoc()) {
+    $completedOrders = (int)$row['completed_orders'];
+}
+
+$stmt->close();
+
+/* Active orders */
+
+$activeOrders = 0;
+
+$stmt = $conn->prepare("
+    SELECT COUNT(*) AS active_orders
+    FROM orders
+    WHERE consumer_id = ?
+      AND status IN ('pending', 'confirmed', 'processing', 'shipped')
+");
+
+$stmt->bind_param("i", $consumerId);
+$stmt->execute();
+
+$result = $stmt->get_result();
+
+if ($row = $result->fetch_assoc()) {
+    $activeOrders = (int)$row['active_orders'];
+}
+
+$stmt->close();
+
+/* =========================================================
+   TOTAL SPENT
+   Delivered orders only
+========================================================= */
+
+$totalSpent = 0;
+
+$stmt = $conn->prepare("
+    SELECT COALESCE(SUM(total_amount), 0) AS total_spent
+    FROM orders
+    WHERE consumer_id = ?
+      AND status = 'delivered'
+");
+
+$stmt->bind_param("i", $consumerId);
+$stmt->execute();
+
+$result = $stmt->get_result();
+
+if ($row = $result->fetch_assoc()) {
+    $totalSpent = (float)$row['total_spent'];
+}
+
+$stmt->close();
+
+/* =========================================================
+   FARMERS SUPPORTED
+========================================================= */
+
+$farmersSupported = 0;
+
+$stmt = $conn->prepare("
+    SELECT COUNT(DISTINCT p.farmer_id) AS farmers_supported
+    FROM orders o
+    INNER JOIN order_items oi
+        ON oi.order_id = o.id
+    INNER JOIN products p
+        ON p.id = oi.product_id
+    WHERE o.consumer_id = ?
+      AND o.status = 'delivered'
+");
+
+$stmt->bind_param("i", $consumerId);
+$stmt->execute();
+
+$result = $stmt->get_result();
+
+if ($row = $result->fetch_assoc()) {
+    $farmersSupported = (int)$row['farmers_supported'];
+}
+
+$stmt->close();
+
+/* =========================================================
+   MOST USED PAYMENT METHOD
+========================================================= */
+
+$preferredPayment = 'Not set';
+
+$stmt = $conn->prepare("
+    SELECT 
+        payment_method,
+        COUNT(*) AS payment_count
+    FROM orders
+    WHERE consumer_id = ?
+      AND payment_method IS NOT NULL
+      AND payment_method <> ''
+    GROUP BY payment_method
+    ORDER BY payment_count DESC
+    LIMIT 1
+");
+
+$stmt->bind_param("i", $consumerId);
+$stmt->execute();
+
+$result = $stmt->get_result();
+
+if ($row = $result->fetch_assoc()) {
+    $preferredPayment = $row['payment_method'];
+}
+
+$stmt->close();
+
+/* =========================================================
+   MOST PURCHASED CATEGORY
+========================================================= */
+
+$topCategory = 'Not available';
+
+$stmt = $conn->prepare("
+    SELECT
+        p.category,
+        SUM(oi.quantity) AS total_quantity
+    FROM orders o
+    INNER JOIN order_items oi
+        ON oi.order_id = o.id
+    INNER JOIN products p
+        ON p.id = oi.product_id
+    WHERE o.consumer_id = ?
+      AND o.status <> 'cancelled'
+    GROUP BY p.category
+    ORDER BY total_quantity DESC
+    LIMIT 1
+");
+
+$stmt->bind_param("i", $consumerId);
+$stmt->execute();
+
+$result = $stmt->get_result();
+
+if ($row = $result->fetch_assoc()) {
+    $topCategory = $row['category'];
+}
+
+$stmt->close();
+
+/* =========================================================
+   TOP FARMER
+========================================================= */
+
+$topFarmer = 'Not available';
+
+$stmt = $conn->prepare("
+    SELECT
+        u.name AS farmer_name,
+        SUM(oi.quantity) AS purchased_quantity
+    FROM orders o
+    INNER JOIN order_items oi
+        ON oi.order_id = o.id
+    INNER JOIN products p
+        ON p.id = oi.product_id
+    INNER JOIN users u
+        ON u.id = p.farmer_id
+    WHERE o.consumer_id = ?
+      AND o.status <> 'cancelled'
+      AND u.role = 'farmer'
+    GROUP BY p.farmer_id, u.name
+    ORDER BY purchased_quantity DESC
+    LIMIT 1
+");
+
+$stmt->bind_param("i", $consumerId);
+$stmt->execute();
+
+$result = $stmt->get_result();
+
+if ($row = $result->fetch_assoc()) {
+    $topFarmer = $row['farmer_name'];
+}
+
+$stmt->close();
+
+/* =========================================================
+   AVERAGE ORDER VALUE
+========================================================= */
+
+$averageOrderValue = 0;
+
+$stmt = $conn->prepare("
+    SELECT
+        COALESCE(SUM(total_amount), 0) AS total_value,
+        COUNT(*) AS order_count
+    FROM orders
+    WHERE consumer_id = ?
+      AND status <> 'cancelled'
+");
+
+$stmt->bind_param("i", $consumerId);
+$stmt->execute();
+
+$result = $stmt->get_result();
+
+if ($row = $result->fetch_assoc()) {
+
+    $orderValue = (float)$row['total_value'];
+    $orderCount = (int)$row['order_count'];
+
+    if ($orderCount > 0) {
+        $averageOrderValue = $orderValue / $orderCount;
+    }
+}
+
+$stmt->close();
+
+/* =========================================================
+   THIS MONTH'S ACTIVITY
+========================================================= */
+
+$currentMonthName = date('F Y');
+
+$monthlySpent = 0;
+$monthlyOrders = 0;
+
+$monthStart = date('Y-m-01 00:00:00');
+$nextMonthStart = date('Y-m-01 00:00:00', strtotime('+1 month'));
+
+$stmt = $conn->prepare("
+    SELECT
+        COALESCE(SUM(total_amount), 0) AS monthly_spent,
+        COUNT(*) AS monthly_orders
+    FROM orders
+    WHERE consumer_id = ?
+      AND status <> 'cancelled'
+      AND created_at >= ?
+      AND created_at < ?
+");
+
+$stmt->bind_param(
+    "iss",
+    $consumerId,
+    $monthStart,
+    $nextMonthStart
+);
+
+$stmt->execute();
+
+$result = $stmt->get_result();
+
+if ($row = $result->fetch_assoc()) {
+
+    $monthlySpent = (float)$row['monthly_spent'];
+    $monthlyOrders = (int)$row['monthly_orders'];
+}
+
+$stmt->close();
+
+/* =========================================================
+   DELIVERY COMPLETION
+========================================================= */
+
+$nonCancelledOrders = 0;
+$deliveryCompletionRate = 0;
+
+$stmt = $conn->prepare("
+    SELECT COUNT(*) AS order_count
+    FROM orders
+    WHERE consumer_id = ?
+      AND status <> 'cancelled'
+");
+
+$stmt->bind_param("i", $consumerId);
+$stmt->execute();
+
+$result = $stmt->get_result();
+
+if ($row = $result->fetch_assoc()) {
+    $nonCancelledOrders = (int)$row['order_count'];
+}
+
+$stmt->close();
+
+if ($nonCancelledOrders > 0) {
+    $deliveryCompletionRate = round(
+        ($completedOrders / $nonCancelledOrders) * 100
+    );
+}
+
+/* =========================================================
+   CATEGORY BREAKDOWN
+========================================================= */
+
+$categories = [];
+
+$stmt = $conn->prepare("
+    SELECT
+        p.category,
+        COUNT(DISTINCT o.id) AS order_count,
+        COALESCE(SUM(oi.subtotal), 0) AS category_amount
+    FROM orders o
+    INNER JOIN order_items oi
+        ON oi.order_id = o.id
+    INNER JOIN products p
+        ON p.id = oi.product_id
+    WHERE o.consumer_id = ?
+      AND o.status <> 'cancelled'
+    GROUP BY p.category
+    ORDER BY category_amount DESC
+");
+
+$stmt->bind_param("i", $consumerId);
+$stmt->execute();
+
+$result = $stmt->get_result();
+
+while ($row = $result->fetch_assoc()) {
+
+    $categoryAmount = (float)$row['category_amount'];
+
+    $percentage = 0;
+
+    if ($totalSpent > 0) {
+        $percentage = ($categoryAmount / $totalSpent) * 100;
+    }
+
+    $row['percentage'] = round($percentage, 1);
+
+    $categories[] = $row;
+}
+
+$stmt->close();
+
+/* =========================================================
+   RECENT ORDERS
+========================================================= */
+
+$recentOrders = [];
+
+$stmt = $conn->prepare("
+    SELECT
+        o.id,
+        o.total_amount,
+        o.status,
+        o.payment_method,
+        o.created_at,
+
+        COUNT(oi.id) AS item_count,
+
+        GROUP_CONCAT(
+            DISTINCT u.name
+            ORDER BY u.name
+            SEPARATOR ', '
+        ) AS farmer_names
+
+    FROM orders o
+
+    LEFT JOIN order_items oi
+        ON oi.order_id = o.id
+
+    LEFT JOIN products p
+        ON p.id = oi.product_id
+
+    LEFT JOIN users u
+        ON u.id = p.farmer_id
+
+    WHERE o.consumer_id = ?
+
+    GROUP BY
+        o.id,
+        o.total_amount,
+        o.status,
+        o.payment_method,
+        o.created_at
+
+    ORDER BY o.created_at DESC
+
+    LIMIT 5
+");
+
+$stmt->bind_param("i", $consumerId);
+$stmt->execute();
+
+$result = $stmt->get_result();
+
+while ($row = $result->fetch_assoc()) {
+    $recentOrders[] = $row;
+}
+
+$stmt->close();
+
+/* =========================================================
+   MEMBER SINCE
+========================================================= */
+
+$memberSince = 'N/A';
+
+if (!empty($user['created_at'])) {
+    $memberSince = date('F Y', strtotime($user['created_at']));
+}
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -11,1063 +576,1036 @@
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/consumer-profile.css">
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-    <link
-        href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap"
-        rel="stylesheet"
-    >
-
 </head>
 
 <body>
 
+<!-- =====================================================
+     NAVBAR
+===================================================== -->
 
-    <!-- ================= NAVBAR ================= -->
+<nav class="navbar">
 
-    <header class="header">
+    <div class="nav-container">
 
-        <div class="container navbar">
+        <a href="consumer-dashboard.php" class="logo">
+            <span class="logo-icon">🌱</span>
+            <span>AgroLink</span>
+        </a>
 
-            <a href="consumer-dashboard.php" class="logo">
+        <div class="nav-links">
 
-                <span class="logo-icon">
-                    🌱
-                </span>
+            <a href="consumer-dashboard.php">
+                Home
+            </a>
 
-                <span>
-                    Agro<span>Link</span>
+            <a href="marketplace.php">
+                Marketplace
+            </a>
+
+            <a href="my-orders.php">
+                My Orders
+            </a>
+
+            <a href="my-demands.php">
+                My Demands
+            </a>
+
+        </div>
+
+        <div class="nav-actions">
+
+            <a href="cart.php" class="cart-link">
+
+                🛒
+
+                <span class="cart-count">
+                    <?= $cartCount ?>
                 </span>
 
             </a>
 
+            <div class="profile-dropdown">
 
-            <nav class="nav-menu">
-                <a href="consumer-dashboard.php">Home</a>
-                <a href="marketplace.php">Marketplace</a>
-                <a href="my-orders.php">My Orders</a>
-                <a href="consumer-demands.php">My Demands</a>
-            </nav>
+                <div class="profile-mini">
+
+                    <span class="profile-avatar">
+                        <?= e($avatarLetter) ?>
+                    </span>
+
+                    <span class="profile-name">
+                        <?= e($userName) ?>
+                    </span>
+
+                </div>
+
+                <div class="dropdown-menu">
+
+                    <a href="consumer-profile.php">
+                        👤 My Profile
+                    </a>
+
+                    <a href="edit-profile.php">
+                        ✏️ Edit Profile
+                    </a>
+
+                    <a href="logout.php">
+                        🚪 Logout
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</nav>
 
 
-            <div class="consumer-actions">
+<!-- =====================================================
+     MAIN CONTENT
+===================================================== -->
 
-                <a href="cart.php" class="cart-link">
+<main class="profile-page">
+
+    <!-- =================================================
+         PROFILE HEADER
+    ================================================== -->
+
+    <section class="profile-header">
+
+        <div class="profile-header-left">
+
+            <div class="large-profile-avatar">
+                <?= e($avatarLetter) ?>
+            </div>
+
+            <div class="profile-heading">
+
+                <span class="verified-badge">
+                    ✓ VERIFIED CONSUMER
+                </span>
+
+                <h1>
+                    <?= e($userName) ?>
+                </h1>
+
+                <p class="profile-location">
+                    📍
+                    <?= !empty($user['address']) ? e($user['address']) : 'Delivery address not provided' ?>
+                </p>
+
+                <p class="member-since">
+                    Member since <?= e($memberSince) ?>
+                </p>
+
+            </div>
+
+        </div>
+
+        <div class="profile-header-actions">
+
+            <a href="edit-profile.php" class="edit-profile-btn">
+                ✏️ Edit Profile
+            </a>
+
+        </div>
+
+    </section>
+
+
+    <!-- =================================================
+         PROFILE STATS
+    ================================================== -->
+
+    <section class="profile-stats">
+
+        <div class="stat-card">
+
+            <div class="stat-icon">
+                📦
+            </div>
+
+            <div class="stat-content">
+
+                <span class="stat-value">
+                    <?= $totalOrders ?>
+                </span>
+
+                <span class="stat-label">
+                    Total Orders
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <div class="stat-icon">
+                💰
+            </div>
+
+            <div class="stat-content">
+
+                <span class="stat-value">
+                    <?= formatBDT($totalSpent) ?>
+                </span>
+
+                <span class="stat-label">
+                    Total Spent
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <div class="stat-icon">
+                🚜
+            </div>
+
+            <div class="stat-content">
+
+                <span class="stat-value">
+                    <?= $farmersSupported ?>
+                </span>
+
+                <span class="stat-label">
+                    Farmers Supported
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <div class="stat-icon">
+                ⭐
+            </div>
+
+            <div class="stat-content">
+
+                <span class="stat-value">
+                    N/A
+                </span>
+
+                <span class="stat-label">
+                    Buyer Rating
+                </span>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =================================================
+         PROFILE INFORMATION
+    ================================================== -->
+
+    <section class="profile-grid">
+
+        <!-- PERSONAL INFORMATION -->
+
+        <div class="profile-card">
+
+            <div class="card-header">
+
+                <div>
+
+                    <h2>
+                        Personal Information
+                    </h2>
+
+                    <p>
+                        Your account and delivery information
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="info-list">
+
+                <div class="info-row">
+
+                    <span class="info-label">
+                        Full Name
+                    </span>
+
+                    <span class="info-value">
+                        <?= e($user['name']) ?>
+                    </span>
+
+                </div>
+
+
+                <div class="info-row">
+
+                    <span class="info-label">
+                        Email
+                    </span>
+
+                    <span class="info-value">
+                        <?= e($user['email']) ?>
+                    </span>
+
+                </div>
+
+
+                <div class="info-row">
+
+                    <span class="info-label">
+                        Phone
+                    </span>
+
+                    <span class="info-value">
+
+                        <?= !empty($user['phone'])
+                            ? e($user['phone'])
+                            : 'Not provided'
+                        ?>
+
+                    </span>
+
+                </div>
+
+
+                <div class="info-row">
+
+                    <span class="info-label">
+                        Account Type
+                    </span>
+
+                    <span class="info-value">
+                        Direct Consumer
+                    </span>
+
+                </div>
+
+
+                <div class="info-row">
+
+                    <span class="info-label">
+                        Delivery Address
+                    </span>
+
+                    <span class="info-value">
+
+                        <?= !empty($user['address'])
+                            ? e($user['address'])
+                            : 'Not provided'
+                        ?>
+
+                    </span>
+
+                </div>
+
+
+                <div class="info-row">
+
+                    <span class="info-label">
+                        Preferred Payment
+                    </span>
+
+                    <span class="info-value">
+                        <?= e($preferredPayment) ?>
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- SHOPPING OVERVIEW -->
+
+        <div class="profile-card">
+
+            <div class="card-header">
+
+                <div>
+
+                    <h2>
+                        Shopping Overview
+                    </h2>
+
+                    <p>
+                        Information calculated from your purchases
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="preferences-list">
+
+                <div class="preference-item">
+
+                    <div class="preference-icon">
+                        🥬
+                    </div>
+
+                    <div class="preference-content">
+
+                        <span class="preference-label">
+                            Most Purchased Category
+                        </span>
+
+                        <strong>
+                            <?= e($topCategory) ?>
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+                <div class="preference-item">
+
+                    <div class="preference-icon">
+                        🚜
+                    </div>
+
+                    <div class="preference-content">
+
+                        <span class="preference-label">
+                            Most Purchased From
+                        </span>
+
+                        <strong>
+                            <?= e($topFarmer) ?>
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+                <div class="preference-item">
+
+                    <div class="preference-icon">
+                        💳
+                    </div>
+
+                    <div class="preference-content">
+
+                        <span class="preference-label">
+                            Most Used Payment
+                        </span>
+
+                        <strong>
+                            <?= e($preferredPayment) ?>
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+                <div class="preference-item">
+
+                    <div class="preference-icon">
+                        🚚
+                    </div>
+
+                    <div class="preference-content">
+
+                        <span class="preference-label">
+                            Delivery Time
+                        </span>
+
+                        <strong>
+                            Not set
+                        </strong>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =================================================
+         ACTIVITY
+    ================================================== -->
+
+    <section class="activity-section">
+
+        <div class="section-title">
+
+            <div>
+
+                <h2>
+                    Purchase Activity
+                </h2>
+
+                <p>
+                    Your AgroLink purchasing history
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- ACTIVITY METRICS -->
+
+        <div class="activity-metrics">
+
+            <div class="activity-metric">
+
+                <span class="metric-label">
+                    COMPLETED ORDERS
+                </span>
+
+                <strong class="metric-value">
+                    <?= $completedOrders ?>
+                </strong>
+
+                <span class="metric-sub">
+                    Delivered purchases
+                </span>
+
+            </div>
+
+
+            <div class="activity-metric">
+
+                <span class="metric-label">
+                    THIS MONTH
+                </span>
+
+                <strong class="metric-value">
+                    <?= formatBDT($monthlySpent) ?>
+                </strong>
+
+                <span class="metric-sub">
+                    <?= $monthlyOrders ?> order<?= $monthlyOrders == 1 ? '' : 's' ?>
+                    · <?= e($currentMonthName) ?>
+                </span>
+
+            </div>
+
+
+            <div class="activity-metric">
+
+                <span class="metric-label">
+                    AVG. ORDER VALUE
+                </span>
+
+                <strong class="metric-value">
+                    <?= formatBDT($averageOrderValue) ?>
+                </strong>
+
+                <span class="metric-sub">
+                    Based on non-cancelled orders
+                </span>
+
+            </div>
+
+
+            <div class="activity-metric">
+
+                <span class="metric-label">
+                    ACTIVE ORDERS
+                </span>
+
+                <strong class="metric-value">
+                    <?= $activeOrders ?>
+                </strong>
+
+                <span class="metric-sub">
+                    Currently in progress
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <!-- DELIVERY STATUS -->
+
+        <div class="delivery-performance">
+
+            <div class="delivery-performance-header">
+
+                <div>
+
+                    <span class="metric-label">
+                        DELIVERY COMPLETION
+                    </span>
+
+                    <strong>
+                        <?= $deliveryCompletionRate ?>%
+                    </strong>
+
+                </div>
+
+                <div class="delivery-description">
+
+                    <?= $completedOrders ?> delivered /
+                    <?= $activeOrders ?> active
+
+                </div>
+
+            </div>
+
+            <div class="progress-bar">
+
+                <div
+                    class="progress-fill"
+                    style="width: <?= min(100, $deliveryCompletionRate) ?>%;">
+                </div>
+
+            </div>
+
+            <p class="data-note">
+                Based on orders currently stored in the AgroLink system.
+            </p>
+
+        </div>
+
+
+        <!-- CATEGORY BREAKDOWN -->
+
+        <div class="category-breakdown">
+
+            <div class="breakdown-header">
+
+                <h3>
+                    Spending by Category
+                </h3>
+
+                <span>
+                    Non-cancelled orders
+                </span>
+
+            </div>
+
+
+            <?php if (!empty($categories)): ?>
+
+                <div class="category-list">
+
+                    <?php foreach ($categories as $category): ?>
+
+                        <div class="category-row">
+
+                            <div class="category-info">
+
+                                <span class="category-name">
+                                    <?= e($category['category']) ?>
+                                </span>
+
+                                <span class="category-amount">
+                                    <?= formatBDT($category['category_amount']) ?>
+                                </span>
+
+                            </div>
+
+
+                            <div class="category-progress">
+
+                                <div
+                                    class="category-progress-fill"
+                                    style="width: <?= min(100, $category['percentage']) ?>%;">
+                                </div>
+
+                            </div>
+
+
+                            <div class="category-meta">
+
+                                <span>
+                                    <?= $category['order_count'] ?>
+                                    order<?= $category['order_count'] == 1 ? '' : 's' ?>
+                                </span>
+
+                                <span>
+                                    <?= $category['percentage'] ?>%
+                                </span>
+
+                            </div>
+
+                        </div>
+
+                    <?php endforeach; ?>
+
+                </div>
+
+            <?php else: ?>
+
+                <div class="empty-activity">
 
                     <span>
                         🛒
                     </span>
 
-                    Cart
+                    <p>
+                        No purchase activity yet.
+                    </p>
 
-                    <span class="cart-count">
-                        2
+                    <a href="marketplace.php">
+                        Explore Marketplace
+                    </a>
+
+                </div>
+
+            <?php endif; ?>
+
+        </div>
+
+
+        <!-- RECENT ORDERS -->
+
+        <div class="recent-activity">
+
+            <div class="breakdown-header">
+
+                <div>
+
+                    <h3>
+                        Recent Purchases
+                    </h3>
+
+                    <span>
+                        Your latest AgroLink orders
                     </span>
 
-                </a>
+                </div>
 
-                <a href="consumer-profile.php" class="profile-link active-profile">
-
-                    <span class="profile-avatar">
-                        A
-                    </span>
-
-                    <span class="profile-name">
-                        Abrar
-                    </span>
-
-                </a>
-
-                <a href="logout.php" class="logout-btn">
-                    Logout
+                <a href="my-orders.php" class="view-all-link">
+                    View All Orders →
                 </a>
 
             </div>
 
-        </div>
 
-    </header>
+            <?php if (!empty($recentOrders)): ?>
 
+                <div class="recent-table-wrapper">
 
+                    <table class="recent-table">
 
-    <!-- ================= MAIN ================= -->
+                        <thead>
 
-    <main class="profile-page">
+                            <tr>
 
-        <div class="container">
+                                <th>
+                                    Order
+                                </th>
 
+                                <th>
+                                    Date
+                                </th>
 
-            <!-- ================= PROFILE HEADER ================= -->
+                                <th>
+                                    Farmer
+                                </th>
 
-            <section class="profile-header-card">
+                                <th>
+                                    Items
+                                </th>
 
-                <div class="profile-main">
+                                <th>
+                                    Amount
+                                </th>
 
-                    <div class="large-avatar">
-                        A
-                    </div>
+                                <th>
+                                    Status
+                                </th>
 
-                    <div class="profile-identity">
+                            </tr>
 
-                        <span class="profile-role">
-                            VERIFIED CONSUMER
-                        </span>
+                        </thead>
 
-                        <h1>
-                            Abrar Jawad
-                        </h1>
+                        <tbody>
 
-                        <p>
-                            🛒 Consumer • Dhanmondi, Dhaka, Bangladesh
-                        </p>
-
-                        <span class="member-date">
-                            Member since January 2026
-                        </span>
-
-                    </div>
-
-                </div>
-
-
-                <div class="header-actions">
-
-                    <button class="edit-profile-btn">
-                        ✎ Edit Profile
-                    </button>
-
-                </div>
-
-            </section>
-
-
-
-            <!-- ================= STATISTICS ================= -->
-
-            <section class="profile-stats">
-
-                <div class="stat-card">
-
-                    <span class="stat-icon">
-                        🛍️
-                    </span>
-
-                    <div>
-
-                        <span>
-                            TOTAL ORDERS
-                        </span>
-
-                        <strong>
-                            24
-                        </strong>
-
-                    </div>
-
-                </div>
-
-
-                <div class="stat-card">
-
-                    <span class="stat-icon">
-                        ৳
-                    </span>
-
-                    <div>
-
-                        <span>
-                            TOTAL SPENT
-                        </span>
-
-                        <strong>
-                            ৳34,200
-                        </strong>
-
-                    </div>
-
-                </div>
-
-
-                <div class="stat-card">
-
-                    <span class="stat-icon">
-                        🌱
-                    </span>
-
-                    <div>
-
-                        <span>
-                            FARMERS SUPPORTED
-                        </span>
-
-                        <strong>
-                            18
-                        </strong>
-
-                    </div>
-
-                </div>
-
-
-                <div class="stat-card">
-
-                    <span class="stat-icon">
-                        ⭐
-                    </span>
-
-                    <div>
-
-                        <span>
-                            BUYER RATING
-                        </span>
-
-                        <strong>
-                            4.9
-                        </strong>
-
-                    </div>
-
-                </div>
-
-            </section>
-
-
-
-            <!-- ================= PROFILE + PREFERENCES ================= -->
-
-            <section class="profile-grid">
-
-
-                <!-- ================= PERSONAL INFORMATION ================= -->
-
-                <div class="information-card">
-
-                    <div class="card-heading">
-
-                        <div>
-
-                            <span class="heading-tag">
-                                ACCOUNT
-                            </span>
-
-                            <h2>
-                                Personal Information
-                            </h2>
-
-                        </div>
-
-                    </div>
-
-
-                    <div class="information-list">
-
-                        <div class="information-item">
-
-                            <span>
-                                Full Name
-                            </span>
-
-                            <strong>
-                                Abrar Jawad
-                            </strong>
-
-                        </div>
-
-
-                        <div class="information-item">
-
-                            <span>
-                                Email Address
-                            </span>
-
-                            <strong>
-                                abrar@example.com
-                            </strong>
-
-                        </div>
-
-
-                        <div class="information-item">
-
-                            <span>
-                                Phone Number
-                            </span>
-
-                            <strong>
-                                +880 1712-345678
-                            </strong>
-
-                        </div>
-
-
-                        <div class="information-item">
-
-                            <span>
-                                Account Type
-                            </span>
-
-                            <strong>
-                                Direct Consumer
-                            </strong>
-
-                        </div>
-
-
-                        <div class="information-item">
-
-                            <span>
-                                Delivery Address
-                            </span>
-
-                            <strong>
-                                Dhanmondi 9A, Dhaka
-                            </strong>
-
-                        </div>
-
-
-                        <div class="information-item">
-
-                            <span>
-                                Preferred Payment
-                            </span>
-
-                            <strong>
-                                bKash / COD
-                            </strong>
-
-                        </div>
-
-                    </div>
-
-
-                    <div class="profile-note">
-
-                        🌱 Buying directly through AgroLink ensures 100% fair prices for farmers and fresh organic harvests for your table.
-
-                    </div>
-
-                </div>
-
-
-
-                <!-- ================= CONSUMER PREFERENCES ================= -->
-
-                <div class="information-card">
-
-                    <div class="card-heading">
-
-                        <div>
-
-                            <span class="heading-tag">
-                                PREFERENCES
-                            </span>
-
-                            <h2>
-                                Shopping & Diet Details
-                            </h2>
-
-                        </div>
-
-                    </div>
-
-
-                    <div class="consumer-info-grid">
-
-                        <div class="consumer-info-box">
-
-                            <span>
-                                Preferred Category
-                            </span>
-
-                            <strong>
-                                Organic Vegetables
-                            </strong>
-
-                        </div>
-
-
-                        <div class="consumer-info-box">
-
-                            <span>
-                                Preferred Farms
-                            </span>
-
-                            <strong>
-                                Bogura & Rajshahi
-                            </strong>
-
-                        </div>
-
-
-                        <div class="consumer-info-box">
-
-                            <span>
-                                Delivery Time
-                            </span>
-
-                            <strong>
-                                Morning (8-11 AM)
-                            </strong>
-
-                        </div>
-
-
-                        <div class="consumer-info-box">
-
-                            <span>
-                                Packaging Type
-                            </span>
-
-                            <strong>
-                                Eco Jute Bag
-                            </strong>
-
-                        </div>
-
-                    </div>
-
-
-                    <div class="marketplace-profile-link">
-
-                        <div>
-
-                            <strong>
-                                🛒 Explore fresh farm harvests
-                            </strong>
-
-                            <span>
-                                Browse seasonal produce from local verified farmers.
-                            </span>
-
-                        </div>
-
-                        <a href="marketplace.php">
-                            Marketplace →
-                        </a>
-
-                    </div>
-
-                </div>
-
-            </section>
-
-
-
-            <!-- ================= CONSUMER ACTIVITY (NUMERICAL) ================= -->
-
-            <section class="activity-card">
-
-                <div class="activity-header">
-
-                    <div>
-
-                        <span class="heading-tag">
-                            CONSUMER ACTIVITY
-                        </span>
-
-                        <h2>
-                            Numerical Activity & Orders Summary
-                        </h2>
-
-                        <p>
-                            Detailed numerical breakdown of your purchasing habits, savings, and order fulfillment.
-                        </p>
-
-                    </div>
-
-
-                    <div class="activity-total">
-
-                        <span>
-                            TOTAL COMPLETED
-                        </span>
-
-                        <strong>
-                            24
-                        </strong>
-
-                        <small>
-                            Orders (৳5,400 Saved)
-                        </small>
-
-                    </div>
-
-                </div>
-
-
-                <!-- ACTIVITY NUMERICAL METRICS -->
-
-                <div class="activity-metrics-grid">
-
-                    <div class="activity-metric-box">
-
-                        <span class="metric-label">
-                            🗓️ THIS MONTH (AUG 2026)
-                        </span>
-
-                        <strong class="metric-value">
-                            ৳6,200
-                        </strong>
-
-                        <span class="metric-sub">
-                            4 orders completed
-                        </span>
-
-                    </div>
-
-
-                    <div class="activity-metric-box">
-
-                        <span class="metric-label">
-                            📊 AVG ORDER VALUE
-                        </span>
-
-                        <strong class="metric-value">
-                            ৳1,425
-                        </strong>
-
-                        <span class="metric-sub">
-                            Across all purchases
-                        </span>
-
-                    </div>
-
-
-                    <div class="activity-metric-box">
-
-                        <span class="metric-label">
-                            💰 DIRECT SAVINGS
-                        </span>
-
-                        <strong class="metric-value">
-                            ৳5,400
-                        </strong>
-
-                        <span class="metric-sub">
-                            15.8% avg vs retail
-                        </span>
-
-                    </div>
-
-
-                    <div class="activity-metric-box">
-
-                        <span class="metric-label">
-                            📦 ON-TIME DELIVERY
-                        </span>
-
-                        <strong class="metric-value">
-                            100%
-                        </strong>
-
-                        <span class="metric-sub">
-                            22 delivered / 2 active
-                        </span>
-
-                    </div>
-
-                </div>
-
-
-
-                <!-- CATEGORY-WISE SPENDING BREAKDOWN -->
-
-                <div class="category-breakdown-section">
-
-                    <div class="breakdown-title">
-
-                        <h3>
-                            Category-Wise Spending Breakdown
-                        </h3>
-
-                        <span>
-                            Total: 24 Orders • ৳34,200
-                        </span>
-
-                    </div>
-
-
-                    <div class="category-bars">
-
-                        <div class="category-bar-item">
-
-                            <div class="category-bar-header">
-
-                                <span>
-                                    🥬 Organic Vegetables
-                                </span>
-
-                                <strong>
-                                    12 Orders • ৳14,500 (42.4%)
-                                </strong>
-
-                            </div>
-
-                            <div class="bar-track">
-
-                                <div class="bar-fill" style="width: 42.4%;"></div>
-
-                            </div>
-
-                        </div>
-
-
-                        <div class="category-bar-item">
-
-                            <div class="category-bar-header">
-
-                                <span>
-                                    🍎 Seasonal Fruits
-                                </span>
-
-                                <strong>
-                                    7 Orders • ৳11,200 (32.7%)
-                                </strong>
-
-                            </div>
-
-                            <div class="bar-track">
-
-                                <div class="bar-fill fill-accent" style="width: 32.7%;"></div>
-
-                            </div>
-
-                        </div>
-
-
-                        <div class="category-bar-item">
-
-                            <div class="category-bar-header">
-
-                                <span>
-                                    🌾 Grains & Pulses
-                                </span>
-
-                                <strong>
-                                    3 Orders • ৳5,100 (14.9%)
-                                </strong>
-
-                            </div>
-
-                            <div class="bar-track">
-
-                                <div class="bar-fill fill-warning" style="width: 14.9%;"></div>
-
-                            </div>
-
-                        </div>
-
-
-                        <div class="category-bar-item">
-
-                            <div class="category-bar-header">
-
-                                <span>
-                                    🥛 Dairy & Honey
-                                </span>
-
-                                <strong>
-                                    2 Orders • ৳3,400 (10.0%)
-                                </strong>
-
-                            </div>
-
-                            <div class="bar-track">
-
-                                <div class="bar-fill fill-info" style="width: 10.0%;"></div>
-
-                            </div>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-
-
-                <!-- RECENT ACTIVITY LOG TABLE -->
-
-                <div class="recent-orders-log">
-
-                    <div class="log-header">
-
-                        <h3>
-                            Recent Purchase Activity Log
-                        </h3>
-
-                        <a href="my-orders.php" class="view-all-orders">
-                            View All Orders (24) →
-                        </a>
-
-                    </div>
-
-
-                    <div class="table-responsive">
-
-                        <table class="activity-table">
-
-                            <thead>
-
-                                <tr>
-
-                                    <th>Order ID</th>
-
-                                    <th>Date</th>
-
-                                    <th>Farm / Source</th>
-
-                                    <th>Items</th>
-
-                                    <th>Amount</th>
-
-                                    <th>Status</th>
-
-                                </tr>
-
-                            </thead>
-
-                            <tbody>
+                            <?php foreach ($recentOrders as $order): ?>
 
                                 <tr>
 
                                     <td>
-                                        <strong>#AG-8092</strong>
+
+                                        <a
+                                            href="order-details.php?id=<?= (int)$order['id'] ?>"
+                                            class="order-id">
+
+                                            #AGL-<?= str_pad((int)$order['id'], 5, '0', STR_PAD_LEFT) ?>
+
+                                        </a>
+
                                     </td>
 
-                                    <td>23 Aug 2026</td>
-
-                                    <td>Bogura Agro Hub</td>
-
-                                    <td>5 Items</td>
-
-                                    <td><strong>৳1,850</strong></td>
 
                                     <td>
-                                        <span class="status-badge delivered">Delivered</span>
+
+                                        <?= date(
+                                            'd M Y',
+                                            strtotime($order['created_at'])
+                                        ) ?>
+
+                                    </td>
+
+
+                                    <td>
+
+                                        <?= !empty($order['farmer_names'])
+                                            ? e($order['farmer_names'])
+                                            : 'N/A'
+                                        ?>
+
+                                    </td>
+
+
+                                    <td>
+
+                                        <?= (int)$order['item_count'] ?>
+
+                                    </td>
+
+
+                                    <td>
+
+                                        <strong>
+                                            <?= formatBDT($order['total_amount']) ?>
+                                        </strong>
+
+                                    </td>
+
+
+                                    <td>
+
+                                        <span
+                                            class="status <?= e(orderStatusClass($order['status'])) ?>">
+
+                                            <?= e(orderStatusLabel($order['status'])) ?>
+
+                                        </span>
+
                                     </td>
 
                                 </tr>
 
+                            <?php endforeach; ?>
 
-                                <tr>
+                        </tbody>
 
-                                    <td>
-                                        <strong>#AG-7941</strong>
-                                    </td>
-
-                                    <td>17 Aug 2026</td>
-
-                                    <td>Green Valley Organic</td>
-
-                                    <td>4 Items</td>
-
-                                    <td><strong>৳2,200</strong></td>
-
-                                    <td>
-                                        <span class="status-badge delivered">Delivered</span>
-                                    </td>
-
-                                </tr>
-
-
-                                <tr>
-
-                                    <td>
-                                        <strong>#AG-7820</strong>
-                                    </td>
-
-                                    <td>09 Aug 2026</td>
-
-                                    <td>Rajshahi Fruit Orchards</td>
-
-                                    <td>3 Items</td>
-
-                                    <td><strong>৳1,450</strong></td>
-
-                                    <td>
-                                        <span class="status-badge delivered">Delivered</span>
-                                    </td>
-
-                                </tr>
-
-
-                                <tr>
-
-                                    <td>
-                                        <strong>#AG-7714</strong>
-                                    </td>
-
-                                    <td>01 Aug 2026</td>
-
-                                    <td>Sylhet Tea & Dairy</td>
-
-                                    <td>6 Items</td>
-
-                                    <td><strong>৳3,100</strong></td>
-
-                                    <td>
-                                        <span class="status-badge delivered">Delivered</span>
-                                    </td>
-
-                                </tr>
-
-                            </tbody>
-
-                        </table>
-
-                    </div>
+                    </table>
 
                 </div>
 
+            <?php else: ?>
 
-                <div class="chart-description">
+                <div class="empty-activity">
 
                     <span>
-                        💡
+                        📦
                     </span>
 
                     <p>
-                        <strong>Summary:</strong> You have completed 24 farm-direct purchases with a total spend of ৳34,200. You have saved an estimated ৳5,400 compared to conventional retail stores while directly empowering 18 rural farming families.
+                        You have not placed any orders yet.
                     </p>
 
-                </div>
-
-            </section>
-
-
-
-            <!-- ================= CONSUMER HIGHLIGHTS ================= -->
-
-            <section class="highlights-section">
-
-                <div class="section-title">
-
-                    <span class="heading-tag">
-                        MILESTONES
-                    </span>
-
-                    <h2>
-                        Consumer Highlights
-                    </h2>
+                    <a href="marketplace.php">
+                        Start Shopping
+                    </a>
 
                 </div>
 
-
-                <div class="highlights-grid">
-
-
-                    <div class="highlight-card">
-
-                        <div class="highlight-icon">
-                            🏆
-                        </div>
-
-                        <div>
-
-                            <strong>
-                                18 Farmers Supported
-                            </strong>
-
-                            <p>
-                                Direct financial support to rural farming communities.
-                            </p>
-
-                        </div>
-
-                    </div>
-
-
-                    <div class="highlight-card">
-
-                        <div class="highlight-icon">
-                            🥬
-                        </div>
-
-                        <div>
-
-                            <strong>
-                                100% Fresh & Organic
-                            </strong>
-
-                            <p>
-                                Farm-fresh produce delivered within 24 hours of harvest.
-                            </p>
-
-                        </div>
-
-                    </div>
-
-
-                    <div class="highlight-card">
-
-                        <div class="highlight-icon">
-                            ♻️
-                        </div>
-
-                        <div>
-
-                            <strong>
-                                Eco Packaging Hero
-                            </strong>
-
-                            <p>
-                                Chose reusable jute bag packaging in 20+ orders.
-                            </p>
-
-                        </div>
-
-                    </div>
-
-
-                    <div class="highlight-card">
-
-                        <div class="highlight-icon">
-                            ⭐
-                        </div>
-
-                        <div>
-
-                            <strong>
-                                15 Verified Reviews
-                            </strong>
-
-                            <p>
-                                Helpful ratings and reviews shared for local growers.
-                            </p>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-            </section>
+            <?php endif; ?>
 
         </div>
 
-    </main>
+    </section>
 
 
+    <!-- =================================================
+         HIGHLIGHTS
+    ================================================== -->
 
-    <!-- ================= FOOTER ================= -->
+    <section class="highlights-section">
 
-    <footer class="footer">
+        <div class="section-title">
 
-        <div class="container footer-grid">
+            <div>
+
+                <h2>
+                    Your AgroLink Highlights
+                </h2>
+
+                <p>
+                    Your contribution to the AgroLink marketplace
+                </p>
+
+            </div>
+
+        </div>
 
 
-            <div class="footer-about">
+        <div class="highlights-grid">
 
-                <a
-                    href="consumer.php"
-                    class="logo footer-logo"
-                >
 
-                    <span class="logo-icon">
-                        🌱
-                    </span>
+            <div class="highlight-card">
+
+                <div class="highlight-icon">
+                    🚜
+                </div>
+
+                <div>
+
+                    <strong>
+                        <?= $farmersSupported ?>
+                    </strong>
 
                     <span>
-                        Agro<span>Link</span>
+                        Farmers Supported
                     </span>
 
-                </a>
-
-                <p>
-                    Connecting farmers and consumers through
-                    a smarter agricultural marketplace.
-                </p>
+                </div>
 
             </div>
 
 
-            <div class="footer-column">
+            <div class="highlight-card">
 
-                <h3>
-                    Consumer
-                </h3>
+                <div class="highlight-icon">
+                    📦
+                </div>
 
-                <a href="consumer.php">
-                    Dashboard
-                </a>
+                <div>
 
-                <a href="marketplace.php">
-                    Marketplace
-                </a>
+                    <strong>
+                        <?= $completedOrders ?>
+                    </strong>
 
-                <a href="my-orders.php">
-                    My Orders
-                </a>
+                    <span>
+                        Completed Orders
+                    </span>
 
-                <a href="cart.php">
-                    Shopping Cart
-                </a>
+                </div>
 
             </div>
 
 
-            <div class="footer-column">
+            <div class="highlight-card">
 
-                <h3>
-                    Account
-                </h3>
+                <div class="highlight-icon">
+                    🥬
+                </div>
 
-                <a href="consumer-profile.php">
-                    My Profile
-                </a>
+                <div>
 
-                <a href="index.php">
-                    Logout
-                </a>
+                    <strong>
+                        <?= e($topCategory) ?>
+                    </strong>
+
+                    <span>
+                        Top Category
+                    </span>
+
+                </div>
 
             </div>
 
 
-            <div class="footer-column">
+            <div class="highlight-card">
 
-                <h3>
-                    Support
-                </h3>
+                <div class="highlight-icon">
+                    💳
+                </div>
 
-                <a href="#">
-                    Help Center
-                </a>
+                <div>
 
-                <a href="#">
-                    Contact Us
-                </a>
+                    <strong>
+                        <?= e($preferredPayment) ?>
+                    </strong>
 
-                <a href="#">
-                    FAQ
-                </a>
+                    <span>
+                        Preferred Payment
+                    </span>
+
+                </div>
 
             </div>
 
         </div>
 
+    </section>
 
-        <div class="footer-bottom">
+</main>
 
-            <div class="container">
 
-                <p>
-                    © 2026 AgroLink. All Rights Reserved.
-                </p>
+<!-- =====================================================
+     FOOTER
+===================================================== -->
 
-                <p>
-                    Academic Project
-                </p>
+<footer class="footer">
 
-            </div>
+    <div class="footer-container">
+
+        <div class="footer-brand">
+
+            <a href="consumer-dashboard.php" class="footer-logo">
+                🌱 AgroLink
+            </a>
+
+            <p>
+                Connecting consumers directly with farmers.
+            </p>
 
         </div>
 
-    </footer>
+
+        <div class="footer-links">
+
+            <a href="consumer-dashboard.php">
+                Home
+            </a>
+
+            <a href="marketplace.php">
+                Marketplace
+            </a>
+
+            <a href="my-orders.php">
+                My Orders
+            </a>
+
+            <a href="my-demands.php">
+                My Demands
+            </a>
+
+        </div>
+
+    </div>
+
+    <div class="footer-bottom">
+
+        <p>
+            © <?= date('Y') ?> AgroLink. All rights reserved.
+        </p>
+
+    </div>
+
+</footer>
 
 
 </body>
-
 </html>
