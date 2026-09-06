@@ -552,7 +552,7 @@
 
                     </div>
 
-                    <a href="#" class="primary-btn">
+                    <a href="about.php" class="primary-btn">
                         Learn More About Us →
                     </a>
 
@@ -657,8 +657,8 @@
 
                 <h3>Support</h3>
 
-                <a href="#">About Us</a>
-                <a href="#">Contact Us</a>
+                    <a href="about.php">About Us</a>
+                    <a href="contact.php">Contact Us</a>
                 <a href="#">FAQ</a>
                 <a href="#">Privacy Policy</a>
 
