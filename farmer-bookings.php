@@ -50,7 +50,7 @@ $totalBookings = 0;
 
 
 // ------------------------------------------------------------
-// Total future harvests
+// Total Pre Booking
 // ------------------------------------------------------------
 
 $stmt = $conn->prepare(
@@ -72,7 +72,7 @@ $stmt->close();
 
 
 // ------------------------------------------------------------
-// Open future harvests
+// Open Pre Booking
 // ------------------------------------------------------------
 
 $stmt = $conn->prepare(
@@ -655,7 +655,7 @@ function harvestStatusClass($status)
                 <div>
 
                     <span>
-                        YOUR FUTURE HARVESTS
+                        YOUR Pre Booking
                     </span>
 
                     <h2>
@@ -683,7 +683,7 @@ function harvestStatusClass($status)
                     </div>
 
                     <h3>
-                        No Future Harvests Yet
+                        No Pre Booking Yet
                     </h3>
 
                     <p>

@@ -1,533 +1,659 @@
+<?php
+
+// ============================================================
+// CONSUMER FUTURE HARVEST / PRE-BOOKING PAGE
+// ============================================================
+
+require_once "auth.php";
+requireConsumer();
+
+require_once "db.php";
+
+
+// ============================================================
+// SESSION / CONSUMER
+// ============================================================
+
+$consumerId = (int) $_SESSION["user_id"];
+$consumerName = $_SESSION["user_name"] ?? "Consumer";
+
+
+// ============================================================
+// HELPER
+// ============================================================
+
+function e($value)
+{
+    return htmlspecialchars((string) $value, ENT_QUOTES, "UTF-8");
+}
+
+
+// ============================================================
+// CONSUMER INFORMATION
+// ============================================================
+
+$consumerPhone = "";
+$consumerAddress = "";
+
+$stmt = $conn->prepare("
+    SELECT name, phone, address
+    FROM users
+    WHERE id = ?
+    LIMIT 1
+");
+
+$stmt->bind_param("i", $consumerId);
+$stmt->execute();
+
+$result = $stmt->get_result();
+
+if ($user = $result->fetch_assoc()) {
+
+    $consumerName =
+        !empty($user["name"])
+            ? $user["name"]
+            : $consumerName;
+
+    $consumerPhone =
+        $user["phone"] ?? "";
+
+    $consumerAddress =
+        $user["address"] ?? "";
+}
+
+$stmt->close();
+
+
+// ============================================================
+// CART COUNT
+// ============================================================
+
+$cartCount = 0;
+
+$stmt = $conn->prepare("
+    SELECT COALESCE(SUM(quantity), 0) AS total
+    FROM cart_items ci
+    INNER JOIN cart c
+        ON ci.cart_id = c.id
+    WHERE c.consumer_id = ?
+");
+
+$stmt->bind_param("i", $consumerId);
+$stmt->execute();
+
+$result = $stmt->get_result();
+
+if ($row = $result->fetch_assoc()) {
+    $cartCount = (int) $row["total"];
+}
+
+$stmt->close();
+
+
+// ============================================================
+// AVATAR
+// ============================================================
+
+$avatarLetter = strtoupper(
+    substr(trim($consumerName), 0, 1)
+);
+
+
+// ============================================================
+// MESSAGE VARIABLES
+// ============================================================
+
+$message = "";
+$messageType = "";
+
+
+// ============================================================
+// PRE-BOOK FUTURE HARVEST
+// ============================================================
+
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
+
+    $harvestId = isset($_POST["harvest_id"])
+        ? (int) $_POST["harvest_id"]
+        : 0;
+
+    $requestedQuantity = isset($_POST["quantity"])
+        ? (float) $_POST["quantity"]
+        : 0;
+
+    $deliveryAddress = trim(
+        $_POST["delivery_address"] ?? ""
+    );
+
+    $phone = trim(
+        $_POST["phone"] ?? ""
+    );
+
+    $note = trim(
+        $_POST["note"] ?? ""
+    );
+
+
+    // --------------------------------------------------------
+    // BASIC VALIDATION
+    // --------------------------------------------------------
+
+    if ($harvestId <= 0) {
+
+        $message = "Invalid future harvest selected.";
+        $messageType = "error";
+
+    } elseif ($requestedQuantity <= 0) {
+
+        $message = "Please enter a valid booking quantity.";
+        $messageType = "error";
+
+    } elseif ($deliveryAddress === "") {
+
+        $message = "Please provide your delivery address.";
+        $messageType = "error";
+
+    } elseif ($phone === "") {
+
+        $message = "Please provide your phone number.";
+        $messageType = "error";
+
+    } else {
+
+
+        // ====================================================
+        // TRANSACTION
+        // ====================================================
+
+        $conn->begin_transaction();
+
+        try {
+
+
+            // ------------------------------------------------
+            // LOCK THE HARVEST ROW
+            // ------------------------------------------------
+            // This prevents two consumers from booking the
+            // same remaining quantity at the same time.
+
+            $stmt = $conn->prepare("
+                SELECT
+                    id,
+                    farmer_id,
+                    product_name,
+                    price,
+                    unit,
+                    expected_quantity,
+                    prebook_quantity,
+                    remaining_quantity,
+                    minimum_booking,
+                    harvest_date,
+                    status
+
+                FROM future_harvests
+
+                WHERE id = ?
+
+                FOR UPDATE
+            ");
+
+            $stmt->bind_param(
+                "i",
+                $harvestId
+            );
+
+            $stmt->execute();
+
+            $result = $stmt->get_result();
+
+            $harvest = $result->fetch_assoc();
+
+            $stmt->close();
+
+
+            // ------------------------------------------------
+            // HARVEST EXISTS?
+            // ------------------------------------------------
+
+            if (!$harvest) {
+
+                throw new Exception(
+                    "The selected future harvest could not be found."
+                );
+            }
+
+
+            // ------------------------------------------------
+            // CHECK STATUS
+            // ------------------------------------------------
+
+            if ($harvest["status"] !== "open") {
+
+                throw new Exception(
+                    "This future harvest is no longer open for booking."
+                );
+            }
+
+
+            // ------------------------------------------------
+            // CHECK HARVEST DATE
+            // ------------------------------------------------
+
+            if (
+                strtotime($harvest["harvest_date"])
+                < strtotime(date("Y-m-d"))
+            ) {
+
+                throw new Exception(
+                    "The harvest date has already passed."
+                );
+            }
+
+
+            // ------------------------------------------------
+            // NUMERIC VALUES
+            // ------------------------------------------------
+
+            $remainingQuantity =
+                (float) $harvest["remaining_quantity"];
+
+            $minimumBooking =
+                (float) $harvest["minimum_booking"];
+
+            $pricePerUnit =
+                (float) $harvest["price"];
+
+
+            // ------------------------------------------------
+            // MINIMUM BOOKING
+            // ------------------------------------------------
+
+            if ($requestedQuantity < $minimumBooking) {
+
+                throw new Exception(
+                    "Minimum booking quantity is "
+                    . number_format($minimumBooking, 2)
+                    . " "
+                    . $harvest["unit"]
+                    . "."
+                );
+            }
+
+
+            // ------------------------------------------------
+            // REMAINING QUANTITY
+            // ------------------------------------------------
+
+            if ($requestedQuantity > $remainingQuantity) {
+
+                throw new Exception(
+                    "Only "
+                    . number_format(
+                        $remainingQuantity,
+                        2
+                    )
+                    . " "
+                    . $harvest["unit"]
+                    . " is available for pre-booking."
+                );
+            }
+
+
+            // ------------------------------------------------
+            // CALCULATE TOTAL
+            // ------------------------------------------------
+
+            $totalAmount =
+                $requestedQuantity * $pricePerUnit;
+
+
+            // ------------------------------------------------
+            // INSERT BOOKING
+            // ------------------------------------------------
+
+            $stmt = $conn->prepare("
+                INSERT INTO harvest_bookings
+                (
+                    harvest_id,
+                    consumer_id,
+                    farmer_id,
+                    quantity,
+                    unit,
+                    price_per_unit,
+                    total_amount,
+                    delivery_address,
+                    phone,
+                    note,
+                    status
+                )
+
+                VALUES
+                (
+                    ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'pending'
+                )
+            ");
+
+            $stmt->bind_param(
+                "iiidsddsss",
+                $harvestId,
+                $consumerId,
+                $harvest["farmer_id"],
+                $requestedQuantity,
+                $harvest["unit"],
+                $pricePerUnit,
+                $totalAmount,
+                $deliveryAddress,
+                $phone,
+                $note
+            );
+
+            if (!$stmt->execute()) {
+                $stmt->close();
+                throw new Exception("Unable to submit the pre-booking request.");
+            }
+
+            $stmt->close();
+
+            $remainingAfterBooking =
+                $remainingQuantity - $requestedQuantity;
+
+            $newStatus = $remainingAfterBooking <= 0
+                ? "fully_booked"
+                : "open";
+
+            $updateStmt = $conn->prepare("
+                UPDATE future_harvests
+                SET
+                    remaining_quantity = ?,
+                    status = ?
+                WHERE id = ?
+            ");
+
+            $updateStmt->bind_param(
+                "dsi",
+                $remainingAfterBooking,
+                $newStatus,
+                $harvestId
+            );
+
+            if (!$updateStmt->execute()) {
+                $updateStmt->close();
+                throw new Exception("Unable to update harvest availability.");
+            }
+
+            $updateStmt->close();
+            $conn->commit();
+
+            $message = "Your pre-booking request was submitted successfully.";
+            $messageType = "success";
+
+        } catch (Exception $e) {
+
+            $conn->rollback();
+
+            $message = $e->getMessage();
+            $messageType = "error";
+        }
+    }
+}
+
+// ============================================================
+// AVAILABLE Pre Booking
+// ============================================================
+
+$futureHarvests = [];
+
+$stmt = $conn->prepare("
+    SELECT
+        fh.*,
+        u.name AS farmer_name,
+        u.address AS farmer_address
+    FROM future_harvests fh
+    INNER JOIN users u
+        ON u.id = fh.farmer_id
+    WHERE fh.status = 'open'
+      AND fh.remaining_quantity > 0
+      AND fh.harvest_date >= CURDATE()
+    ORDER BY fh.harvest_date ASC, fh.created_at DESC
+");
+
+$stmt->execute();
+$result = $stmt->get_result();
+
+while ($row = $result->fetch_assoc()) {
+    $futureHarvests[] = $row;
+}
+
+$stmt->close();
+
+$myBookings = [];
+
+$stmt = $conn->prepare("
+    SELECT
+        hb.quantity,
+        hb.unit,
+        hb.total_amount,
+        hb.status,
+        hb.created_at,
+        fh.product_name,
+        fh.harvest_date
+    FROM harvest_bookings hb
+    INNER JOIN future_harvests fh
+        ON fh.id = hb.harvest_id
+    WHERE hb.consumer_id = ?
+    ORDER BY hb.created_at DESC
+    LIMIT 8
+");
+
+$stmt->bind_param("i", $consumerId);
+$stmt->execute();
+$result = $stmt->get_result();
+
+while ($row = $result->fetch_assoc()) {
+    $myBookings[] = $row;
+}
+
+$stmt->close();
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Pre Harvest Booking | AgroLink</title>
-
+    <title>Pre Booking | AgroLink</title>
     <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/future-harvests.css">
-
+    <link rel="stylesheet" href="css/future-harvests.css?v=20260906">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-    <link
-        href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap"
-        rel="stylesheet"
-    >
-
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
 </head>
-
 <body>
 
+<header class="header">
+    <div class="container navbar">
+        <a href="consumer-dashboard.php" class="logo">
+            <span class="logo-icon">🌱</span>
+            <span>Agro<span>Link</span></span>
+        </a>
 
-    <!-- ================= NAVBAR ================= -->
+        <nav class="nav-menu">
+            <a href="consumer-dashboard.php">Home</a>
+            <a href="marketplace.php">Marketplace</a>
+            <a href="future-harvests.php" class="active-nav">Pre Booking</a>
+            <a href="consumer-demands.php">Demand Hub</a>
+            <a href="my-orders.php">My Orders</a>
+        </nav>
 
-    <header class="header">
-
-        <div class="container navbar">
-
-            <a href="consumer.php" class="logo">
-
-                <span class="logo-icon">🌱</span>
-
-                <span>Agro<span>Link</span></span>
-
+        <div class="consumer-actions">
+            <a href="cart.php" class="cart-link">🛒 Cart <span class="cart-count"><?= $cartCount ?></span></a>
+            <a href="consumer-profile.php" class="profile-link">
+                <span class="profile-avatar"><?= e($avatarLetter) ?></span>
+                <span class="profile-name"><?= e($consumerName) ?></span>
             </a>
+            <a href="logout.php" class="logout-btn">Logout</a>
+        </div>
+    </div>
+</header>
 
+<section class="future-hero">
+    <div class="container">
+        <span class="section-tag">PLAN AHEAD</span>
+        <h1>Book the harvest <span>before it arrives.</span></h1>
+        <p>Reserve fresh produce directly from local farmers and secure your quantity ahead of the harvest date.</p>
+    </div>
+</section>
 
-            <nav class="nav-menu">
-
-                <a href="consumer-dashboard.php">Home</a>
-
-                <a href="marketplace.php">Marketplace</a>
-
-                <a href="future-harvests.php" class="active">Pre Bookings</a>
-
-                <a href="my-orders.php">My Orders</a>
-
-                <a href="consumer-demands.php">My Demands</a>
-
-
-            </nav>
-
-
-            <div class="consumer-actions" style="display: flex; align-items: center; gap: 16px;">
-
-                <a href="cart.php" style="text-decoration: none; padding: 6px 12px; border-radius: 20px; border: 1px solid var(--border); background: white; font-size: 14px; font-weight: 600; color: var(--dark);">
-                    🛒 Cart <span style="background: var(--primary); color: white; padding: 2px 7px; border-radius: 10px; font-size: 11px;">2</span>
-                </a>
-
-                <a href="consumer-profile.php" style="text-decoration: none; display: flex; align-items: center; gap: 8px; color: var(--dark); font-weight: 600; font-size: 14px;">
-                    <span style="width: 32px; height: 32px; border-radius: 50%; background: var(--primary); color: white; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 13px;">A</span>
-                    Abrar
-                </a>
-
-                <a href="logout.php" style="text-decoration: none; padding: 8px 14px; border: 1px solid var(--border); border-radius: 6px; font-size: 13px; font-weight: 600; color: var(--dark);">Logout</a>
-
+<main class="future-main">
+    <div class="container">
+        <?php if ($message !== ""): ?>
+            <div class="booking-message <?= e($messageType) ?>">
+                <p><?= e($message) ?></p>
             </div>
+        <?php endif; ?>
 
+        <div class="future-heading">
+            <span class="small-label">AVAILABLE NOW</span>
+            <h2>Pre Booking</h2>
+            <p>Choose a listing, enter your preferred quantity and delivery details, and submit your pre-booking request.</p>
         </div>
 
-    </header>
+        <?php if (empty($futureHarvests)): ?>
+            <div class="empty-future">
+                <div class="empty-icon">🌱</div>
+                <h2>No Pre Booking Available</h2>
+                <p>Farmers have not published any available Pre Booking yet. Please check back soon.</p>
+                <a href="marketplace.php" class="empty-button">Browse Marketplace</a>
+            </div>
+        <?php else: ?>
+            <div class="future-grid">
+                <?php foreach ($futureHarvests as $harvest): ?>
+                    <?php
+                    $harvestDate = strtotime($harvest["harvest_date"]);
+                    $daysRemaining = max(0, (int) floor(($harvestDate - time()) / 86400));
+                    $progress = (float) $harvest["prebook_quantity"] > 0
+                        ? 100 - ((float) $harvest["remaining_quantity"] / (float) $harvest["prebook_quantity"] * 100)
+                        : 0;
+                    $progress = min(100, max(0, $progress));
+                    ?>
 
+                    <article class="future-card">
+                        <div class="future-image">
+                            <?php if (!empty($harvest["image"])): ?>
+                                <img src="uploads/products/<?= e($harvest["image"]) ?>" alt="<?= e($harvest["product_name"]) ?>">
+                            <?php else: ?>
+                                <div class="image-placeholder">🌾</div>
+                            <?php endif; ?>
+                            <span class="available-badge">Open for pre-booking</span>
+                        </div>
 
+                        <div class="future-content">
+                            <div class="category"><?= e($harvest["category"]) ?></div>
+                            <h3><?= e($harvest["product_name"]) ?></h3>
 
-    <!-- ================= HERO ================= -->
+                            <?php if (!empty($harvest["description"])): ?>
+                                <p class="description"><?= e($harvest["description"]) ?></p>
+                            <?php endif; ?>
 
-    <section class="harvest-hero">
+                            <div class="farmer-info">
+                                <span class="farmer-icon">👨‍🌾</span>
+                                <div>
+                                    <span>Harvest from</span>
+                                    <strong><?= e($harvest["farmer_name"]) ?></strong>
+                                </div>
+                            </div>
 
-        <div class="container">
+                            <div class="price-row">
+                                <strong>৳<?= number_format((float) $harvest["price"], 2) ?></strong>
+                                <span>/ <?= e($harvest["unit"]) ?></span>
+                            </div>
 
-            <span style="display: inline-block; padding: 4px 12px; background: rgba(255,255,255,0.15); border-radius: 20px; font-size: 12px; font-weight: 700; letter-spacing: 0.8px; text-transform: uppercase;">
-                SRS MODULE 3.4
-            </span>
+                            <div class="info-row"><span>Harvest date</span><strong><?= date("d M Y", $harvestDate) ?></strong></div>
+                            <div class="info-row"><span>Location</span><strong><?= e($harvest["location"] ?: "Not specified") ?></strong></div>
+                            <div class="days-box">⏳ <?= $daysRemaining === 0 ? "Harvesting today" : $daysRemaining . " days remaining" ?></div>
 
-            <h1>
-                Pre-Book <span>Future Harvests</span> Directly
-            </h1>
+                            <div class="quantity-block">
+                                <div class="quantity-header">
+                                    <span>Available to reserve</span>
+                                    <strong><?= number_format((float) $harvest["remaining_quantity"], 2) ?> <?= e($harvest["unit"]) ?></strong>
+                                </div>
+                                <div class="progress-track"><div class="progress-value" style="width: <?= round($progress) ?>%;"></div></div>
+                                <div class="quantity-details">
+                                    <span>Pre-booked: <?= number_format((float) $harvest["prebook_quantity"] - (float) $harvest["remaining_quantity"], 2) ?></span>
+                                    <span>Minimum: <?= number_format((float) $harvest["minimum_booking"], 2) ?></span>
+                                </div>
+                            </div>
 
-            <p>
-                Reserve upcoming crops before they are harvested. Guarantee fresh farm-to-table deliveries at discounted pre-order prices while providing farmers with cashflow stability.
-            </p>
+                            <form method="POST" class="booking-form">
+                                <div class="form-title">Pre-book this harvest</div>
+                                <input type="hidden" name="harvest_id" value="<?= (int) $harvest["id"] ?>">
 
+                                <div class="form-group quantity-input">
+                                    <label for="quantity-<?= (int) $harvest["id"] ?>">Quantity <span><?= e($harvest["unit"]) ?></span></label>
+                                    <input id="quantity-<?= (int) $harvest["id"] ?>" type="number" name="quantity" min="<?= e($harvest["minimum_booking"]) ?>" max="<?= e($harvest["remaining_quantity"]) ?>" step="0.01" required>
+                                    <span><?= e($harvest["unit"]) ?></span>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="address-<?= (int) $harvest["id"] ?>">Delivery address</label>
+                                    <textarea id="address-<?= (int) $harvest["id"] ?>" name="delivery_address" rows="2" required><?= e($consumerAddress) ?></textarea>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="phone-<?= (int) $harvest["id"] ?>">Phone</label>
+                                    <input id="phone-<?= (int) $harvest["id"] ?>" type="tel" name="phone" value="<?= e($consumerPhone) ?>" required>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="note-<?= (int) $harvest["id"] ?>">Note <span>optional</span></label>
+                                    <textarea id="note-<?= (int) $harvest["id"] ?>" name="note" rows="2"></textarea>
+                                </div>
+
+                                <button type="submit" class="prebook-button">Submit Pre-booking Request</button>
+                            </form>
+                        </div>
+                    </article>
+                <?php endforeach; ?>
+            </div>
+        <?php endif; ?>
+
+        <?php if (!empty($myBookings)): ?>
+            <section class="my-bookings-section">
+                <div class="section-heading"><span class="small-label">YOUR ACTIVITY</span><h2>My Pre-bookings</h2></div>
+                <div class="booking-table-wrapper">
+                    <table class="booking-table">
+                        <thead><tr><th>Harvest</th><th>Quantity</th><th>Total</th><th>Harvest date</th><th>Status</th></tr></thead>
+                        <tbody>
+                            <?php foreach ($myBookings as $booking): ?>
+                                <tr>
+                                    <td><?= e($booking["product_name"]) ?></td>
+                                    <td><?= number_format((float) $booking["quantity"], 2) ?> <?= e($booking["unit"]) ?></td>
+                                    <td><strong class="booking-total">৳<?= number_format((float) $booking["total_amount"], 2) ?></strong></td>
+                                    <td><?= date("d M Y", strtotime($booking["harvest_date"])) ?></td>
+                                    <td><span class="booking-status status-<?= e($booking["status"]) ?>"><?= e(ucfirst($booking["status"])) ?></span></td>
+                                </tr>
+                            <?php endforeach; ?>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        <?php endif; ?>
+    </div>
+</main>
+
+<footer class="footer">
+    <div class="container footer-grid">
+        <div class="footer-about">
+            <a href="consumer-dashboard.php" class="logo footer-logo"><span class="logo-icon">🌱</span><span>Agro<span>Link</span></span></a>
+            <p>Connecting farmers and consumers through a smarter agricultural marketplace.</p>
         </div>
-
-    </section>
-
-
-
-    <!-- ================= HARVEST BROWSER ================= -->
-
-    <main class="harvest-container">
-
-        <div class="container">
-
-
-            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; margin-bottom: 20px;">
-
-                <div>
-
-                    <h2 style="font-family: 'Playfair Display', serif; font-size: 24px; color: var(--dark); margin-bottom: 4px;">
-                        Upcoming Harvest Reservations
-                    </h2>
-
-                    <p style="font-size: 14px; color: var(--light-text);">
-                        Lock in harvest quantities with a small 20% advance deposit.
-                    </p>
-
-                </div>
-
-
-                <div style="display: flex; gap: 12px;">
-
-                    <a href="post-demand.php" style="padding: 10px 18px; background: white; border: 1px solid var(--border); border-radius: 8px; color: var(--dark); font-size: 13px; font-weight: 600; text-decoration: none;">
-                        + Post Custom Crop Demand
-                    </a>
-
-                </div>
-
-            </div>
-
-
-
-            <div class="harvest-grid">
-
-
-                <!-- HARVEST 1 -->
-
-                <div class="harvest-card">
-
-                    <div class="harvest-image">
-
-                        <img src="https://images.unsplash.com/photo-1592924357228-91a4daadcfea?auto=format&fit=crop&w=600&q=80" alt="Winter Tomatoes">
-
-                        <span class="harvest-badge">
-                            Winter Batch
-                        </span>
-
-                        <span class="harvest-countdown">
-                            Harvest in 24 Days
-                        </span>
-
-                    </div>
-
-                    <div class="harvest-info">
-
-                        <h3>Organic Roma Tomatoes (টমেটো)</h3>
-
-                        <span class="harvest-farmer">
-                            👨‍🌾 Rahim Agro Farm • Gazipur
-                        </span>
-
-                        <div class="progress-container">
-
-                            <div class="progress-labels">
-
-                                <span>Booked: <strong>650 kg</strong></span>
-
-                                <span>Target: <strong>1,000 kg</strong></span>
-
-                            </div>
-
-                            <div class="progress-track">
-
-                                <div class="progress-bar" style="width: 65%;"></div>
-
-                            </div>
-
-                        </div>
-
-                        <div class="harvest-meta-grid">
-
-                            <div>
-
-                                <span>Expected Harvest:</span>
-
-                                <strong>20 Nov 2026</strong>
-
-                            </div>
-
-                            <div>
-
-                                <span>Deposit Required:</span>
-
-                                <strong>20% (৳14/kg)</strong>
-
-                            </div>
-
-                            <div>
-
-                                <span>Remaining Pool:</span>
-
-                                <strong style="color: #2e7d32;">350 kg Left</strong>
-
-                            </div>
-
-                            <div>
-
-                                <span>Fulfillment Status:</span>
-
-                                <strong style="color: #f57c00;">Germinated 🌱</strong>
-
-                            </div>
-
-                        </div>
-
-                        <div class="harvest-footer">
-
-                            <div class="harvest-price">
-
-                                <strong>৳70</strong>
-
-                                <span>/ kg (Save ৳15)</span>
-
-                            </div>
-
-                            <a href="#" onclick="alert('Booking confirmed! 50kg reserved with 20% advance deposit.')" class="book-btn">
-                                Pre-Book Harvest →
-                            </a>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-
-
-                <!-- HARVEST 2 -->
-
-                <div class="harvest-card">
-
-                    <div class="harvest-image">
-
-                        <img src="https://images.unsplash.com/photo-1518977676601-b53f82aba655?auto=format&fit=crop&w=600&q=80" alt="Diamond Potatoes">
-
-                        <span class="harvest-badge" style="background: #e65100;">
-                            Northern Harvest
-                        </span>
-
-                        <span class="harvest-countdown">
-                            Harvest in 40 Days
-                        </span>
-
-                    </div>
-
-                    <div class="harvest-info">
-
-                        <h3>Diamond Potatoes (ডায়মন্ড আলু)</h3>
-
-                        <span class="harvest-farmer">
-                            👨‍🌾 Abrar Agro Farm • Bogura
-                        </span>
-
-                        <div class="progress-container">
-
-                            <div class="progress-labels">
-
-                                <span>Booked: <strong>1,200 kg</strong></span>
-
-                                <span>Target: <strong>2,000 kg</strong></span>
-
-                            </div>
-
-                            <div class="progress-track">
-
-                                <div class="progress-bar" style="width: 60%;"></div>
-
-                            </div>
-
-                        </div>
-
-                        <div class="harvest-meta-grid">
-
-                            <div>
-
-                                <span>Expected Harvest:</span>
-
-                                <strong>05 Dec 2026</strong>
-
-                            </div>
-
-                            <div>
-
-                                <span>Deposit Required:</span>
-
-                                <strong>15% (৳5.5/kg)</strong>
-
-                            </div>
-
-                            <div>
-
-                                <span>Remaining Pool:</span>
-
-                                <strong style="color: #2e7d32;">800 kg Left</strong>
-
-                            </div>
-
-                            <div>
-
-                                <span>Fulfillment Status:</span>
-
-                                <strong style="color: #2e7d32;">Vegetative 🌿</strong>
-
-                            </div>
-
-                        </div>
-
-                        <div class="harvest-footer">
-
-                            <div class="harvest-price">
-
-                                <strong>৳36</strong>
-
-                                <span>/ kg (Save ৳6)</span>
-
-                            </div>
-
-                            <a href="#" onclick="alert('Booking confirmed! 100kg reserved with 15% advance deposit.')" class="book-btn">
-                                Pre-Book Harvest →
-                            </a>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-
-
-                <!-- HARVEST 3 -->
-
-                <div class="harvest-card">
-
-                    <div class="harvest-image">
-
-                        <img src="https://images.unsplash.com/photo-1568584711075-3d021a7c3ca3?auto=format&fit=crop&w=600&q=80" alt="Snowball Cauliflower">
-
-                        <span class="harvest-badge" style="background: #2e7d32;">
-                            Early Winter
-                        </span>
-
-                        <span class="harvest-countdown">
-                            Harvest in 15 Days
-                        </span>
-
-                    </div>
-
-                    <div class="harvest-info">
-
-                        <h3>Snowball Cauliflower (ফুলকপি)</h3>
-
-                        <span class="harvest-farmer">
-                            👨‍🌾 Green Field Farms • Rajshahi
-                        </span>
-
-                        <div class="progress-container">
-
-                            <div class="progress-labels">
-
-                                <span>Booked: <strong>400 pcs</strong></span>
-
-                                <span>Target: <strong>500 pcs</strong></span>
-
-                            </div>
-
-                            <div class="progress-track">
-
-                                <div class="progress-bar" style="width: 80%;"></div>
-
-                            </div>
-
-                        </div>
-
-                        <div class="harvest-meta-grid">
-
-                            <div>
-
-                                <span>Expected Harvest:</span>
-
-                                <strong>10 Nov 2026</strong>
-
-                            </div>
-
-                            <div>
-
-                                <span>Deposit Required:</span>
-
-                                <strong>20% (৳8/pc)</strong>
-
-                            </div>
-
-                            <div>
-
-                                <span>Remaining Pool:</span>
-
-                                <strong style="color: #d32f2f;">100 pcs Left</strong>
-
-                            </div>
-
-                            <div>
-
-                                <span>Fulfillment Status:</span>
-
-                                <strong style="color: #2e7d32;">Maturing 🥦</strong>
-
-                            </div>
-
-                        </div>
-
-                        <div class="harvest-footer">
-
-                            <div class="harvest-price">
-
-                                <strong>৳40</strong>
-
-                                <span>/ piece (Save ৳10)</span>
-
-                            </div>
-
-                            <a href="#" onclick="alert('Booking confirmed! 20 pieces reserved.')" class="book-btn">
-                                Pre-Book Harvest →
-                            </a>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-        </div>
-
-    </main>
-
-
-
-    <!-- ================= FOOTER ================= -->
-
-    <footer class="footer">
-
-        <div class="container footer-grid">
-
-            <div class="footer-about">
-
-                <a href="consumer.php" class="logo footer-logo">
-
-                    <span class="logo-icon">🌱</span>
-
-                    <span>Agro<span>Link</span></span>
-
-                </a>
-
-                <p>
-                    Connecting farmers and consumers through a smarter agricultural marketplace with future harvest reservations.
-                </p>
-
-            </div>
-
-
-            <div class="footer-column">
-
-                <h3>Consumer</h3>
-
-                <a href="consumer.php">Dashboard</a>
-
-                <a href="marketplace.php">Marketplace</a>
-
-                <a href="future-harvests.php">Future Harvests</a>
-
-                <a href="consumer-demands.php">Demand Broadcasts</a>
-
-            </div>
-
-
-            <div class="footer-column">
-
-                <h3>Account</h3>
-
-                <a href="consumer-profile.php">My Profile</a>
-
-                <a href="my-orders.php">My Orders</a>
-
-                <a href="logout.php">Logout</a>
-
-            </div>
-
-
-            <div class="footer-column">
-
-                <h3>Support</h3>
-
-                <a href="#">Help Center</a>
-
-                <a href="#">Contact Us</a>
-
-                <a href="#">FAQ</a>
-
-            </div>
-
-        </div>
-
-        <div class="footer-bottom">
-
-            <div class="container">
-
-                <p>© 2026 AgroLink. All Rights Reserved.</p>
-
-                <p>Academic Project</p>
-
-            </div>
-
-        </div>
-
-    </footer>
+        <div class="footer-column"><h3>Consumer</h3><a href="consumer-dashboard.php">Dashboard</a><a href="marketplace.php">Marketplace</a><a href="future-harvests.php">Pre Booking</a><a href="consumer-demands.php">Demand Hub</a></div>
+        <div class="footer-column"><h3>Account</h3><a href="consumer-profile.php">My Profile</a><a href="my-orders.php">My Orders</a><a href="cart.php">Cart</a><a href="logout.php">Logout</a></div>
+        <div class="footer-column"><h3>Support</h3><a href="consumer-profile.php">Help Center</a><a href="consumer-demands.php">Contact Demand Hub</a></div>
+    </div>
+    <div class="footer-bottom"><div class="container"><p>© <?= date("Y") ?> AgroLink. All Rights Reserved.</p><p>Academic Project</p></div></div>
+</footer>
 
 </body>
-
 </html>
