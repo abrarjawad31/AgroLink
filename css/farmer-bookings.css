@@ -1,163 +1,734 @@
-/* =====================================================
-   AGROLINK - FARMER FUTURE HARVEST MANAGEMENT
-   ===================================================== */
+/* =========================================================
+   FARMER BOOKINGS PAGE
+========================================================= */
+
+/* ================= NAVBAR ================= */
+
+.active-nav {
+    color: var(--primary) !important;
+}
+
+.farmer-actions {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.notification {
+    position: relative;
+    color: var(--dark);
+    font-size: 15px;
+    text-decoration: none;
+}
+
+.notification-count {
+    position: absolute;
+    top: -7px;
+    right: -7px;
+    width: 14px;
+    height: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: var(--primary);
+    color: white;
+    font-size: 7px;
+}
+
+.profile-link {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--dark);
+    font-size: 10px;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.profile-avatar {
+    width: 29px;
+    height: 29px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: var(--primary);
+    color: white;
+    font-size: 10px;
+    font-weight: 700;
+}
+
+.logout-btn {
+    padding: 8px 12px;
+    border: 1px solid var(--border);
+    border-radius: 5px;
+    color: var(--dark);
+    font-size: 9px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.logout-btn:hover {
+    border-color: var(--primary);
+    color: var(--primary);
+}
 
 .bookings-page {
-    padding: 40px 0 80px;
-    background: #f7faf6;
-    min-height: calc(100vh - 76px);
+    padding: 50px 0 80px;
+    background: #f8faf7;
+    min-height: 80vh;
 }
 
-.bookings-header {
+
+/* =========================================================
+   PAGE HEADER
+========================================================= */
+
+.page-header {
     display: flex;
+    align-items: flex-end;
     justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 16px;
-    margin-bottom: 28px;
+    gap: 30px;
+    margin-bottom: 35px;
 }
 
-.bookings-header h1 {
+.page-tag {
+    display: inline-block;
+    margin-bottom: 10px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.4px;
+    color: var(--primary);
+}
+
+.page-header h1 {
+    margin: 0 0 10px;
     font-family: "Playfair Display", serif;
-    font-size: 28px;
-    color: var(--dark);
-    margin-bottom: 4px;
+    font-size: 42px;
+    line-height: 1.1;
 }
 
-.bookings-stats-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 16px;
-    margin-bottom: 28px;
-}
-
-.booking-stat-box {
-    background: white;
-    padding: 20px;
-    border-radius: 10px;
-    border: 1px solid var(--border);
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
-}
-
-.booking-stat-box span {
-    font-size: 11px;
-    font-weight: 700;
+.page-header p {
+    max-width: 650px;
+    margin: 0;
     color: var(--light-text);
-    text-transform: uppercase;
-    display: block;
-    margin-bottom: 6px;
+    font-size: 15px;
+    line-height: 1.7;
 }
 
-.booking-stat-box strong {
-    font-size: 24px;
-    color: var(--dark);
-}
-
-.harvest-manage-card {
-    background: white;
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 24px;
-    margin-bottom: 24px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.02);
-}
-
-.harvest-top {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    flex-wrap: wrap;
-    gap: 14px;
-    margin-bottom: 16px;
-}
-
-.harvest-top h3 {
-    font-size: 18px;
-    color: var(--dark);
-}
-
-.status-tag {
-    padding: 4px 12px;
-    border-radius: 20px;
-    font-size: 11px;
-    font-weight: 700;
-}
-
-.status-tag.germinated {
-    background: #fff3e0;
-    color: #e65100;
-}
-
-.status-tag.vegetative {
-    background: #e8f5e9;
-    color: #2e7d32;
-}
-
-.status-tag.ready {
-    background: #e3f2fd;
-    color: #0277bd;
-}
-
-.stage-tracker {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin: 20px 0;
-    position: relative;
-}
-
-.stage-step {
-    text-align: center;
-    position: relative;
-    z-index: 2;
-    flex: 1;
-}
-
-.stage-dot {
-    width: 28px;
-    height: 28px;
-    border-radius: 50%;
-    background: #e0ede0;
-    color: var(--text);
+.add-harvest-btn {
     display: inline-flex;
     align-items: center;
     justify-content: center;
+    padding: 13px 20px;
+    border-radius: 8px;
+    background: var(--primary);
+    color: #ffffff;
+    font-size: 14px;
+    font-weight: 700;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: 0.2s ease;
+}
+
+.add-harvest-btn:hover {
+    transform: translateY(-2px);
+    opacity: 0.92;
+}
+
+
+/* =========================================================
+   SUMMARY
+========================================================= */
+
+.summary-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 18px;
+    margin-bottom: 55px;
+}
+
+.summary-card {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 22px;
+    background: #ffffff;
+    border: 1px solid #e8ece6;
+    border-radius: 12px;
+}
+
+.summary-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    height: 50px;
+    flex-shrink: 0;
+    border-radius: 10px;
+    background: #f1f7ef;
+    font-size: 24px;
+}
+
+.summary-card span {
+    display: block;
+    margin-bottom: 5px;
+    color: var(--light-text);
+    font-size: 12px;
+}
+
+.summary-card strong {
+    font-size: 25px;
+    color: var(--text);
+}
+
+
+/* =========================================================
+   SECTION HEADING
+========================================================= */
+
+.section-heading {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 20px;
+    margin-bottom: 22px;
+}
+
+.section-heading > div > span {
+    display: block;
+    margin-bottom: 7px;
+    color: var(--primary);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1.3px;
+}
+
+.section-heading h2 {
+    margin: 0;
+    font-family: "Playfair Display", serif;
+    font-size: 28px;
+}
+
+.section-heading a {
+    color: var(--primary);
+    font-size: 13px;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+
+/* =========================================================
+   HARVEST SECTION
+========================================================= */
+
+.harvest-section {
+    margin-bottom: 65px;
+}
+
+.harvest-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 22px;
+}
+
+
+/* =========================================================
+   HARVEST CARD
+========================================================= */
+
+.harvest-card {
+    overflow: hidden;
+    background: #ffffff;
+    border: 1px solid #e7ebe5;
+    border-radius: 14px;
+    box-shadow: 0 5px 20px rgba(20, 40, 20, 0.04);
+    transition: 0.2s ease;
+}
+
+.harvest-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 28px rgba(20, 40, 20, 0.08);
+}
+
+
+/* =========================================================
+   IMAGE
+========================================================= */
+
+.harvest-image {
+    position: relative;
+    height: 210px;
+    overflow: hidden;
+    background: #eef3eb;
+}
+
+.harvest-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.image-placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    font-size: 60px;
+}
+
+
+.harvest-status {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    padding: 6px 10px;
+    border-radius: 20px;
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+
+/* =========================================================
+   STATUS COLORS
+========================================================= */
+
+.status-open {
+    background: #e8f6e8;
+    color: #2d7b39;
+}
+
+.status-full {
+    background: #fff3d8;
+    color: #9a6a00;
+}
+
+.status-harvested {
+    background: #e4f0ff;
+    color: #32659b;
+}
+
+.status-cancelled,
+.status-rejected {
+    background: #fdeaea;
+    color: #b83b3b;
+}
+
+.status-pending {
+    background: #fff3d8;
+    color: #9a6a00;
+}
+
+.status-confirmed {
+    background: #e8f6e8;
+    color: #2d7b39;
+}
+
+.status-ready {
+    background: #e6f3ff;
+    color: #2f6f9f;
+}
+
+.status-completed {
+    background: #e8f1e8;
+    color: #426b47;
+}
+
+
+/* =========================================================
+   HARVEST CONTENT
+========================================================= */
+
+.harvest-content {
+    padding: 22px;
+}
+
+.harvest-category {
+    margin-bottom: 6px;
+    color: var(--primary);
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.7px;
+}
+
+.harvest-content h3 {
+    margin: 0 0 9px;
+    font-family: "Playfair Display", serif;
+    font-size: 23px;
+}
+
+.harvest-description {
+    margin: 0 0 17px;
+    color: var(--light-text);
+    font-size: 13px;
+    line-height: 1.6;
+
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+
+/* =========================================================
+   PRICE
+========================================================= */
+
+.harvest-price {
+    display: flex;
+    align-items: baseline;
+    gap: 5px;
+    margin-bottom: 18px;
+}
+
+.harvest-price strong {
+    color: var(--primary);
+    font-size: 23px;
+}
+
+.harvest-price span {
+    color: var(--light-text);
+    font-size: 12px;
+}
+
+
+/* =========================================================
+   INFO
+========================================================= */
+
+.harvest-info-row {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 15px;
+    padding: 10px 0;
+    border-top: 1px solid #edf0eb;
+    font-size: 12px;
+}
+
+.harvest-info-row span {
+    color: var(--light-text);
+}
+
+.harvest-info-row strong {
+    max-width: 55%;
+    text-align: right;
+    word-break: break-word;
+}
+
+.days-remaining {
+    margin: 10px 0;
+    padding: 9px 11px;
+    border-radius: 7px;
+    background: #f3f7f1;
+    color: var(--primary);
     font-size: 12px;
     font-weight: 700;
-    margin-bottom: 6px;
 }
 
-.stage-step.active .stage-dot {
-    background: var(--primary);
-    color: white;
-    box-shadow: 0 0 0 4px #e8f5e9;
+
+/* =========================================================
+   QUANTITY
+========================================================= */
+
+.quantity-section {
+    margin-top: 16px;
+    padding-top: 16px;
+    border-top: 1px solid #edf0eb;
 }
 
-.stage-label {
+.quantity-heading {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    margin-bottom: 9px;
     font-size: 11px;
-    font-weight: 600;
-    color: var(--dark);
-    display: block;
 }
 
-.reservations-table {
+.quantity-heading span {
+    color: var(--light-text);
+}
+
+.quantity-heading strong {
+    font-size: 11px;
+}
+
+
+.progress-bar {
     width: 100%;
-    border-collapse: collapse;
-    margin-top: 14px;
-    font-size: 13px;
+    height: 7px;
+    overflow: hidden;
+    border-radius: 20px;
+    background: #e8ece6;
 }
 
-.reservations-table th {
-    padding: 10px 14px;
-    background: #fafcf9;
-    color: var(--dark);
-    text-align: left;
-    border-bottom: 1px solid var(--border);
+.progress-fill {
+    height: 100%;
+    border-radius: inherit;
+    background: var(--primary);
+}
+
+
+.quantity-bottom {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    margin-top: 8px;
+    color: var(--light-text);
+    font-size: 10px;
+}
+
+
+/* =========================================================
+   MINIMUM BOOKING
+========================================================= */
+
+.minimum-booking {
+    margin-top: 15px;
+    padding: 10px 12px;
+    border-radius: 7px;
+    background: #fafbf9;
+    color: var(--light-text);
+    font-size: 11px;
+}
+
+.minimum-booking strong {
+    color: var(--text);
+}
+
+
+/* =========================================================
+   BOOKING COUNT
+========================================================= */
+
+.booking-count {
+    margin-top: 13px;
+    color: var(--light-text);
     font-size: 12px;
 }
 
-.reservations-table td {
-    padding: 12px 14px;
-    border-bottom: 1px solid #f0f2ef;
+.booking-count strong {
     color: var(--text);
+}
+
+
+/* =========================================================
+   EMPTY STATE
+========================================================= */
+
+.empty-state,
+.empty-bookings {
+    padding: 65px 25px;
+    text-align: center;
+    background: #ffffff;
+    border: 1px dashed #dce4d8;
+    border-radius: 14px;
+}
+
+.empty-icon {
+    margin-bottom: 12px;
+    font-size: 45px;
+}
+
+.empty-state h3,
+.empty-bookings h3 {
+    margin: 0 0 8px;
+    font-family: "Playfair Display", serif;
+    font-size: 23px;
+}
+
+.empty-state p,
+.empty-bookings p {
+    max-width: 520px;
+    margin: 0 auto 20px;
+    color: var(--light-text);
+    font-size: 13px;
+    line-height: 1.7;
+}
+
+.empty-button {
+    display: inline-flex;
+    padding: 11px 17px;
+    border-radius: 7px;
+    background: var(--primary);
+    color: #ffffff;
+    font-size: 13px;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+
+/* =========================================================
+   BOOKING LIST
+========================================================= */
+
+.booking-list-section {
+    margin-bottom: 60px;
+}
+
+.booking-table-wrapper {
+    overflow-x: auto;
+    background: #ffffff;
+    border: 1px solid #e7ebe5;
+    border-radius: 13px;
+}
+
+.booking-table {
+    width: 100%;
+    min-width: 900px;
+    border-collapse: collapse;
+}
+
+.booking-table th {
+    padding: 15px 17px;
+    background: #f7f9f6;
+    color: var(--light-text);
+    font-size: 10px;
+    font-weight: 700;
+    text-align: left;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+}
+
+.booking-table td {
+    padding: 16px 17px;
+    border-top: 1px solid #edf0eb;
+    color: var(--text);
+    font-size: 12px;
+    vertical-align: middle;
+}
+
+.booking-table tbody tr:hover {
+    background: #fbfcfa;
+}
+
+
+/* =========================================================
+   CONSUMER
+========================================================= */
+
+.consumer-cell {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.consumer-avatar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    flex-shrink: 0;
+    border-radius: 50%;
+    background: #eef5ea;
+    color: var(--primary);
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.consumer-cell strong {
+    display: block;
+    margin-bottom: 3px;
+}
+
+.consumer-cell small {
+    display: block;
+    color: var(--light-text);
+    font-size: 10px;
+}
+
+
+/* =========================================================
+   BOOKING TOTAL
+========================================================= */
+
+.booking-total {
+    color: var(--primary);
+}
+
+
+/* =========================================================
+   BOOKING STATUS
+========================================================= */
+
+.booking-status {
+    display: inline-block;
+    padding: 6px 9px;
+    border-radius: 20px;
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: capitalize;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 1050px) {
+
+    .summary-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .harvest-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+}
+
+
+@media (max-width: 760px) {
+
+    .page-header {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .page-header h1 {
+        font-size: 34px;
+    }
+
+    .summary-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .harvest-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .section-heading {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+}
+
+
+@media (max-width: 500px) {
+
+    .bookings-page {
+        padding: 35px 0 60px;
+    }
+
+    .page-header h1 {
+        font-size: 30px;
+    }
+
+    .harvest-content {
+        padding: 18px;
+    }
+
+    .harvest-image {
+        height: 190px;
+    }
+
 }
