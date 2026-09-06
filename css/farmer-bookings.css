@@ -76,9 +76,16 @@
 }
 
 .bookings-page {
+    width: 100%;
     padding: 50px 0 80px;
     background: #f8faf7;
     min-height: 80vh;
+}
+
+.bookings-page > .container {
+    width: min(92%, var(--container));
+    max-width: var(--container);
+    margin: 0 auto;
 }
 
 
@@ -229,6 +236,7 @@
 }
 
 .harvest-grid {
+    width: 100%;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 22px;
@@ -240,6 +248,7 @@
 ========================================================= */
 
 .harvest-card {
+    min-width: 0;
     overflow: hidden;
     background: #ffffff;
     border: 1px solid #e7ebe5;

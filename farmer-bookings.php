@@ -351,7 +351,7 @@ function harvestStatusClass($status)
 
     <link
         rel="stylesheet"
-        href="css/farmer-bookings.css"
+        href="css/farmer-bookings.css?v=20260906"
     >
 
     <link
@@ -1073,6 +1073,8 @@ function harvestStatusClass($status)
              CONSUMER BOOKINGS
         ====================================================== -->
 
+           <?php if (false): ?>
+
         <section class="booking-list-section">
 
 
@@ -1328,6 +1330,8 @@ function harvestStatusClass($status)
 
 
         </section>
+
+        <?php endif; ?>
 
 
     </div>
