@@ -315,6 +315,120 @@
 }
 
 
+/* ================= NEGOTIATION HISTORY ================= */
+
+.offer-history {
+    margin-top: 18px;
+    padding-top: 16px;
+    border-top: 1px solid var(--border);
+}
+
+.offer-history-heading {
+    margin-bottom: 10px;
+    color: var(--dark);
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.offer-history-item {
+    margin-bottom: 8px;
+    padding: 10px 12px;
+    border-left: 3px solid #b8c5ba;
+    border-radius: 0 7px 7px 0;
+    background: #f6f8f6;
+}
+
+.offer-history-item.consumer {
+    border-left-color: var(--accent);
+    background: #fff8e8;
+}
+
+.offer-history-meta,
+.offer-history-values {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+}
+
+.offer-history-meta strong {
+    color: var(--dark);
+    font-size: 12px;
+}
+
+.offer-history-meta span,
+.offer-history-item p {
+    color: var(--light-text);
+    font-size: 11px;
+}
+
+.offer-history-values {
+    justify-content: flex-start;
+    margin-top: 5px;
+    color: var(--primary-dark);
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.offer-history-item p {
+    margin: 5px 0 0;
+    line-height: 1.4;
+}
+
+.counter-response-message {
+    margin-bottom: 12px;
+    padding: 10px 12px;
+    border-radius: 7px;
+    background: #fff8e8;
+    color: #795548;
+    font-size: 12px;
+    line-height: 1.4;
+}
+
+.counter-response-message strong,
+.counter-response-message span {
+    display: block;
+}
+
+.counter-response-message strong {
+    margin-bottom: 3px;
+    color: #8a5300;
+    font-size: 13px;
+}
+
+.counter-response-message span {
+    color: #795548;
+}
+
+.counter-response-actions {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.accept-counter-btn {
+    padding: 8px 12px;
+    border: 1px solid var(--primary);
+    border-radius: 6px;
+    background: var(--primary);
+    color: white;
+    font-family: "DM Sans", sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.accept-counter-btn:hover {
+    background: var(--primary-dark);
+}
+
+.recounter-label {
+    color: var(--light-text) !important;
+    font-size: 11px;
+}
+
+
 /* ================= EMPTY STATE ================= */
 
 .empty-demand-state {

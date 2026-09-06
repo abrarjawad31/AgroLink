@@ -372,6 +372,7 @@ foreach ($demands as &$demand) {
             do.delivery_date,
             do.message,
             do.status,
+            do.sender_type,
             do.created_at,
 
             u.name AS farmer_name,
@@ -384,15 +385,7 @@ foreach ($demands as &$demand) {
 
         WHERE do.demand_id = ?
 
-        ORDER BY
-            CASE
-                WHEN do.status = 'pending' THEN 1
-                WHEN do.status = 'countered' THEN 2
-                WHEN do.status = 'accepted' THEN 3
-                WHEN do.status = 'rejected' THEN 4
-                ELSE 5
-            END,
-            do.created_at DESC
+        ORDER BY do.id ASC
     ");
 
     if ($stmt) {
@@ -1021,20 +1014,22 @@ unset($demand);
                                     <div class="offer-item">
 
 
-                                        <!-- FARMER -->
+                                        <!-- NEGOTIATION PARTICIPANT -->
 
                                         <div class="farmer-badge">
 
                                             <div class="farmer-avatar">
-                                                👨‍🌾
+                                                    <?= $offer["sender_type"] === "consumer"
+                                                        ? "💬"
+                                                        : "👨‍🌾" ?>
                                             </div>
 
                                             <div>
 
                                                 <strong>
-                                                    <?= e(
-                                                        $offer["farmer_name"]
-                                                    ) ?>
+                                                    <?= $offer["sender_type"] === "consumer"
+                                                        ? "Your counter-offer"
+                                                        : e($offer["farmer_name"]) ?>
                                                 </strong>
 
                                                 <span>
@@ -1055,7 +1050,9 @@ unset($demand);
 
                                                     <?php else: ?>
 
-                                                        AgroLink Farmer
+                                                        <?= $offer["sender_type"] === "consumer"
+                                                            ? "Waiting for farmer response"
+                                                            : "AgroLink Farmer" ?>
 
                                                     <?php endif; ?>
 
@@ -1214,8 +1211,12 @@ unset($demand);
                                         <div class="offer-actions">
 
                                             <?php if (
-                                                $offerStatus === "pending" ||
-                                                $offerStatus === "countered"
+                                                $offer["sender_type"] === "farmer" &&
+                                                in_array(
+                                                    $offerStatus,
+                                                    ["pending", "countered"],
+                                                    true
+                                                )
                                             ): ?>
 
                                                 <a

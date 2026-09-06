@@ -7,6 +7,7 @@ require_once "db.php";
 
 $consumerId = (int) $_SESSION["user_id"];
 $consumerName = $_SESSION["user_name"] ?? "Consumer";
+$avatarLetter = strtoupper(substr($consumerName, 0, 1));
 
 $message = "";
 $messageType = "";
@@ -57,13 +58,15 @@ if ($_SERVER["REQUEST_METHOD"] === "GET" && $action === "accept") {
         SELECT
             do.id,
             do.demand_id,
+            do.sender_type,
             do.status,
             d.consumer_id,
             d.status AS demand_status
         FROM demand_offers do
         INNER JOIN demands d
             ON do.demand_id = d.id
-        WHERE do.id = ?
+                WHERE do.id = ?
+                    AND do.sender_type = 'farmer'
           AND d.consumer_id = ?
         LIMIT 1
     ");
@@ -185,6 +188,7 @@ if (
                 do.id,
                 do.demand_id,
                 do.farmer_id,
+                do.sender_type,
                 do.offer_price,
                 do.quantity,
                 do.unit,
@@ -202,7 +206,8 @@ if (
             INNER JOIN demands d
                 ON do.demand_id = d.id
 
-            WHERE do.id = ?
+                        WHERE do.id = ?
+                            AND do.sender_type = 'farmer'
               AND d.consumer_id = ?
 
             LIMIT 1
@@ -261,28 +266,45 @@ if (
             }
 
             $counterStmt = $conn->prepare("
-                UPDATE demand_offers
-                SET
-                    offer_price = ?,
-                    quantity = ?,
-                    unit = ?,
-                    delivery_date = ?,
-                    message = ?,
-                    status = 'countered'
-                WHERE id = ?
+                INSERT INTO demand_offers
+                (
+                    demand_id,
+                    farmer_id,
+                    sender_type,
+                    offer_price,
+                    quantity,
+                    unit,
+                    delivery_date,
+                    message,
+                    status
+                )
+                VALUES (?, ?, 'consumer', ?, ?, ?, ?, ?, 'pending')
             ");
 
             $counterStmt->bind_param(
-                "ddsssi",
+                "iiddsss",
+                $currentOffer["demand_id"],
+                $currentOffer["farmer_id"],
                 $counterPrice,
                 $counterQuantity,
                 $counterUnit,
                 $counterDeliveryDate,
-                $counterText,
-                $offerId
+                $counterText
             );
 
             if ($counterStmt->execute()) {
+
+                $counterOfferId = $counterStmt->insert_id;
+
+                $previousOfferStmt = $conn->prepare("
+                    UPDATE demand_offers
+                    SET status = 'countered'
+                    WHERE id = ?
+                ");
+
+                $previousOfferStmt->bind_param("i", $offerId);
+                $previousOfferStmt->execute();
+                $previousOfferStmt->close();
 
                 $updateDemand = $conn->prepare("
                     UPDATE demands
@@ -300,6 +322,8 @@ if (
 
                 $message = "Your counter-offer has been submitted successfully.";
                 $messageType = "success";
+
+                $offerId = $counterOfferId;
 
             } else {
 
@@ -323,6 +347,7 @@ $offerStmt = $conn->prepare("
         do.id,
         do.demand_id,
         do.farmer_id,
+        do.sender_type,
         do.offer_price,
         do.quantity,
         do.unit,
@@ -401,6 +426,12 @@ if (!$offerData) {
         href="css/style.css"
     >
 
+    <!-- Shared Consumer Navigation CSS -->
+    <link
+        rel="stylesheet"
+        href="css/consumer-demands.css"
+    >
+
     <!-- Negotiation Page CSS -->
     <link
         rel="stylesheet"
@@ -415,18 +446,22 @@ if (!$offerData) {
      NAVBAR
 ========================================================= -->
 
-<header class="navbar">
+<header class="header">
 
-    <div class="nav-container">
+    <div class="container navbar">
 
         <a
             href="consumer-dashboard.php"
             class="logo"
         >
-            AgroLink
+            <span class="logo-icon">🌱</span>
+
+            <span>
+                Agro<span>Link</span>
+            </span>
         </a>
 
-        <nav class="nav-links">
+        <nav class="nav-menu">
 
             <a href="consumer-dashboard.php">
                 Home
@@ -453,13 +488,33 @@ if (!$offerData) {
 
         </nav>
 
-        <div class="nav-profile">
+        <div class="consumer-actions">
 
-            <a href="consumer-profile.php">
-                <?php echo e($consumerName); ?>
+            <a
+                href="cart.php"
+                class="cart-link"
+            >
+                <span>🛒</span>
+                Cart
             </a>
 
-            <a href="logout.php">
+            <a
+                href="consumer-profile.php"
+                class="profile-link"
+            >
+                <span class="profile-avatar">
+                    <?php echo e($avatarLetter); ?>
+                </span>
+
+                <span class="profile-name">
+                    <?php echo e($consumerName); ?>
+                </span>
+            </a>
+
+            <a
+                href="logout.php"
+                class="logout-btn"
+            >
                 Logout
             </a>
 
@@ -867,8 +922,12 @@ if (!$offerData) {
 
 
                 <?php if (
-                    $offerData["status"] === "pending" ||
-                    $offerData["status"] === "countered"
+                    $offerData["sender_type"] === "farmer" &&
+                    in_array(
+                        $offerData["status"],
+                        ["pending", "countered"],
+                        true
+                    )
                 ): ?>
 
 
@@ -1073,6 +1132,28 @@ if (!$offerData) {
 
 
                 <?php elseif (
+                    $offerData["sender_type"] === "consumer" &&
+                    $offerData["status"] === "pending"
+                ): ?>
+
+                    <div class="completed-state">
+
+                        <div class="completed-icon">
+                            ✓
+                        </div>
+
+                        <h3>
+                            Counter-offer Sent
+                        </h3>
+
+                        <p>
+                            Your counter-offer is waiting for the farmer's response.
+                        </p>
+
+                    </div>
+
+
+                <?php elseif (
                     $offerData["status"] === "accepted"
                 ): ?>
 
@@ -1142,14 +1223,73 @@ if (!$offerData) {
      FOOTER
 ========================================================= -->
 
-<footer>
+<footer class="footer">
 
-    <div class="footer-container">
+    <div class="container footer-grid">
+
+        <div class="footer-about">
+
+            <a
+                href="consumer-dashboard.php"
+                class="logo footer-logo"
+            >
+                <span class="logo-icon">🌱</span>
+
+                <span>
+                    Agro<span>Link</span>
+                </span>
+            </a>
+
+            <p>
+                Connecting farmers and consumers through
+                a smarter agricultural marketplace.
+            </p>
+
+        </div>
+
+        <div class="footer-column">
+
+            <h3>Consumer</h3>
+
+            <a href="consumer-dashboard.php">Dashboard</a>
+            <a href="marketplace.php">Marketplace</a>
+            <a href="future-harvests.php">Future Harvests</a>
+            <a href="consumer-demands.php">Demand Broadcasts</a>
+
+        </div>
+
+        <div class="footer-column">
+
+            <h3>Account</h3>
+
+            <a href="consumer-profile.php">My Profile</a>
+            <a href="my-orders.php">My Orders</a>
+            <a href="cart.php">Cart</a>
+            <a href="logout.php">Logout</a>
+
+        </div>
+
+        <div class="footer-column">
+
+            <h3>Support</h3>
+
+            <a href="consumer-demands.php">Demand Hub</a>
+            <a href="consumer-profile.php">Help Center</a>
+
+        </div>
+
+    </div>
+
+    <div class="footer-bottom">
+
+        <div class="container">
 
         <p>
             © <?php echo date("Y"); ?> AgroLink.
             Connecting Farmers and Consumers.
         </p>
+
+        </div>
 
     </div>
 

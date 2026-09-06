@@ -13,6 +13,95 @@ $messageType = "";
 
 /*
 |--------------------------------------------------------------------------
+| Accept Consumer Counter
+|--------------------------------------------------------------------------
+*/
+
+if (
+    $_SERVER["REQUEST_METHOD"] === "POST" &&
+    isset($_POST["accept_counter"])
+) {
+
+    $counterOfferId = (int) ($_POST["counter_offer_id"] ?? 0);
+
+    $acceptStmt = $conn->prepare("
+        SELECT
+            do.id,
+            do.demand_id
+        FROM demand_offers do
+        INNER JOIN demands d
+            ON d.id = do.demand_id
+        WHERE do.id = ?
+          AND do.farmer_id = ?
+          AND (
+              (
+                  do.sender_type = 'consumer'
+                  AND do.status IN ('pending', 'countered')
+              )
+              OR (
+                  do.sender_type = 'farmer'
+                  AND do.status = 'countered'
+              )
+          )
+          AND d.status = 'negotiating'
+        LIMIT 1
+    ");
+
+    $acceptStmt->bind_param("ii", $counterOfferId, $farmerId);
+    $acceptStmt->execute();
+
+    $acceptedCounter = $acceptStmt->get_result()->fetch_assoc();
+    $acceptStmt->close();
+
+    if (!$acceptedCounter) {
+
+        $message = "This consumer counter-offer is no longer available.";
+        $messageType = "error";
+
+    } else {
+
+        $updateOffer = $conn->prepare("
+            UPDATE demand_offers
+            SET status = 'accepted'
+            WHERE id = ?
+                            AND (
+                                    sender_type = 'consumer'
+                                    OR (
+                                            sender_type = 'farmer'
+                                            AND status = 'countered'
+                                    )
+                            )
+        ");
+
+        $updateOffer->bind_param("i", $counterOfferId);
+
+        if ($updateOffer->execute() && $updateOffer->affected_rows > 0) {
+
+            $updateDemand = $conn->prepare("
+                UPDATE demands
+                SET status = 'fulfilled'
+                WHERE id = ?
+            ");
+
+            $updateDemand->bind_param("i", $acceptedCounter["demand_id"]);
+            $updateDemand->execute();
+            $updateDemand->close();
+
+            $message = "Consumer counter-offer accepted successfully.";
+            $messageType = "success";
+
+        } else {
+
+            $message = "Unable to accept this counter-offer.";
+            $messageType = "error";
+        }
+
+        $updateOffer->close();
+    }
+}
+
+/*
+|--------------------------------------------------------------------------
 | Submit Offer
 |--------------------------------------------------------------------------
 */
@@ -78,11 +167,11 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["submit_offer"])) {
             */
 
             $checkStmt = $conn->prepare("
-                SELECT id
+                SELECT id, sender_type, status
                 FROM demand_offers
                 WHERE demand_id = ?
                   AND farmer_id = ?
-                  AND status IN ('pending', 'countered')
+                ORDER BY id DESC
                 LIMIT 1
             ");
 
@@ -94,7 +183,15 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["submit_offer"])) {
 
             $checkStmt->close();
 
-            if ($existingOffer) {
+            if (
+                $existingOffer &&
+                $existingOffer["sender_type"] === "farmer" &&
+                in_array(
+                    $existingOffer["status"],
+                    ["pending", "countered"],
+                    true
+                )
+            ) {
 
                 $message = "You already have an active offer for this demand.";
                 $messageType = "error";
@@ -116,6 +213,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["submit_offer"])) {
                     (
                         demand_id,
                         farmer_id,
+                        sender_type,
                         offer_price,
                         quantity,
                         unit,
@@ -123,7 +221,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["submit_offer"])) {
                         message,
                         status
                     )
-                    VALUES (?, ?, ?, ?, ?, ?, ?, 'pending')
+                    VALUES (?, ?, 'farmer', ?, ?, ?, ?, ?, 'pending')
                 ");
 
                 $insertStmt->bind_param(
@@ -138,6 +236,24 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["submit_offer"])) {
                 );
 
                 if ($insertStmt->execute()) {
+
+                    if (
+                        $existingOffer &&
+                        $existingOffer["sender_type"] === "consumer"
+                    ) {
+                        $previousOfferStmt = $conn->prepare("
+                            UPDATE demand_offers
+                            SET status = 'countered'
+                            WHERE id = ?
+                        ");
+
+                        $previousOfferStmt->bind_param(
+                            "i",
+                            $existingOffer["id"]
+                        );
+                        $previousOfferStmt->execute();
+                        $previousOfferStmt->close();
+                    }
 
                     /*
                     |--------------------------------------------------------------------------
@@ -221,10 +337,10 @@ if ($demandResult) {
 $existingOffers = [];
 
 $offerCheckStmt = $conn->prepare("
-    SELECT demand_id
+    SELECT id, demand_id, sender_type, status
     FROM demand_offers
     WHERE farmer_id = ?
-      AND status IN ('pending', 'countered')
+    ORDER BY id DESC
 ");
 
 $offerCheckStmt->bind_param("i", $farmerId);
@@ -233,7 +349,12 @@ $offerCheckStmt->execute();
 $offerCheckResult = $offerCheckStmt->get_result();
 
 while ($offerRow = $offerCheckResult->fetch_assoc()) {
-    $existingOffers[(int) $offerRow["demand_id"]] = true;
+
+    $demandId = (int) $offerRow["demand_id"];
+
+    if (!isset($existingOffers[$demandId])) {
+        $existingOffers[$demandId] = $offerRow;
+    }
 }
 
 $offerCheckStmt->close();
@@ -258,6 +379,49 @@ function formatDemandDate($date)
 
     return date("d M Y", strtotime($date));
 }
+
+/*
+|--------------------------------------------------------------------------
+| Fetch Negotiation History
+|--------------------------------------------------------------------------
+*/
+
+foreach ($demands as &$demand) {
+
+    $demand["offer_history"] = [];
+
+    $historyStmt = $conn->prepare("
+        SELECT
+            do.offer_price,
+            do.quantity,
+            do.unit,
+            do.delivery_date,
+            do.message,
+            do.sender_type,
+            do.status,
+            do.created_at,
+            u.name AS farmer_name
+        FROM demand_offers do
+        INNER JOIN users u
+            ON u.id = do.farmer_id
+        WHERE do.demand_id = ?
+        ORDER BY do.id ASC
+    ");
+
+    $historyDemandId = (int) $demand["id"];
+    $historyStmt->bind_param("i", $historyDemandId);
+    $historyStmt->execute();
+
+    $historyResult = $historyStmt->get_result();
+
+    while ($historyRow = $historyResult->fetch_assoc()) {
+        $demand["offer_history"][] = $historyRow;
+    }
+
+    $historyStmt->close();
+}
+
+unset($demand);
 
 ?>
 
@@ -414,8 +578,22 @@ function formatDemandDate($date)
 
                     $demandId = (int) $demand["id"];
 
+                    $latestOffer =
+                        $existingOffers[$demandId] ?? null;
+
                     $hasExistingOffer =
-                        isset($existingOffers[$demandId]);
+                        $latestOffer &&
+                        $latestOffer["sender_type"] === "farmer" &&
+                        $latestOffer["status"] === "pending";
+
+                    $hasConsumerCounter =
+                        $latestOffer &&
+                        $latestOffer["sender_type"] === "consumer";
+
+                    $hasLegacyCounter =
+                        $latestOffer &&
+                        $latestOffer["sender_type"] === "farmer" &&
+                        $latestOffer["status"] === "countered";
 
                     $statusLabel =
                         $demand["status"] === "negotiating"
@@ -428,6 +606,57 @@ function formatDemandDate($date)
 
 
                         <div>
+
+
+                        <?php if (!empty($demand["offer_history"])): ?>
+
+                            <div class="offer-history">
+
+                                <div class="offer-history-heading">
+                                    Negotiation History
+                                </div>
+
+                                <?php foreach ($demand["offer_history"] as $historyOffer): ?>
+
+                                    <div class="offer-history-item <?= e($historyOffer["sender_type"]) ?>">
+
+                                        <div class="offer-history-meta">
+                                            <strong>
+                                                <?= $historyOffer["sender_type"] === "consumer"
+                                                    ? "Consumer counter-offer"
+                                                    : "Your offer" ?>
+                                            </strong>
+
+                                            <span>
+                                                <?= e(formatDemandDate($historyOffer["created_at"])) ?>
+                                            </span>
+                                        </div>
+
+                                        <div class="offer-history-values">
+                                            <span>
+                                                ৳<?= number_format((float) $historyOffer["offer_price"], 2) ?>
+                                                / <?= e($historyOffer["unit"]) ?>
+                                            </span>
+
+                                            <span>
+                                                <?= number_format((float) $historyOffer["quantity"], 2) ?>
+                                                <?= e($historyOffer["unit"]) ?>
+                                            </span>
+                                        </div>
+
+                                        <?php if (!empty($historyOffer["message"])): ?>
+                                            <p>
+                                                <?= e($historyOffer["message"]) ?>
+                                            </p>
+                                        <?php endif; ?>
+
+                                    </div>
+
+                                <?php endforeach; ?>
+
+                            </div>
+
+                        <?php endif; ?>
 
 
                             <div class="demand-market-top">
@@ -561,15 +790,99 @@ function formatDemandDate($date)
                                     <strong>✓ Offer Already Submitted</strong>
 
                                     <span>
-                                        You already have an active offer for
-                                        this demand. Wait for the consumer's
-                                        response or counter-offer.
+                                        Wait for the consumer's response or
+                                        counter-offer.
                                     </span>
 
                                 </div>
 
 
                             <?php else: ?>
+
+                                <?php if ($hasConsumerCounter): ?>
+
+                                    <div class="counter-response-message">
+                                        <strong>
+                                            Consumer counter-offer received
+                                        </strong>
+
+                                        <span>
+                                            Accept the terms or send a new
+                                            offer to continue negotiating.
+                                        </span>
+
+                                        <div class="counter-response-actions">
+
+                                            <form
+                                                method="POST"
+                                                action="farmer-demands.php"
+                                            >
+
+                                                <input
+                                                    type="hidden"
+                                                    name="counter_offer_id"
+                                                    value="<?= e($latestOffer["id"]) ?>"
+                                                >
+
+                                                <button
+                                                    type="submit"
+                                                    name="accept_counter"
+                                                    class="accept-counter-btn"
+                                                >
+                                                    Accept Counter-offer
+                                                </button>
+
+                                            </form>
+
+                                            <span class="recounter-label">
+                                                Or submit a re-counter below
+                                            </span>
+
+                                        </div>
+                                    </div>
+
+                                <?php elseif ($hasLegacyCounter): ?>
+
+                                    <div class="counter-response-message legacy-counter-message">
+                                        <strong>
+                                            Counter-offer ready for response
+                                        </strong>
+
+                                        <span>
+                                            Submit a re-counter below. New negotiations will show each side separately.
+                                        </span>
+
+                                        <div class="counter-response-actions">
+
+                                            <form
+                                                method="POST"
+                                                action="farmer-demands.php"
+                                            >
+
+                                                <input
+                                                    type="hidden"
+                                                    name="counter_offer_id"
+                                                    value="<?= e($latestOffer["id"]) ?>"
+                                                >
+
+                                                <button
+                                                    type="submit"
+                                                    name="accept_counter"
+                                                    class="accept-counter-btn"
+                                                >
+                                                    Accept Counter-offer
+                                                </button>
+
+                                            </form>
+
+                                            <span class="recounter-label">
+                                                Or submit a re-counter below
+                                            </span>
+
+                                        </div>
+                                    </div>
+
+                                <?php endif; ?>
 
 
                                 <form
