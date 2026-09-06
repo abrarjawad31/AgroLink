@@ -1,131 +1,636 @@
-/* =====================================================
-   AGROLINK - OFFER & NEGOTIATION THREAD
-   ===================================================== */
-
-.negotiation-page {
-    padding: 40px 0 80px;
-    background: #f7faf6;
-    min-height: calc(100vh - 76px);
-}
+/* =========================================================
+   NEGOTIATION PAGE
+   ========================================================= */
 
 .negotiation-container {
-    max-width: 900px;
+    width: 100%;
+    max-width: 1180px;
     margin: 0 auto;
+    padding: 55px 24px 70px;
+    box-sizing: border-box;
 }
 
-.negotiation-card {
-    background: white;
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 28px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.02);
+
+/* =========================================================
+   PAGE HEADER
+   ========================================================= */
+
+.page-header {
+    margin-bottom: 32px;
 }
 
-.deal-header {
+.module-label {
+    display: inline-block;
+    margin-bottom: 10px;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 1.4px;
+    color: #4f7f52;
+}
+
+.page-header h1 {
+    margin: 0 0 10px;
+    font-size: 36px;
+    line-height: 1.2;
+    color: #263528;
+}
+
+.page-header p {
+    margin: 0;
+    max-width: 700px;
+    color: #6d756e;
+    font-size: 15px;
+    line-height: 1.7;
+}
+
+
+/* =========================================================
+   ALERT
+   ========================================================= */
+
+.negotiation-alert {
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    padding-bottom: 18px;
-    border-bottom: 1px solid var(--border);
-    margin-bottom: 24px;
-    flex-wrap: wrap;
     gap: 12px;
-}
-
-.deal-header h1 {
-    font-family: "Playfair Display", serif;
-    font-size: 24px;
-    color: var(--dark);
-    margin-top: 4px;
-}
-
-.negotiation-timeline {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
+    padding: 14px 18px;
     margin-bottom: 28px;
+    border-radius: 9px;
+    font-size: 14px;
+    font-weight: 600;
 }
 
-.timeline-msg {
-    display: flex;
-    gap: 14px;
-    padding: 18px;
-    border-radius: 10px;
-    border: 1px solid var(--border);
+.negotiation-alert.success {
+    background: #edf8ef;
+    border: 1px solid #c9e7cd;
+    color: #26713a;
 }
 
-.timeline-msg.farmer {
-    background: #f4faf2;
-    border-left: 4px solid var(--primary);
+.negotiation-alert.error {
+    background: #fff0f0;
+    border: 1px solid #efcaca;
+    color: #a52e2e;
 }
 
-.timeline-msg.consumer {
-    background: #fcfdfe;
-    border-left: 4px solid #0288d1;
-}
-
-.timeline-avatar {
-    width: 40px;
-    height: 40px;
+.alert-icon {
+    width: 24px;
+    height: 24px;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 18px;
     flex-shrink: 0;
-    background: white;
-    border: 1px solid var(--border);
-}
-
-.timeline-body {
-    flex: 1;
-}
-
-.timeline-top {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 6px;
-}
-
-.timeline-top strong {
-    font-size: 14px;
-    color: var(--dark);
-}
-
-.timeline-time {
-    font-size: 11px;
-    color: var(--light-text);
-}
-
-.offer-deal-box {
-    display: inline-flex;
-    align-items: center;
-    gap: 16px;
-    background: white;
-    padding: 8px 14px;
-    border-radius: 6px;
-    border: 1px solid var(--border);
-    margin: 8px 0;
+    background: currentColor;
+    color: #fff;
     font-size: 13px;
 }
 
-.counter-form-card {
-    background: #fafcf9;
-    padding: 20px;
-    border-radius: 10px;
-    border: 1px solid var(--border);
-}
 
-.counter-inputs {
+/* =========================================================
+   GRID
+   ========================================================= */
+
+.negotiation-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    gap: 14px;
-    margin-bottom: 16px;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 26px;
+    align-items: start;
 }
 
-.action-buttons-row {
+.left-column,
+.right-column {
+    min-width: 0;
+}
+
+
+/* =========================================================
+   CARD
+   ========================================================= */
+
+.negotiation-card {
+    background: #fff;
+    border: 1px solid #e7ebe7;
+    border-radius: 14px;
+    padding: 26px;
+    margin-bottom: 24px;
+    box-shadow: 0 5px 22px rgba(32, 57, 37, 0.06);
+    box-sizing: border-box;
+}
+
+.card-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 15px;
+    margin-bottom: 24px;
+}
+
+.card-kicker {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.1px;
+    color: #78917b;
+}
+
+.card-heading h2 {
+    margin: 0;
+    font-size: 21px;
+    color: #29372c;
+}
+
+
+/* =========================================================
+   DEMAND STATUS
+   ========================================================= */
+
+.demand-status {
+    padding: 6px 11px;
+    border-radius: 20px;
+    background: #eef7ef;
+    color: #32713d;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: capitalize;
+    white-space: nowrap;
+}
+
+
+/* =========================================================
+   INFO LIST
+   ========================================================= */
+
+.info-list {
+    width: 100%;
+}
+
+.info-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 20px;
+    padding: 13px 0;
+    border-bottom: 1px solid #edf0ed;
+}
+
+.info-row:last-child {
+    border-bottom: none;
+}
+
+.info-label {
+    color: #7b837d;
+    font-size: 14px;
+}
+
+.info-value {
+    color: #29342c;
+    font-size: 14px;
+    font-weight: 600;
+    text-align: right;
+}
+
+.price-text {
+    color: #397344;
+}
+
+
+/* =========================================================
+   DESCRIPTION
+   ========================================================= */
+
+.description-box,
+.message-box {
+    margin-top: 20px;
+    padding: 16px;
+    border-radius: 9px;
+    background: #f7f9f7;
+}
+
+.description-box > span,
+.message-box > span {
+    display: block;
+    margin-bottom: 7px;
+    font-size: 12px;
+    font-weight: 700;
+    color: #607064;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+}
+
+.description-box p,
+.message-box p {
+    margin: 0;
+    color: #5e685f;
+    font-size: 14px;
+    line-height: 1.65;
+}
+
+
+/* =========================================================
+   FARMER OFFER
+   ========================================================= */
+
+.farmer-offer-card {
+    border-top: 4px solid #6f9a72;
+}
+
+.offer-status {
+    display: inline-block;
+    padding: 6px 11px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: capitalize;
+    white-space: nowrap;
+}
+
+.status-pending {
+    background: #fff5d9;
+    color: #946c00;
+}
+
+.status-countered {
+    background: #e8f1ff;
+    color: #285c9f;
+}
+
+.status-accepted {
+    background: #e8f7eb;
+    color: #28743b;
+}
+
+.status-rejected {
+    background: #fdeaea;
+    color: #a63131;
+}
+
+
+/* =========================================================
+   FARMER NAME
+   ========================================================= */
+
+.farmer-name {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 22px;
+}
+
+.farmer-avatar {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #e8f1e9;
+    color: #397344;
+    font-size: 17px;
+    font-weight: 700;
+}
+
+.farmer-name strong {
+    display: block;
+    margin-bottom: 3px;
+    color: #29372c;
+    font-size: 15px;
+}
+
+.farmer-name span {
+    color: #7b847d;
+    font-size: 12px;
+}
+
+
+/* =========================================================
+   OFFER HIGHLIGHT
+   ========================================================= */
+
+.offer-highlight {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 18px;
+    margin-bottom: 10px;
+    border-radius: 10px;
+    background: #f3f8f3;
+}
+
+.offer-highlight span {
+    color: #657066;
+    font-size: 14px;
+}
+
+.offer-highlight strong {
+    color: #2f703b;
+    font-size: 27px;
+}
+
+
+/* =========================================================
+   COUNTER OFFER CARD
+   ========================================================= */
+
+.counter-card {
+    position: sticky;
+    top: 25px;
+}
+
+.negotiation-icon {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #edf5ee;
+    font-size: 19px;
+}
+
+
+/* =========================================================
+   FORM
+   ========================================================= */
+
+.counter-form {
+    width: 100%;
+}
+
+.form-group {
+    margin-bottom: 18px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 7px;
+    color: #39443b;
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.form-group label span {
+    color: #6b756d;
+    font-weight: 500;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 12px 13px;
+    border: 1px solid #d7ddd8;
+    border-radius: 8px;
+    background: #fff;
+    color: #29342c;
+    font-family: inherit;
+    font-size: 14px;
+    outline: none;
+    transition: border-color 0.2s ease,
+                box-shadow 0.2s ease;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    border-color: #6e9b73;
+    box-shadow: 0 0 0 3px rgba(91, 137, 96, 0.1);
+}
+
+.form-group textarea {
+    min-height: 110px;
+    resize: vertical;
+    line-height: 1.5;
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+}
+
+
+/* =========================================================
+   PRICE INPUT
+   ========================================================= */
+
+.input-with-prefix {
+    position: relative;
+}
+
+.input-with-prefix > span {
+    position: absolute;
+    left: 13px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #6c766e;
+    font-size: 14px;
+    font-weight: 600;
+    pointer-events: none;
+}
+
+.input-with-prefix input {
+    padding-left: 31px;
+}
+
+
+/* =========================================================
+   SUBMIT BUTTON
+   ========================================================= */
+
+.counter-submit-btn {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    padding: 13px 18px;
+    margin-top: 5px;
+    border: none;
+    border-radius: 8px;
+    background: #477d4e;
+    color: #fff;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.2s ease,
+                transform 0.2s ease;
+}
+
+.counter-submit-btn:hover {
+    background: #396a40;
+    transform: translateY(-1px);
+}
+
+.counter-submit-btn span {
+    font-size: 17px;
+}
+
+
+/* =========================================================
+   NEGOTIATION TIP
+   ========================================================= */
+
+.negotiation-tip {
     display: flex;
     gap: 12px;
-    justify-content: flex-end;
+    margin-top: 20px;
+    padding: 15px;
+    border-radius: 9px;
+    background: #f7f9f7;
+}
+
+.tip-icon {
+    font-size: 18px;
+    line-height: 1;
+}
+
+.negotiation-tip strong {
+    display: block;
+    margin-bottom: 5px;
+    color: #3b473d;
+    font-size: 13px;
+}
+
+.negotiation-tip p {
+    margin: 0;
+    color: #747c75;
+    font-size: 12px;
+    line-height: 1.6;
+}
+
+
+/* =========================================================
+   COMPLETED STATE
+   ========================================================= */
+
+.completed-state {
+    text-align: center;
+    padding: 40px 20px;
+}
+
+.completed-icon {
+    width: 58px;
+    height: 58px;
+    margin: 0 auto 18px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 27px;
+    font-weight: 700;
+}
+
+.accepted-state .completed-icon {
+    background: #e7f6ea;
+    color: #2d793d;
+}
+
+.rejected-state .completed-icon {
+    background: #fdeaea;
+    color: #aa3434;
+}
+
+.completed-state h3 {
+    margin: 0 0 9px;
+    color: #303b32;
+    font-size: 20px;
+}
+
+.completed-state p {
+    max-width: 400px;
+    margin: 0 auto;
+    color: #737c74;
+    font-size: 14px;
+    line-height: 1.7;
+}
+
+
+/* =========================================================
+   BACK LINK
+   ========================================================= */
+
+.back-link-wrapper {
+    margin-top: 24px;
+    padding-top: 20px;
+    border-top: 1px solid #edf0ed;
+}
+
+.back-link {
+    color: #477d4e;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.back-link:hover {
+    text-decoration: underline;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 900px) {
+
+    .negotiation-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .counter-card {
+        position: static;
+    }
+
+}
+
+
+@media (max-width: 700px) {
+
+    .negotiation-container {
+        padding: 35px 16px 50px;
+    }
+
+    .page-header h1 {
+        font-size: 30px;
+    }
+
+    .negotiation-card {
+        padding: 20px;
+    }
+
+    .card-heading {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .info-row {
+        flex-direction: column;
+        gap: 5px;
+    }
+
+    .info-value {
+        text-align: left;
+    }
+
+}
+
+
+@media (max-width: 500px) {
+
+    .form-row {
+        grid-template-columns: 1fr;
+        gap: 0;
+    }
+
+    .page-header h1 {
+        font-size: 27px;
+    }
+
+    .negotiation-card {
+        padding: 17px;
+        border-radius: 10px;
+    }
+
 }
